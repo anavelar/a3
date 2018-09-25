@@ -1,0 +1,2 @@
+Ainda não li com calma mas me parece uma busca em grafo e imprimir. 
+Parece que é só imprimir o grafo aí precisa ler ele, busca em profundidade ou largura. Mas olhar com calma aqui.

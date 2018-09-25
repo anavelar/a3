@@ -1,0 +1,12 @@
+Ideia:
+
+Para casa caso de teste:
+Fazer um vetor com todas as letras do alfabeto, tipo bool, e preencher
+inicialmente zero associado à cada letra.
+
+Ler todas as letras da string de teste, e à medida que ler uma letra inserir 1 no lugar de zero para ela no vetor.
+
+Ao final da leitura, as letras não lidas terão zero no lugar delas e as letras lidas terão um. Não precisa criar um vetor com duas dimensões: a posição no vetor indica a letra talvez, uma ideia de otimização.
+Ok. NO final da leitura teremos um vetor com zeros e uns ou bool.
+
+Percorremos esse vetor procurando vizinhos. Quando acharmos um 1, ele vira inicio da primeira faixa de letras. Vamos andando pelos vizinhos: se o vizinho tiver 1, ele vira o ultimo. Se o proximo vixinho tiver 1, ele vira o ultimo. Ao achar o primeiro 1, ele é inicio e ultimo. ao passar para o proximo e ele ser zero, imprime o primeiro e ultimo daquela faixa primeiro:ultimo. Entao zera o primeiro e ultimo para nao dar pau. Aí segue procurando um 1 de novo e faz o mesmo procedimento. 

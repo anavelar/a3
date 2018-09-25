@@ -1,0 +1,6 @@
+Ideia:
+
+Construir um grafo direcionado com as informações de dependências.
+
+Ver se o grafo tem ciclos. Se tiver imprime SIM, se não imprime NÃO.
+Detalhar aqui depois.
