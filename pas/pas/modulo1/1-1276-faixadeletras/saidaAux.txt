@@ -1,0 +1,30 @@
+letra = a, numero dela = 97
+letra = z, numero dela = 122
+
+
+1 o loop: numero 97 corresponde a letra a.
+2 o loop: numero 98 corresponde a letra b.
+3 o loop: numero 99 corresponde a letra c.
+4 o loop: numero 100 corresponde a letra d.
+5 o loop: numero 101 corresponde a letra e.
+6 o loop: numero 102 corresponde a letra f.
+7 o loop: numero 103 corresponde a letra g.
+8 o loop: numero 104 corresponde a letra h.
+9 o loop: numero 105 corresponde a letra i.
+10 o loop: numero 106 corresponde a letra j.
+11 o loop: numero 107 corresponde a letra k.
+12 o loop: numero 108 corresponde a letra l.
+13 o loop: numero 109 corresponde a letra m.
+14 o loop: numero 110 corresponde a letra n.
+15 o loop: numero 111 corresponde a letra o.
+16 o loop: numero 112 corresponde a letra p.
+17 o loop: numero 113 corresponde a letra q.
+18 o loop: numero 114 corresponde a letra r.
+19 o loop: numero 115 corresponde a letra s.
+20 o loop: numero 116 corresponde a letra t.
+21 o loop: numero 117 corresponde a letra u.
+22 o loop: numero 118 corresponde a letra v.
+23 o loop: numero 119 corresponde a letra w.
+24 o loop: numero 120 corresponde a letra x.
+25 o loop: numero 121 corresponde a letra y.
+26 o loop: numero 122 corresponde a letra z.
