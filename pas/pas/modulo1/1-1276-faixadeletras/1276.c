@@ -1,3 +1,13 @@
+//possiveis paus:
+// 1 - usando char como bool varias vezes, o uri faz a conversao char para int
+// automático? Se não fizer vai dar pau, trocar tudo.
+// 2 - ***Está imprimindo um \n após o último caso, atentar a isso! adequar na
+// função implementada.
+
+//PRESSUPOSTOS:
+// 1- Toda string tem um \n no final, nao termina com EOF - pelo que vi
+// no caso de teste.
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -18,6 +28,7 @@ int main() {
   //Variáveis e Estruturas de dados
   char* vetorCaso = (char*) malloc(NUM_LETRAS_ALFABETO * sizeof(char));
   char c;
+  char fimArquivo = 0;
 
   //Programa
   //Criar estrutura para armazenar cada caso e a inicializa
@@ -25,42 +36,21 @@ int main() {
   ResetaVetorCaso(&vetorCaso);
 
   //Leitura de cada caso / linha
-  //Um caso
-  while(scanf("%c", &c) != 'EOF')
+  //Cada caso
+  fimArquivo = scanf("%c", &c);
+  while(fimArquivo > 0) //Se o arquivo não está vazio / se chegou ao fim
   {
-    while(scanf("%c", &c) != '\n') //aqui ja vai dar pau no ultimo caso que pode nao ter \n
-    {
-      //teste
-      printf("%c", c);
-    }
-    printf("\n");
+      while(c != '\n')
+      {
+        printf("%c", c);
+        fimArquivo = scanf("%c", &c);
+      }
+
+      printf("\n"); //leu uma linha vazia /\ *se for o ultimo \n do arquivo nao
+      fimArquivo = scanf("%c", &c);
   }
 
-//Ler caracter a caracter: ja vai prrenchendo animal krl
+  // -----------------TESTES E etc
 
-    //1-Leitura de cada caso de teste
-    char stringLida[52];
-
-    //NAO ESQUECER DE TRATAR CASOS BIZAAROS, LINHAS EM BRANCO ETC
-
-    // -----------------TESTES E etc
-
-    //teste inicializacao vetorCaso
-    /*
-    int c;
-    for(c=0; c<=25; c++)
-    {
-      printf("vetorCaso[%d] é %d.\n", c, vetorCaso[c]);
-    }
-    */
-
-    //Uma Leitura sem espaços
-    /*
-    while (scanf("%s\n", stringLida) > 0 )
-    {
-      //teste: printf("A string lida foi %s\n", stringLida);
-    }
-    */
-
-    return 0;
+  return 0;
 }
