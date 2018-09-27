@@ -1,5 +1,6 @@
 letra = a, numero dela = 97
 letra = z, numero dela = 122
+espaco =  , numero dele = 32
 
 
 1 o loop: numero 97 corresponde a letra a.

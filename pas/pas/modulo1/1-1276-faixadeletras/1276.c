@@ -5,13 +5,20 @@
 // função implementada.
 
 //PRESSUPOSTOS:
-// 1- Toda string tem um \n no final, nao termina com EOF - pelo que vi
+// 1- ***Toda string tem um \n no final, nao termina com EOF - pelo que vi
 // no caso de teste.
+
+//OTIMIZACOES DE TEMPO POSSIVEIS - TIME LIMIT
+// 1- OU NAO - checar antes de 1 se caractere eh repetido:
+// acho que vai aumentar o custo com o check ao inves de
+// diminuir ja q nem sempre vem repetido e o custo da
+// atribuicao eh baixo
 
 #include <stdlib.h>
 #include <stdio.h>
 
 #define NUM_LETRAS_ALFABETO 26
+#define DIFERENCA 97
 
 void ResetaVetorCaso (char** eVetorCaso)
 {
@@ -40,14 +47,27 @@ int main() {
   fimArquivo = scanf("%c", &c);
   while(fimArquivo > 0) //Se o arquivo não está vazio / se chegou ao fim
   {
+      //Le cada caso e preenche o vetor de presenca
       while(c != '\n')
       {
-        printf("%c", c);
+        if(c != ' ')
+        {
+          vetorCaso[c-DIFERENCA] = 1;
+        }
+
         fimArquivo = scanf("%c", &c);
       }
 
+      //Chegou ao fim do caso lido
+      //Percorre o vetor e vai imprimindo as faixas de letras
+      
+
       printf("\n"); //leu uma linha vazia /\ *se for o ultimo \n do arquivo nao
       fimArquivo = scanf("%c", &c);
+
+      //Zera o vetor de presenca e comeca um novo caso
+
+      //VER O CASO STRING VAZIA E \N ---- TESTAR TODOS OS FLUXOS
   }
 
   // -----------------TESTES E etc

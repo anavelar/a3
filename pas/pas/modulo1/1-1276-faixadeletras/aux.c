@@ -4,9 +4,11 @@ int main() {
 
   char um = 'a';
   char dois = 'z';
+  char espaco = ' ';
 
     printf("letra = %c, numero dela = %d\n", um, um);
     printf("letra = %c, numero dela = %d\n", dois, dois);
+    printf("espaco = %c, numero dele = %d\n", espaco, espaco);
     printf("\n\n");
 
     int i;
