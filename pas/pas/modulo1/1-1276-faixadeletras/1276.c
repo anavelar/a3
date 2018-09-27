@@ -13,12 +13,17 @@
 // acho que vai aumentar o custo com o check ao inves de
 // diminuir ja q nem sempre vem repetido e o custo da
 // atribuicao eh baixo
+// 2 - voltar alguns char para bool: conversoes pode dar time limit
+// 3 - essas constantes atrapalham ou ajudam o tempo?
 
 #include <stdlib.h>
 #include <stdio.h>
 
 #define NUM_LETRAS_ALFABETO 26
 #define DIFERENCA 97
+#define ESPACO 32
+#define SIM 1
+#define NAO 0
 
 void ResetaVetorCaso (char** eVetorCaso)
 {
@@ -36,6 +41,10 @@ int main() {
   char* vetorCaso = (char*) malloc(NUM_LETRAS_ALFABETO * sizeof(char));
   char c;
   char fimArquivo = 0;
+  char inicio = ESPACO;
+  char final = ESPACO;
+  int i;
+  int jaImprimiu = NAO;
 
   //Programa
   //Criar estrutura para armazenar cada caso e a inicializa
@@ -60,12 +69,68 @@ int main() {
 
       //Chegou ao fim do caso lido
       //Percorre o vetor e vai imprimindo as faixas de letras
-      
+      for (i=0; i<=25; i++)
+      {
+        if(vetorCaso[i]) // se li 1
+        {
+          if(i == 0) //primeira posicao, a
+          {
+            inicio = (i+97);
+            final = (i+97);
+          }
+          else //outras posicoes do vetor de presenca,todas menos a
+          {
+            if(vetorCaso[i-1]) //o anterior eh 1
+            {
+              final = (i+97);
+            }
+            else //o anterior eh zero
+            {
+              inicio = (i+97);
+              final = (i+97);
+            }
+          }
+        }
+        else // se li zero
+        {
+          if(i>0) //se nao estou na primeira pos, na a, ie se existe pos anterior
+          {
+            if(vetorCaso[i-1]) //posicao anterior eh 1
+            {
+              //finaliza uma sequencia
+              if(jaImprimiu) //se ja imprimiu uma sequencia
+              {
+                printf(", %c:%c", inicio, final);
+                inicio = ESPACO;
+                final = ESPACO;
+              }
+              else //se eh a primeira sequencia que vai ser impressa
+              {
+                printf("%c:%c", inicio, final);
+                inicio = ESPACO;
+                final = ESPACO;
+                jaImprimiu = SIM;
+              }
+
+            }
+            // else //posicao anterior eh zero: nao precisa fazer nada
+          }
+          //else (se i=0, se estou na posic a) --- ai nao precisa fazer nada
+
+        }
+      }
+
+      //otimizar isso depois pra switch o que der
+
+
+
+
+      //Imprime os resultados e zera o vetor de presença para comecar novo caso
+      //zera a variavel aux jaImprimiu, faz nova leitura precisa?
+
 
       printf("\n"); //leu uma linha vazia /\ *se for o ultimo \n do arquivo nao
       fimArquivo = scanf("%c", &c);
-
-      //Zera o vetor de presenca e comeca um novo caso
 
       //VER O CASO STRING VAZIA E \N ---- TESTAR TODOS OS FLUXOS
   }
