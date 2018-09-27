@@ -39,7 +39,7 @@
 
 void ResetaVetorCaso (char** eVetorCaso)
 {
-  int i; 
+  int i;  
 
   for (i=0; i<=25; i++)
   {
