@@ -15,6 +15,8 @@
 // atribuicao eh baixo
 // 2 - voltar alguns char para bool: conversoes pode dar time limit
 // 3 - essas constantes atrapalham ou ajudam o tempo?
+// 4- ****caso linha vazia: percorre o vetor mesmo assim
+// 5 - TALVEZ - otimizar if-elses em switches? eh otimizar? eh possivel
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -97,7 +99,7 @@ int main() {
           {
             if(vetorCaso[i-1]) //posicao anterior eh 1
             {
-              //finaliza uma sequencia
+              //finaliza uma sequencia ****IMP
               if(jaImprimiu) //se ja imprimiu uma sequencia
               {
                 printf(", %c:%c", inicio, final);
@@ -111,24 +113,24 @@ int main() {
                 final = ESPACO;
                 jaImprimiu = SIM;
               }
-
             }
             // else //posicao anterior eh zero: nao precisa fazer nada
           }
           //else (se i=0, se estou na posic a) --- ai nao precisa fazer nada
-
         }
       }
 
-      //otimizar isso depois pra switch o que der
+      //Se eu li uma linha vazia no inicio do arquivo, li um \n
+      printf("\n");
+      fimArquivo = scanf("%c", &c);
 
-
-
+      //ELSE 1 ARRUMAR: Se eu li uma linha vazia no inicio do arquivo, li um \n
+      //ELSE 2 ARRUMAR: Se eu li uma linha cheia (e ja fui imprimindo as coisas?)
 
       //Imprime os resultados e zera o vetor de presença para comecar novo caso
       //zera a variavel aux jaImprimiu, faz nova leitura precisa?
 
-
+      //TIRAR ISSO AQUI AO FINAL *DE TUDO* , SO PRA BASE PROS CASOS JA FEITOS ACIMA
       printf("\n"); //leu uma linha vazia /\ *se for o ultimo \n do arquivo nao
       fimArquivo = scanf("%c", &c);
 
