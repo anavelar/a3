@@ -1,0 +1,17 @@
+A fazer para a entrega no moodle:
+(Além do makefile claro)
+
+- Limpar os comentários antes da entrega no moodle.
+
+-------------------------------------------------------------------------------
+
+Documentacao: arquivo documentacao.txt
+
+-------------------------------------------------------------------------------
+
+O que pode melhorar:
+- Limpar os comentários
+- Otimizar vários fluxos: switch-case, analisar ifs, etc
+- Se trocar char por int vai mais rapido nas que faz conversao?
+  Se tirar os defines e colocar direto vai mais rapido?
+  (otimizacao que atrapalha legibilidade humana essa ultima)

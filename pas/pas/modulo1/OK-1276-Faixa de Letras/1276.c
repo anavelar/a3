@@ -17,7 +17,7 @@
 //PRESSUPOSTOS: (possiveis paus parte 2)
 // 1- ***Toda string/caso tem um \n no final, nao termina com EOF - pelo que vi
 // no caso de teste.
-
+ 
 //OTIMIZACOES DE TEMPO POSSIVEIS - TIME LIMIT
 // 1- OU NAO - checar antes de 1 se caractere eh repetido:
 // acho que vai aumentar o custo com o check ao inves de
@@ -39,7 +39,7 @@
 
 void ResetaVetorCaso (char** eVetorCaso)
 {
-  int i;  
+  int i;
 
   for (i=0; i<=25; i++)
   {
