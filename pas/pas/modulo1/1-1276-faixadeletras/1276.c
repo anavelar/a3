@@ -1,11 +1,18 @@
 //possiveis paus:
+// 00 - TRATAMENTO DE CASOS BIZARROS NA ---- IMPRESSAO -----
+// 01 - impressao - //PENSAR CASO FIM DO ARQUIVO TB C UMA LINHA EM BRANCO
+// 0 - ********exemplo da pa: linha em branco no final nao imprime!!
 // 1 - usando char como bool varias vezes, o uri faz a conversao char para int
 // automático? Se não fizer vai dar pau, trocar tudo.
+// 2.1 - *****olhar o caso arquivo vazio se precisa imprimir algo,
+// arquivo sem nem \n, nada, so o fim de arquivo.
 // 2 - ***Está imprimindo um \n após o último caso, atentar a isso! adequar na
 // função implementada.
+// 3 - *** feof(stdin) no final: feof sdtin vai valer p como os dados
+// estao entrando no URI também?
 
-//PRESSUPOSTOS:
-// 1- ***Toda string tem um \n no final, nao termina com EOF - pelo que vi
+//PRESSUPOSTOS: (possiveis paus parte 2)
+// 1- ***Toda string/caso tem um \n no final, nao termina com EOF - pelo que vi
 // no caso de teste.
 
 //OTIMIZACOES DE TEMPO POSSIVEIS - TIME LIMIT
@@ -85,11 +92,45 @@ int main() {
             if(vetorCaso[i-1]) //o anterior eh 1
             {
               final = (i+97);
+
+              if(i == 25) //Aí precisa tb imprimir e finalizar a sequencia ****IMP
+              {
+                if(jaImprimiu) //se ja imprimiu uma sequencia
+                {
+                  printf(", %c:%c", inicio, final);
+                  inicio = ESPACO;
+                  final = ESPACO;
+                }
+                else //se eh a primeira sequencia que vai ser impressa
+                {
+                  printf("%c:%c", inicio, final);
+                  inicio = ESPACO;
+                  final = ESPACO;
+                  jaImprimiu = SIM;
+                }
+              }
             }
             else //o anterior eh zero
             {
               inicio = (i+97);
               final = (i+97);
+
+              if(i == 25) //Aí precisa tb imprimir e finalizar a sequencia ****IMP
+              {
+                if(jaImprimiu) //se ja imprimiu uma sequencia
+                {
+                  printf(", %c:%c", inicio, final);
+                  inicio = ESPACO;
+                  final = ESPACO;
+                }
+                else //se eh a primeira sequencia que vai ser impressa
+                {
+                  printf("%c:%c", inicio, final);
+                  inicio = ESPACO;
+                  final = ESPACO;
+                  jaImprimiu = SIM;
+                }
+              }
             }
           }
         }
@@ -120,21 +161,53 @@ int main() {
         }
       }
 
-      //Se eu li uma linha vazia no inicio do arquivo, li um \n
-      printf("\n");
+      if(jaImprimiu) //se algo foi impresso (se tinha letras para imprimir as faixas delas)
+      {
+        if(feof(stdin)) //se o arquivo acabou
+        {
+          //nao precisa imprimir \n
+          //outras finalizações precisa? **********************88888888888888888
+        }
+        else //se tem mais casos a serem analisados no arquivo / mais linhas
+        {
+            printf("\n");
+            //outras finalizações: reinicia **********************88888888888888888
+        }
+      }
+      else //se a string era vazia: espacos em branco ou \n soh
+      {
+        //se era soh um \n no inicio ou so espacos em branco (string vazia)
+        printf("\n");
+        //outras finalizações: reinicia **********************88888888888888888
+      }
+
+      //-----------------------------------------------------------------------
+      //nada aqui abaixo esta valido!!! so para base, ver ao final
+
+      //printf("\n");
       fimArquivo = scanf("%c", &c);
 
-      //ELSE 1 ARRUMAR: Se eu li uma linha vazia no inicio do arquivo, li um \n
-      //ELSE 2 ARRUMAR: Se eu li uma linha cheia (e ja fui imprimindo as coisas?)
+      //aqui***************************************************************88
+      //ELSE 1 ARRUMAR: Se eu li uma linha cheia (e ja fui imprimindo as coisas?)
+      if(feof(stdin)) //vai funcionar com entradas de teste de arquivos txt?
+      {
+
+      }
+      else
+      {
+          printf("\n");
+      }
+      //ELSE 2 ARRUMAR: Se eu li uma linha vazia no meio ou fim do arquivo, li um \n
 
       //Imprime os resultados e zera o vetor de presença para comecar novo caso
-      //zera a variavel aux jaImprimiu, faz nova leitura precisa?
+      //zera a variavel aux jaImprimiu, (inicio e fim tb ? -- acho q nao precisa) e
+      //faz nova leitura precisa?
 
       //TIRAR ISSO AQUI AO FINAL *DE TUDO* , SO PRA BASE PROS CASOS JA FEITOS ACIMA
       printf("\n"); //leu uma linha vazia /\ *se for o ultimo \n do arquivo nao
       fimArquivo = scanf("%c", &c);
 
-      //VER O CASO STRING VAZIA E \N ---- TESTAR TODOS OS FLUXOS
+      //VER O CASO STRING VAZIA NO INICIO, NAO NO INICIO E \N ---- TESTAR TODOS OS FLUXOS
   }
 
   // -----------------TESTES E etc
