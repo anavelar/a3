@@ -1,5 +1,8 @@
 //possiveis paus:
+// 00000 - ultimas linhas do programa, feof stdin vazio nos dois casos e ele td
+//          //caso fim arquivo pensar PARA LEITURA VARIAVEL FIMARQUIVO
 // 00 - TRATAMENTO DE CASOS BIZARROS NA ---- IMPRESSAO -----
+// 000 - OLHAR TODOS OS FLUXOS
 // 01 - impressao - //PENSAR CASO FIM DO ARQUIVO TB C UMA LINHA EM BRANCO
 // 0 - ********exemplo da pa: linha em branco no final nao imprime!!
 // 1 - usando char como bool varias vezes, o uri faz a conversao char para int
@@ -49,10 +52,10 @@ int main() {
   //Variáveis e Estruturas de dados
   char* vetorCaso = (char*) malloc(NUM_LETRAS_ALFABETO * sizeof(char));
   char c;
+  int i;
   char fimArquivo = 0;
   char inicio = ESPACO;
   char final = ESPACO;
-  int i;
   int jaImprimiu = NAO;
 
   //Programa
@@ -163,54 +166,53 @@ int main() {
 
       if(jaImprimiu) //se algo foi impresso (se tinha letras para imprimir as faixas delas)
       {
-        if(feof(stdin)) //se o arquivo acabou
+        // VERSAO OTIMIZADA
+        if(!feof(stdin))
+        {
+          printf("\n");
+        }
+
+        /* VERSAO NAO OTIMIZADA
+        if(feof(stdin)) //se o arquivo acabou **********************88888888888888888 ver
+                        //se opode if feof(stdin) nada a fazer
         {
           //nao precisa imprimir \n
-          //outras finalizações precisa? **********************88888888888888888
+          //OPCAO: sair já, abortar o programa (um while...): return 0;
         }
         else //se tem mais casos a serem analisados no arquivo / mais linhas
         {
             printf("\n");
-            //outras finalizações: reinicia **********************88888888888888888
         }
+        */
       }
-      else //se a string era vazia: espacos em branco ou \n soh
+      else //se a string era vazia: espacos em branco ou \n soh, e (c agora esta armazenando \n)
       {
-        //se era soh um \n no inicio ou so espacos em branco (string vazia)
         printf("\n");
-        //outras finalizações: reinicia **********************88888888888888888
+
+        //Checa se o arquivo acabou depois
+        /*
+        if(feof(stdin)) //se o arquivo acabou ******CHECAR SE PODE FEOF VAZIO SW REATIVAR ESSE TRECHO
+                        //se opode if feof(stdin) nada a fazer
+        {
+          //nao precisa imprimir \n
+          //OPCAO: sair já, abortar o programa (um while...): return 0;
+        }
+        else //se tem mais casos a serem analisados no arquivo / mais linhas
+        {
+            //nao precisa fazer nada
+        }
+        */
       }
 
-      //-----------------------------------------------------------------------
-      //nada aqui abaixo esta valido!!! so para base, ver ao final
+      //finalizacoes necessarias para o inicio de um novo caso:
+      ResetaVetorCaso(&vetorCaso);
+      jaImprimiu = NAO;
+      inicio = ESPACO;
+      final = ESPACO;
 
-      //printf("\n");
+      //ver ao fim daqui de cima se eh isso mesmo:
       fimArquivo = scanf("%c", &c);
-
-      //aqui***************************************************************88
-      //ELSE 1 ARRUMAR: Se eu li uma linha cheia (e ja fui imprimindo as coisas?)
-      if(feof(stdin)) //vai funcionar com entradas de teste de arquivos txt?
-      {
-
-      }
-      else
-      {
-          printf("\n");
-      }
-      //ELSE 2 ARRUMAR: Se eu li uma linha vazia no meio ou fim do arquivo, li um \n
-
-      //Imprime os resultados e zera o vetor de presença para comecar novo caso
-      //zera a variavel aux jaImprimiu, (inicio e fim tb ? -- acho q nao precisa) e
-      //faz nova leitura precisa?
-
-      //TIRAR ISSO AQUI AO FINAL *DE TUDO* , SO PRA BASE PROS CASOS JA FEITOS ACIMA
-      printf("\n"); //leu uma linha vazia /\ *se for o ultimo \n do arquivo nao
-      fimArquivo = scanf("%c", &c);
-
-      //VER O CASO STRING VAZIA NO INICIO, NAO NO INICIO E \N ---- TESTAR TODOS OS FLUXOS
   }
-
-  // -----------------TESTES E etc
 
   return 0;
 }
