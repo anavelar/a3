@@ -1,0 +1,31 @@
+1) ADICIONAR A NOVA PA RESOLVIDA NA PASTA:
+
+1.1) ADICONAR A PA NA PASTA:
+- CRIAR um novo arquivo em branco aqui na pasta
+      <numPA>_ana_avelar.c
+
+-  COLOCAR o código que passou em 100% dos testes, PEGAR ESSE CÓDIGO DO MEU URI
+    E NAO DA MINHA PASTA P TER CERTEZA QUE PEGUEI O CERTO.
+
+1.2) COLOCAR ESSA PA NO MAKEFILE (OBRIGATORIO):
+ - ADICIONAR O NUMERO DELA NA REGRA ALL NO INCIO
+  all: <numPA1> <numPA2> <numPA3> <numPA4>
+
+ - ADICIONAR A REGRA DE COMPILACAO DELA
+  <numPA>: <numPA>_ana_avelar.c
+  gcc -g <numPA>_ana_avelar.c -o <numPA>
+
+ - ADICIONAR LINHA DELA NO CLEAN PARA LIMPAR
+  rm <numPA>
+
+----------------------------------------------------------------
+2) LIMPAR A PASTA:
+
+- make clean
+
+- DEIXAR SOMENTE OS ARQUIVOS .c de cada PA e o Makefile,
+  NADA MAIS, e todos na raiz sem nenhuma pasta.
+
+
+----------------------------------------------------------------
+3) COMPACTAR EM ZIP E ENVIAR NO MOODLE ATE 02/OUT 23:55
