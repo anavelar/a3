@@ -23,9 +23,8 @@
 
 - make clean
 
-- DEIXAR SOMENTE OS ARQUIVOS .c de cada PA e o Makefile,
+- DEIXAR SOMENTE OS ARQUIVOS .c de cada PA + o Makefile,
   NADA MAIS, e todos na raiz sem nenhuma pasta.
-
 
 ----------------------------------------------------------------
 3) COMPACTAR EM ZIP E ENVIAR NO MOODLE ATE 02/OUT 23:55
