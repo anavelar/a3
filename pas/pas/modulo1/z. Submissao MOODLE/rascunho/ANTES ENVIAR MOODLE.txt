@@ -28,3 +28,8 @@
 
 ----------------------------------------------------------------
 3) COMPACTAR EM ZIP E ENVIAR NO MOODLE ATE 02/OUT 23:55
+
+- Na pasta logo acima da pasta 2013007080_ana_avelar, pasta que tem
+  os arquivos .c de cada PA e o Makefile, fazer:
+	zip -r 2013007080_ana_avelar.zip 2013007080_ana_avelar
+	isto é: zip -r 2013007080_ana_avelar.zip nomeDaPastaAserZipada	
