@@ -109,6 +109,9 @@ int main(){
       f[k] = -1;
     }
 
+    //Impressoes
+    printf("Caso %d:\n", (j+1));
+    
     //No Grafo
     for(k=0; k<numVertices; k++)
     {
