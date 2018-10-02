@@ -67,15 +67,6 @@ int main(){
   InsereAresta(&Grafo, 5, 3);
   InsereAresta(&Grafo, 5, 6);
 
-  //teste
-  int a;
-  for(a=0; a<vertices; a++)
-  {
-    printf("Lista do vertice %d:\n", a);
-    ImprimeLista(Grafo[a]);
-    printf("\n");
-  }
-
   //Faz a varredura do Grafo com o DFS
 
   return 0;
