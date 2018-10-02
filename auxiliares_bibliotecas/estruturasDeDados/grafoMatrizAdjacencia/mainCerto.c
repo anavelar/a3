@@ -1,6 +1,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// ------------------------------------------------------------------
+// AO FINAL ********************************8888888888888888 AQUI
+// TIRAR OS PRINTFS!!!
+// ------------------------------------------------------------------
+
+// POSSIVEIS PAUS
+// 1) Funcao InicializaGrafoSemArestas acessando cada item do vetor
+// com +i*tipoLista ----> Eh isso mesmo? e se a alocacao mudar ein??
+// voltar depois para como tava antes
+// 2) Pode ter pau na funcao de inserir arestas no grafo.
+// Passou em todos os testes que fiz mas tô com muito sono e
+// chequei medio, posso checar mais.
+
+// OBS.:
+// 1) Melhorias possiveis:
+// a) Funcao insere aresta mais generica, vertice eh um int nela.
+// b) Ordenar os vertices na lista de adjacencia para melhorar buscas
+
+// ---------------------------------------------------------------------------
 //--------------------------------- ESTRUTURAS DE DADOS
 //-- LISTAS ENCADEADAS
 typedef struct tipoCelulah* apontador;
@@ -30,15 +49,22 @@ void Insere(tipoLista* eLista, tipoNo noNovo);
 void ImprimeLista (tipoLista lista);
 //-- GRAFOS
 void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices);
+void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino);
 
 //---------------------------------PROGRAMA
 int main(){
-  
+
+  //Cria as variáveis principais do main
   tipoGrafo Grafo = NULL;
   int vertices = 10;
 
+  //Monta a Estrutura de Dados para representar o Grafo lido
+  //Cria o Grafo vazio (com o numero de vertices lido)
   InicializaGrafoSemArestas(&Grafo, vertices);
-
+  //Insere as arestas dele
+  //Exemplo para uma aresta 1->2
+    //InsereAresta(&Grafo, 1, 2);
+    //InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 
   return 0;
 }
@@ -47,7 +73,7 @@ int main(){
 //-- LISTAS ENCADEADAS
 void ImprimeNo(tipoNo no) //varia com o no
 {
-  printf("No: %d.\n", no.chave);
+  printf("No: %d ", no.chave);
 }
 
 void InicializaNoSentinela(tipoNo* eNo) //varia com o no
@@ -113,4 +139,19 @@ void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices)
   {
     CriaListaVazia((*(eGrafo))+(i*(sizeof(tipoLista))));
   }
+}
+
+//Insere aresta direcionada: verticeOrigem -> verticeDestino
+void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
+{
+  // Cria no que vai ser inserido na nova celula na lista de adj de um vertice
+  tipoNo vizinho;
+  vizinho.chave = verticeDestino;
+
+  //Insere esse vizinho no vertice de Origem
+  Insere(((*(eGrafo))+((verticeOrigem-1)*(sizeof(tipoLista)))), vizinho);
+
+  //teste
+  //printf("Nos vizinhos ao no %d: ", verticeOrigem);
+  //ImprimeLista(*((*(eGrafo))+((verticeOrigem-1)*(sizeof(tipoLista)))));
 }
