@@ -3,3 +3,8 @@ Faltando:
 Todas as definições de funções e de estruturas de dados de grafos aqui,
 os grafos como matriz de adjacencias, estão definidas no main. Precisa
 passar a limpo para os arquivos .c e .h e fazer Makefile (que funciona...)
+
+Faltando também, desde a estrutura lista, remocao de uma aresta do grafo
+(remocao de um item da lista encadeada também). Vou implementar depois para ver
+como vai ser essa remocao, parametros de entrada ou busca pelo elemento a ser
+removido, ver como vai ser.
