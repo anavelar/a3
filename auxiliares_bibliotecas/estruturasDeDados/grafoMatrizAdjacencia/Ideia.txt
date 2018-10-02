@@ -1,0 +1,8 @@
+Um grafo representado como matriz de adjacências
+é um vetor de listas encadeadas, onde cada vértice
+do grafo é uma lista encadeada. Em cada lista de um
+vértice tem os vizinhos desse vértice.
+
+No cormen? Quando o grafo é direcionado, colocar como
+vizinhos dele apenas os vértices para os quais ele
+APONTA.
