@@ -56,15 +56,26 @@ int main(){
 
   //Cria as variáveis principais do main
   tipoGrafo Grafo = NULL;
-  int vertices = 10;
+  int vertices = 6;
 
   //Monta a Estrutura de Dados para representar o Grafo lido
   //Cria o Grafo vazio (com o numero de vertices lido)
   InicializaGrafoSemArestas(&Grafo, vertices);
   //Insere as arestas dele
+  //InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
   //Exemplo para uma aresta 1->2
-    //InsereAresta(&Grafo, 1, 2);
-    //InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
+  //InsereAresta(&Grafo, 1, 2);
+  /*
+  InsereAresta(&Grafo, 1, 2);
+  InsereAresta(&Grafo, 1, 4);
+  InsereAresta(&Grafo, 4, 2);
+  InsereAresta(&Grafo, 2, 3);
+  InsereAresta(&Grafo, 3, 4);
+  InsereAresta(&Grafo, 5, 3);
+  InsereAresta(&Grafo, 5, 6);
+  */
+
+  //Faz a varredura do Grafo com o DFS
 
   return 0;
 }
