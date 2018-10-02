@@ -1,0 +1,5 @@
+Faltando:
+
+Todas as definições de funções e de estruturas de dados de grafos aqui,
+os grafos como matriz de adjacencias, estão definidas no main. Precisa
+passar a limpo para os arquivos .c e .h e fazer Makefile (que funciona...)
