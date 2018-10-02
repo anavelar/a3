@@ -1,5 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#define BRANCO 1
+#define CINZA 2
+#define PRETO 3
 
 // ------------------------------------------------------------------
 // AO FINAL ********************************8888888888888888 AQUI
@@ -7,11 +10,19 @@
 // ------------------------------------------------------------------
 
 // POSSIVEIS PAUS
+// 0 - nao esta desalocando memoria do grafo, so apontando p null: possivel pau
+// de execucao.
+// 0.2 - limpeza de variaveis e de tudo para o proximo caso
+// 1-Funcao VisitaDFS, variavel tempo no inicio e d(vertice) = tempo tb.
 
 // OBS.:
 // 1) Melhorias possiveis:
+// 0) Funcao para desalocar memoria do grafo: nao estou desalocando porque
+// teria que esvazias as listas também, etc
 // a) Funcao insere aresta mais generica, vertice eh um int nela.
 // b) Ordenar os vertices na lista de adjacencia para melhorar buscas
+// c) ao inves de vetores para o DFS, incluir esses campos no grafo e
+// ver se compensa mesmo se eh otimizacao.
 
 // ---------------------------------------------------------------------------
 //--------------------------------- ESTRUTURAS DE DADOS
@@ -44,30 +55,82 @@ void ImprimeLista (tipoLista lista);
 //-- GRAFOS
 void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices);
 void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino);
+//-- DFS
+void VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
 
 //---------------------------------PROGRAMA
 int main(){
 
-  //Cria as variáveis principais do main
+  int j, k;
+  int numCasos = 0;
+
   tipoGrafo Grafo = NULL;
-  int vertices = 7;
+  int numVertices = 0;
+  int numArestas = 0;
+  int vOrigem, vDestino;
 
-  //Monta a Estrutura de Dados para representar o Grafo lido
-  //Cria o Grafo vazio (com o numero de vertices lido)
-  InicializaGrafoSemArestas(&Grafo, vertices);
-  //Insere as arestas dele
-  //InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
-  //Exemplo para uma aresta 1->2
-  //InsereAresta(&Grafo, 1, 2);
-  InsereAresta(&Grafo, 1, 2);
-  InsereAresta(&Grafo, 1, 4);
-  InsereAresta(&Grafo, 4, 2);
-  InsereAresta(&Grafo, 2, 3);
-  InsereAresta(&Grafo, 3, 4);
-  InsereAresta(&Grafo, 5, 3);
-  InsereAresta(&Grafo, 5, 6);
+  int* cor = NULL;
+  int* antecessor = NULL;
+  int tempo = 0;
+  int* d = NULL;
+  int* f = NULL;
 
-  //Faz a varredura do Grafo com o DFS
+  //Le num casos
+  scanf("%d\n", &numCasos);
+  //Para cada caso:
+  for(j=0; j<numCasos; j++)
+  {
+    //Le como sera grafo
+    scanf("%d %d\n", &numVertices, &numArestas);
+
+    //Cria o Grafo como matriz Adjacencias
+    InicializaGrafoSemArestas(&Grafo, numVertices);
+
+    //Insere as arestas nele
+    for(k=0; k<numArestas; k++)
+    {
+      scanf("%d %d\n", &vOrigem, &vDestino);
+      InsereAresta(&Grafo, vOrigem, vDestino);
+    }
+
+    //Faz busca em profundidade nele
+    //Prepara o Grafo para o DFS
+    cor = (int*) malloc(numVertices*(sizeof(int)));
+    antecessor = (int*) malloc(numVertices*(sizeof(int)));
+    d = (int*) malloc(numVertices*(sizeof(int)));
+    f = (int*) malloc(numVertices*(sizeof(int)));
+    tempo = 0;
+    for(k=0; k<numVertices; k++)
+    {
+      cor[k] = BRANCO;
+      antecessor[k] = -1;
+      d[k] = -1;
+      f[k] = -1;
+    }
+
+    //No Grafo
+    for(k=0; k<numVertices; k++)
+    {
+      if(cor[k] == BRANCO)
+      {
+        VisitaDFS(k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+        //void VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+        //VisitaDFS(vertice k)
+      }
+    }
+
+    //Depois: ver para inserir o pathR, impressao "caso n" e tirar alguma
+    // impressao se tiver e colocar \n, tambem checar os casos na mão
+
+    //Ao fim: destrói o grafo para o proximo caso de teste com outro grafo
+    //e reinicia tudo que precisaria estar reiniciado/novo para um novo caso
+    free(cor);
+    free(antecessor);
+    free(d);
+    free(f);
+    Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?
+
+  }
 
   return 0;
 }
@@ -93,6 +156,7 @@ void CriaListaVazia(tipoLista* eLista)
   //printf("Lista vazia criada.\n");
 }
 
+// retorna 1 se esta vazia, 0 se nao esta vazia.
 int EstaVazia(tipoLista lista)
 {
   return (lista.inicio == lista.fim);
@@ -156,5 +220,39 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 
   //Insere esse vizinho no vertice de Origem
   Insere(&((*(eGrafo))[verticeOrigem]), vizinho);
+
+}
+
+//-- DFS
+void VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+{
+  apontador aux = NULL;
+
+  ((*(eCor))[vertice]) = CINZA;
+  (*(eTempo)) = (*(eTempo)) + 1; //*********************************************
+  (*(eD))[vertice] = (*(eTempo)); //*********************************************
+
+  if(!EstaVazia((*eGrafo)[vertice]) //Caso o vertice tenha vizinhos / adjacentes
+  {
+    aux = ((*eGrafo)[vertice]).inicio->prox; //1o elemento da lista: 1o vertice adjacente
+    while(aux != NULL)
+    {
+      if((*eCor)[aux->no.chave] == BRANCO)
+      {
+        (*eAntecessor)[aux->no.chave] = vertice;
+        VisitaDFS(aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+      }
+
+      aux = aux->prox;
+    }
+  }
+  //int EstaVazia(tipoLista lista)
+  // retorna 1 se esta vazia, 0 se nao esta vazia.
+  //lista de adjacencia do vertice
+  //(*(eGrafo))[vertice]
+
+  ((*eCor)[vertice]) = PRETO;
+  (*(eTempo)) = (*(eTempo)) + 1;
+  ((*eF)[vertice]) = (*(eTempo));
 
 }
