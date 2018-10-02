@@ -1,10 +1,10 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <listaEncadeada.h> // Para incluir as estruturas de dados de la
+#include <listaencadeada.h> // Para incluir as estruturas de dados de la
                             // e as assinaturas das funcoes
+//#include <stdlib.h>
+//#include <stdio.h>
+
 
 // Aqui no biblioteca.c : colocar as funcoes implementadas
-
 void ImprimeNo(tipoNo no) //varia com o no
 {
   printf("No: %d.\n", no.chave);
@@ -12,28 +12,28 @@ void ImprimeNo(tipoNo no) //varia com o no
 
 void InicializaNoSentinela(tipoNo* eNo) //varia com o no
 {
-  *(eNo).chave = VALORSENTINELA;
+  eNo->chave = -1;
 }
 
 void CriaListaVazia(tipoLista* eLista)
 {
-  *(eLista).inicio = (apontador) malloc(sizeof(tipoCelula));
-  *(eLista).inicio->prox = NULL;
-  *(eLista).fim = *(eLista).inicio;
+  eLista->inicio = (apontador) malloc(sizeof(tipoCelula));
+  eLista->inicio->prox = NULL;
+  eLista->fim = eLista->inicio;
   InicializaNoSentinela(&(eLista->inicio->no));
 }
 
-void EstaVazia(tipoLista lista)
+int EstaVazia(tipoLista lista)
 {
   return (lista.inicio == lista.fim);
 }
 
 void Insere(tipoLista* eLista, tipoNo noNovo)
 {
-  *(eLista).fim->prox = (apontador) malloc(sizeof(tipoCelula));
-  *(eLista).fim = *(eLista).fim->prox;
-  *(eLista).fim->prox = NULL;
-  *(eLista).fim->no = noNovo;
+  eLista->fim->prox = (apontador) malloc(sizeof(tipoCelula));
+  eLista->fim = eLista->fim->prox;
+  eLista->fim->prox = NULL;
+  eLista->fim->no = noNovo;
 }
 /*
 void Remove(tipoLista* eLista)
