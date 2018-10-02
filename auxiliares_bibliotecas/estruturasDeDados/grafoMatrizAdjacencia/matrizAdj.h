@@ -1,12 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//ANTIGO
-//#ifndef MATRIZADJ
-//#define MATRIZADJ
-//assinaturas das funcoes
-//#endif
-
 //--------------------------------- ESTRUTURAS DE DADOS
 //-- LISTAS ENCADEADAS
 typedef struct tipoCelulah* apontador;

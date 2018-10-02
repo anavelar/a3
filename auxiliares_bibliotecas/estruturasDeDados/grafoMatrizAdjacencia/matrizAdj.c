@@ -1,9 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-//ANTIGO
-//#include "matrizAdj.h"
-//definicoes das funcoes
+#include <matrizAdj.h>
 
 // ---------------------------------FUNCOES
 //-- LISTAS ENCADEADAS

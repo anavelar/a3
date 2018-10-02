@@ -16,6 +16,7 @@ typedef struct {
   apontador fim;
 } tipoLista;
 //-- GRAFOS
+typedef tipoLista* tipoGrafo;
 
 
 // ---------------------------------ASSINATURAS DAS FUNCOES
@@ -28,12 +29,16 @@ void Insere(tipoLista* eLista, tipoNo noNovo);
 //void Remove(tipoLista* eLista);
 void ImprimeLista (tipoLista lista);
 //-- GRAFOS
-
+void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices);
 
 //---------------------------------PROGRAMA
 int main(){
+  
+  tipoGrafo Grafo = NULL;
+  int vertices = 10;
 
-  //teste para o codigo
+  InicializaGrafoSemArestas(&Grafo, vertices);
+
 
   return 0;
 }
@@ -96,3 +101,16 @@ void ImprimeLista (tipoLista lista)
 }
 
 //-- GRAFOS
+//Cria um Grafo vazio com n vertices mas sem arestas
+//Precisa inserir as arestas ainda
+void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices)
+{
+  int i;
+
+  *(eGrafo) = (tipoGrafo) malloc(numVertices*sizeof(tipoLista));
+
+  for(i=0; i<numVertices; i++)
+  {
+    CriaListaVazia((*(eGrafo))+(i*(sizeof(tipoLista))));
+  }
+}
