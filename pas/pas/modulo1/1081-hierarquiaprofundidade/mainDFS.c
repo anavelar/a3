@@ -14,6 +14,7 @@
 // de execucao.
 // 0.2 - limpeza de variaveis e de tudo para o proximo caso
 // 1-Funcao VisitaDFS, variavel tempo no inicio e d(vertice) = tempo tb.
+// 2- Leitura do ultimo caso do arquivo sem \n?
 
 // OBS.:
 // 1) Melhorias possiveis:
@@ -232,7 +233,7 @@ void VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, in
   (*(eTempo)) = (*(eTempo)) + 1; //*********************************************
   (*(eD))[vertice] = (*(eTempo)); //*********************************************
 
-  if(!EstaVazia((*eGrafo)[vertice]) //Caso o vertice tenha vizinhos / adjacentes
+  if(!EstaVazia((*eGrafo)[vertice])) //Caso o vertice tenha vizinhos / adjacentes
   {
     aux = ((*eGrafo)[vertice]).inicio->prox; //1o elemento da lista: 1o vertice adjacente
     while(aux != NULL)
