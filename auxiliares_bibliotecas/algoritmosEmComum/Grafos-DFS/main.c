@@ -1,9 +1,45 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <listaencadeada.h> // Para incluir as estruturas de dados de la
-                            // e as assinaturas das funcoes
 
-// Aqui no biblioteca.c : colocar as funcoes implementadas
+//--------------------------------- ESTRUTURAS DE DADOS
+//-- LISTAS ENCADEADAS
+typedef struct tipoCelulah* apontador;
+typedef struct{
+  int chave;
+} tipoNo;
+typedef struct tipoCelulah{
+  tipoNo no;
+  apontador prox;
+} tipoCelula;
+typedef struct {
+  apontador inicio;
+  apontador fim;
+} tipoLista;
+//-- GRAFOS
+
+
+// ---------------------------------ASSINATURAS DAS FUNCOES
+//-- LISTAS ENCADEADAS
+void ImprimeNo(tipoNo no);
+void InicializaNoSentinela(tipoNo* eNo);
+void CriaListaVazia(tipoLista* eLista);
+int EstaVazia(tipoLista lista);
+void Insere(tipoLista* eLista, tipoNo noNovo);
+//void Remove(tipoLista* eLista);
+void ImprimeLista (tipoLista lista);
+//-- GRAFOS
+
+
+//--------------------------------- DFS (PROGRAMA)
+int main(){
+
+  //testes
+
+  return 0;
+}
+
+// ---------------------------------FUNCOES
+//-- LISTAS ENCADEADAS
 void ImprimeNo(tipoNo no) //varia com o no
 {
   printf("No: %d.\n", no.chave);
@@ -58,3 +94,5 @@ void ImprimeLista (tipoLista lista)
     }
   }
 }
+
+//-- GRAFOS

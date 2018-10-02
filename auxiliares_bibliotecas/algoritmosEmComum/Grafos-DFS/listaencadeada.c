@@ -1,7 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include <listaencadeada.h> // Para incluir as estruturas de dados de la
                             // e as assinaturas das funcoes
+//#include <stdlib.h>
+//#include <stdio.h>
+
 
 // Aqui no biblioteca.c : colocar as funcoes implementadas
 void ImprimeNo(tipoNo no) //varia com o no

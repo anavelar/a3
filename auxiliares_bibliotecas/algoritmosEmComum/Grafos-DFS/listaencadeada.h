@@ -38,4 +38,5 @@ int EstaVazia(tipoLista lista);
 void Insere(tipoLista* eLista, tipoNo noNovo);
 //void Remove(tipoLista* eLista);
 void ImprimeLista (tipoLista lista);
+
 //#endif
