@@ -1,7 +1,7 @@
-#ifndef LISTAENCADEADA
-#define LISTAENCADEADA
+#ifndef BIBLIOTECAX
+#define BIBLIOTECAX
 
-// Aqui na biblioteca.h
+// Aqui na bibliotecaX.h
 // colocar as estruturas de dados e as
 // assinaturas das funcoes, que por sua vez
 // estao implementadas no .c
