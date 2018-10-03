@@ -129,10 +129,10 @@ int main(){
 
         //teste***************************************
         //int EstaVazia(tipoLista lista)
-        if(!EstaVazia(Grafo[k]))
-        {
+        //if(!EstaVazia(Grafo[k]))
+        //{
           printf("\n");
-        }
+        //}
       }
 
     }
