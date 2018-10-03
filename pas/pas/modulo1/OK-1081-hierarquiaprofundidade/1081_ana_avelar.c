@@ -129,10 +129,10 @@ int main(){
 
         //teste***************************************
         //int EstaVazia(tipoLista lista)
-        //if(!EstaVazia(Grafo[k]))
-        //{
+        if(!EstaVazia(Grafo[k]))
+        {
           printf("\n");
-        //}
+        }
       }
 
     }
@@ -147,6 +147,7 @@ int main(){
     free(d);
     free(f);
     Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?
+
   }
 
   return 0;
@@ -181,10 +182,40 @@ int EstaVazia(tipoLista lista)
 
 void Insere(tipoLista* eLista, tipoNo noNovo)
 {
-  eLista->fim->prox = (apontador) malloc(sizeof(tipoCelula));
-  eLista->fim = eLista->fim->prox; //**************AQUI TVZ MAS NIVIO TB EH ASSIM
-  eLista->fim->prox = NULL;
-  eLista->fim->no = noNovo;
+  apontador apontadorAnterior = eLista->inicio; //aponta para a sentinela
+  apontador apontadorProxima = eLista->inicio->prox; //aponta para a logo depois da sentinela
+
+  if(EstaVazia(*eLista)) //Se a lista estiver vazia
+  {
+    eLista->fim->prox = (apontador) malloc(sizeof(tipoCelula));
+    eLista->fim = eLista->fim->prox; //**************AQUI TVZ MAS NIVIO TB EH ASSIM
+    eLista->fim->prox = NULL;
+    eLista->fim->no = noNovo;
+  }
+  else //se vai inserirOrdenado
+  {
+    //Encontra a posicao de insercao
+    while( (noNovo.chave > apontadorProxima->no.chave)  ) //&& (apontadorProxima->prox != NULL)
+    {
+      if(apontadorProxima->prox == NULL)
+      {
+          //Insere normal
+          eLista->fim->prox = (apontador) malloc(sizeof(tipoCelula));
+          eLista->fim = eLista->fim->prox; //**************AQUI TVZ MAS NIVIO TB EH ASSIM
+          eLista->fim->prox = NULL;
+          eLista->fim->no = noNovo;
+
+          return; //----Testar break
+      }
+
+      apontadorAnterior = apontadorAnterior->prox;
+      apontadorProxima = apontadorProxima->prox;
+    }
+
+    apontadorAnterior->prox = (apontador) malloc(sizeof(tipoCelula));
+    apontadorAnterior->prox->prox = apontadorProxima;
+    apontadorAnterior->prox->no = noNovo;
+  }
 }
 /*
 void Remove(tipoLista* eLista)
