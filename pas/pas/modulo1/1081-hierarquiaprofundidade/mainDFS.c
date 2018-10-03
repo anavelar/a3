@@ -126,7 +126,15 @@ int main(){
         VisitaDFS(brancos, k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
         //void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
         //VisitaDFS(vertice k)
+
+        //teste***************************************
+        //int EstaVazia(tipoLista lista)
+        if(!EstaVazia(Grafo[k]))
+        {
+          printf("\n");
+        }
       }
+
     }
 
     //Depois: ver para inserir o pathR, impressao "caso n" e tirar alguma
