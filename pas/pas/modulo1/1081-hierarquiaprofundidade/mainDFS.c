@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #define BRANCO 1
 #define CINZA 2
 #define PRETO 3
@@ -10,11 +11,13 @@
 // ------------------------------------------------------------------
 
 // POSSIVEIS PAUS
+// 00- nao esta desalocando mem do brancos, so jogando no lixo!!
 // 0 - nao esta desalocando memoria do grafo, so apontando p null: possivel pau
 // de execucao.
 // 0.2 - limpeza de variaveis e de tudo para o proximo caso
 // 1-Funcao VisitaDFS, variavel tempo no inicio e d(vertice) = tempo tb.
 // 2- Leitura do ultimo caso do arquivo sem \n?
+// 3 - CHARS em todo o codigo, ver
 
 // OBS.:
 // 1) Melhorias possiveis:
@@ -57,13 +60,16 @@ void ImprimeLista (tipoLista lista);
 void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices);
 void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino);
 //-- DFS
-void VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
+void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
 
 //---------------------------------PROGRAMA
 int main(){
 
   int j, k;
   int numCasos = 0;
+  //char* brancos = (char*) malloc(50*sizeof(char));
+  //brancos = "  ";
+  char brancos[50] = "  ";
 
   tipoGrafo Grafo = NULL;
   int numVertices = 0;
@@ -111,14 +117,14 @@ int main(){
 
     //Impressoes
     printf("Caso %d:\n", (j+1));
-    
+
     //No Grafo
     for(k=0; k<numVertices; k++)
     {
       if(cor[k] == BRANCO)
       {
-        VisitaDFS(k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
-        //void VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+        VisitaDFS(brancos, k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+        //void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
         //VisitaDFS(vertice k)
       }
     }
@@ -133,7 +139,6 @@ int main(){
     free(d);
     free(f);
     Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?
-
   }
 
   return 0;
@@ -228,9 +233,14 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 }
 
 //-- DFS
-void VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
   apontador aux = NULL;
+  //char* novoBrancos = (char*) malloc(50*sizeof(char));
+  //novoBrancos = "  ";
+
+  char novoBrancos[50] = "  ";
+  strcat(novoBrancos, Brancos);
 
   ((*(eCor))[vertice]) = CINZA;
   (*(eTempo)) = (*(eTempo)) + 1; //*********************************************
@@ -243,8 +253,13 @@ void VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, in
     {
       if((*eCor)[aux->no.chave] == BRANCO)
       {
+        printf("%s%d-%d pathR(G,%d)\n", Brancos, vertice, aux->no.chave, aux->no.chave);
         (*eAntecessor)[aux->no.chave] = vertice;
-        VisitaDFS(aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        VisitaDFS(novoBrancos, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+      }
+      else
+      {
+        printf("%s%d-%d\n", Brancos, vertice, aux->no.chave);
       }
 
       aux = aux->prox;
