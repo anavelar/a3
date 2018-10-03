@@ -1,0 +1,7 @@
+Estou fazendo e para o caso do exemplo da certo.
+Porem no URI da RunTime Error.
+
+Como a PA 1081 tambem eh um DFS, fui adaptando em algumas partes mas bem
+porcamente, com sono e de madrugada. Assim, da para limpar bastante esse codigo ainda
+e ver se tem coisa errada, nao conferi a logica apesar da reposta pr caso basico
+estar indo.
