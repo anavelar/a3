@@ -5,12 +5,12 @@
 #define CINZA 2
 #define PRETO 3
 
-// ------------------------------------------------------------------
-// AO FINAL ********************************8888888888888888 AQUI
-// TIRAR OS PRINTFS!!!
-// ------------------------------------------------------------------
+// ------ Como a PA 1081 tambem eh DFS, usei o codigo *que eu fiz para a PA 1081*
+//-------- com ajustes, como a 1081 também eh uma implementacao de DFS.
 
 // POSSIVEIS PAUS
+// 1-DOCUMENTOS COMECAM DO 1 E AQUI DO ZERO (MAS SO FAZ DIFERENCA INTERNA! VER)
+
 // 00- nao esta desalocando mem do brancos, so jogando no lixo!!
 // 0 - nao esta desalocando memoria do grafo, so apontando p null: possivel pau
 // de execucao.
@@ -60,7 +60,7 @@ void ImprimeLista (tipoLista lista);
 void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices);
 void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino);
 //-- DFS
-void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
+void VisitaDFS(int* eArestRet, char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
 
 //---------------------------------PROGRAMA
 int main(){
@@ -82,6 +82,7 @@ int main(){
   int* d = NULL;
   int* f = NULL;
 
+  int temArestaRetorno = 0;
   //Le num casos
   scanf("%d\n", &numCasos);
   //Para cada caso:
@@ -97,7 +98,7 @@ int main(){
     for(k=0; k<numArestas; k++)
     {
       scanf("%d %d\n", &vOrigem, &vDestino);
-      InsereAresta(&Grafo, vOrigem, vDestino);
+      InsereAresta(&Grafo, (vOrigem-1), (vDestino-1));
     }
 
     //Faz busca em profundidade nele
@@ -115,30 +116,26 @@ int main(){
       f[k] = -1;
     }
 
-    //Impressoes
-    printf("Caso %d:\n", (j+1));
-
     //No Grafo
     for(k=0; k<numVertices; k++)
     {
       if(cor[k] == BRANCO)
       {
-        VisitaDFS(brancos, k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
-        //void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+        VisitaDFS(&temArestaRetorno, brancos, k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+        //void VisitaDFS(int* eArestRet, char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
         //VisitaDFS(vertice k)
-
-        //teste***************************************
-        //int EstaVazia(tipoLista lista)
-        if(!EstaVazia(Grafo[k]))
-        {
-          printf("\n");
-        }
       }
 
     }
 
-    //Depois: ver para inserir o pathR, impressao "caso n" e tirar alguma
-    // impressao se tiver e colocar \n, tambem checar os casos na mão
+    if(temArestaRetorno)
+    {
+      printf("SIM\n");
+    }
+    else
+    {
+      printf("NAO\n");
+    }
 
     //Ao fim: destrói o grafo para o proximo caso de teste com outro grafo
     //e reinicia tudo que precisaria estar reiniciado/novo para um novo caso
@@ -147,7 +144,7 @@ int main(){
     free(d);
     free(f);
     Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?
-
+    temArestaRetorno = 0;
   }
 
   return 0;
@@ -212,9 +209,14 @@ void Insere(tipoLista* eLista, tipoNo noNovo)
       apontadorProxima = apontadorProxima->prox;
     }
 
-    apontadorAnterior->prox = (apontador) malloc(sizeof(tipoCelula));
-    apontadorAnterior->prox->prox = apontadorProxima;
-    apontadorAnterior->prox->no = noNovo;
+    if(noNovo.chave != apontadorProxima->no.chave) //igual ao de depois, nao insere
+    {
+      apontadorAnterior->prox = (apontador) malloc(sizeof(tipoCelula));
+      apontadorAnterior->prox->prox = apontadorProxima;
+      apontadorAnterior->prox->no = noNovo;
+    }
+    // else sao iguais entao nao insere
+    
   }
 }
 /*
@@ -272,7 +274,7 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 }
 
 //-- DFS
-void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+void VisitaDFS(int* eArestRet, char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
   apontador aux = NULL;
   //char* novoBrancos = (char*) malloc(50*sizeof(char));
@@ -283,7 +285,7 @@ void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** 
 
   ((*(eCor))[vertice]) = CINZA;
   (*(eTempo)) = (*(eTempo)) + 1; //*********************************************
-  (*(eD))[vertice] = (*(eTempo)); //*********************************************
+  (*(eD))[vertice] = (*(eTempo)); //********************************************
 
   if(!EstaVazia((*eGrafo)[vertice])) //Caso o vertice tenha vizinhos / adjacentes
   {
@@ -292,13 +294,15 @@ void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** 
     {
       if((*eCor)[aux->no.chave] == BRANCO)
       {
-        printf("%s%d-%d pathR(G,%d)\n", Brancos, vertice, aux->no.chave, aux->no.chave);
         (*eAntecessor)[aux->no.chave] = vertice;
-        VisitaDFS(novoBrancos, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        VisitaDFS(eArestRet, novoBrancos, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
       }
       else
       {
-        printf("%s%d-%d\n", Brancos, vertice, aux->no.chave);
+        if((*eCor)[aux->no.chave] == CINZA)
+        {
+          (*eArestRet) = 1;
+        }
       }
 
       aux = aux->prox;
