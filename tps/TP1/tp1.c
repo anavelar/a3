@@ -61,7 +61,7 @@ int main(){
   int* antecessor = NULL;
   int tempo = 0;
   int* d = NULL;
-  int* f = NULL
+  int* f = NULL;
   int* setasEntrando = NULL;
   tipoLista verticesRaiz;
   tipoNo noAux;
