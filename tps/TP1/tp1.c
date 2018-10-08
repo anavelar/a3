@@ -132,7 +132,10 @@ int main(){
 
   if(EstaVazia(verticesRaiz)) //Se não há vertices raiz
   {
-    printf("Erro, nao ha vertices raiz.\n");
+    //printf("Erro, nao ha vertices raiz.\n");
+    //*************************************************************************8
+    //VOLTAR AQUI PARA VER SE EH ISSO MESMO
+    printf("0 -1");
     return 0;
   }
   else //Se ha vertices raiz possiveis
