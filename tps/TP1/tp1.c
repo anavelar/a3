@@ -66,6 +66,7 @@ int main(){
   tipoLista verticesRaiz;
   tipoNo noAux;
   apontador aux = NULL;
+  int indicaCiclo = NORMAL; //Se tiver ciclo, ela vira o valor DIFERENTE (ZERO)
 
   //Inicializacoes
   noAux.chave = INVALIDO;
@@ -146,16 +147,22 @@ int main(){
   //Cada arvore da floresta que eh essa arvores
   while(aux != NULL)
   {
-
-    VisitaDFS(aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+    indicaCiclo = VisitaDFS(aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
     //int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
     //VisitaDFS(vertice k)
 
-    aux = aux->prox;
+    if(!indicaCiclo) //Se tem ciclo
+    {
+      return 0;
+    }
+    else
+    {
+      aux = aux->prox;
+    }
+
   }
 
-  //Ao fim: destrói o grafo para o proximo caso de teste com outro grafo
-  //e reinicia tudo que precisaria estar reiniciado/novo para um novo caso
+  //No final: Desalocar memoria
   //free(cor);
   //free(antecessor);
   //free(d);
@@ -314,7 +321,7 @@ int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int
         if((*eCor)[aux->no.chave] == CINZA) //tem aresta de retorno: tem ciclo nesse demonio
         {
           printf("0 -1\n");
-          return DIFERENTE; //AQUI, NA Volta recursiva
+          return DIFERENTE;
         }
       }
 
