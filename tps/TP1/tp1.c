@@ -81,7 +81,7 @@ int main(){
   //Inicializa o vetor para achar, ao inserir as arestas, os vertices
   //raiz do DFS
   setasEntrando = (int*) malloc((numVertices+1)*(sizeof(int)));
-  //inicializa a sentinela
+  //Inicializa a sentinela
   setasEntrando[0] = VALORENORME;
   for(k=1; k<(numVertices+1); k++)
   {
@@ -114,12 +114,13 @@ int main(){
   f = (int*) malloc((numVertices+1)*(sizeof(int)));
   tempo = 0;
 
-  //Para a sentinela:
+  //Incializa a sentinela:
   cor[k] = INVALIDO;
   antecessor[k] = INICIALIZACAO;
   d[k] = INICIALIZACAO;
   f[k] = INICIALIZACAO;
 
+  //Inicializa os outros
   for(k=1; k<numVertices+1; k++)
   {
     cor[k] = BRANCO;
@@ -127,9 +128,6 @@ int main(){
     d[k] = INICIALIZACAO;
     f[k] = INICIALIZACAO;
   }
-
-  //aqui*************************************************************
-  //SE RETORNAR DIFERENTE PRECISA PARAR A BUSCA: CHECAR O VALOR DE VISITADFS RETORNADO
 
   if(EstaVazia(verticesRaiz)) //Se não há vertices raiz
   {
@@ -140,6 +138,9 @@ int main(){
   {
     aux = verticesRaiz.inicio->prox; //endereco da primeira celula raiz possivel
   }
+
+  //aqui*************************************************************
+  //SE RETORNAR DIFERENTE PRECISA PARAR A BUSCA: CHECAR O VALOR DE VISITADFS RETORNADO
 
   //Percorre a lista de vertices raiz possiveis: DFS com os verticesRaiz so
   //Cada arvore da floresta que eh essa arvores
@@ -155,12 +156,12 @@ int main(){
 
   //Ao fim: destrói o grafo para o proximo caso de teste com outro grafo
   //e reinicia tudo que precisaria estar reiniciado/novo para um novo caso
-  free(cor);
-  free(antecessor);
-  free(d);
-  free(f);
-  free(setasEntrando);
-  Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?**** desalocar
+  //free(cor);
+  //free(antecessor);
+  //free(d);
+  //free(f);
+  //free(setasEntrando);
+  //Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?**** desalocar
 
   // Desalocar/limpar verticesRaiz
 
