@@ -1,0 +1,8 @@
+Importante:
+
+AO FINAL DOC:
+- Fazer a doc!!
+
+AO FINAL:
+- Fazer makefile (de acordo com espec)
+- Modularizar o codigo em bibliotecas

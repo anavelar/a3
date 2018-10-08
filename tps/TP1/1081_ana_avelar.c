@@ -5,30 +5,6 @@
 #define CINZA 2
 #define PRETO 3
 
-// ------------------------------------------------------------------
-// AO FINAL ********************************8888888888888888 AQUI
-// TIRAR OS PRINTFS!!!
-// ------------------------------------------------------------------
-
-// POSSIVEIS PAUS
-// 00- nao esta desalocando mem do brancos, so jogando no lixo!!
-// 0 - nao esta desalocando memoria do grafo, so apontando p null: possivel pau
-// de execucao.
-// 0.2 - limpeza de variaveis e de tudo para o proximo caso
-// 1-Funcao VisitaDFS, variavel tempo no inicio e d(vertice) = tempo tb.
-// 2- Leitura do ultimo caso do arquivo sem \n?
-// 3 - CHARS em todo o codigo, ver
-
-// OBS.:
-// 1) Melhorias possiveis:
-// 0) Funcao para desalocar memoria do grafo: nao estou desalocando porque
-// teria que esvazias as listas também, etc
-// a) Funcao insere aresta mais generica, vertice eh um int nela.
-// b) Ordenar os vertices na lista de adjacencia para melhorar buscas
-// c) ao inves de vetores para o DFS, incluir esses campos no grafo e
-// ver se compensa mesmo se eh otimizacao.
-
-// ---------------------------------------------------------------------------
 //--------------------------------- ESTRUTURAS DE DADOS
 //-- LISTAS ENCADEADAS
 typedef struct tipoCelulah* apontador;
@@ -67,8 +43,6 @@ int main(){
 
   int j, k;
   int numCasos = 0;
-  //char* brancos = (char*) malloc(50*sizeof(char));
-  //brancos = "  ";
   char brancos[50] = "  ";
 
   tipoGrafo Grafo = NULL;
@@ -127,8 +101,6 @@ int main(){
         //void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
         //VisitaDFS(vertice k)
 
-        //teste***************************************
-        //int EstaVazia(tipoLista lista)
         if(!EstaVazia(Grafo[k]))
         {
           printf("\n");
@@ -136,9 +108,6 @@ int main(){
       }
 
     }
-
-    //Depois: ver para inserir o pathR, impressao "caso n" e tirar alguma
-    // impressao se tiver e colocar \n, tambem checar os casos na mão
 
     //Ao fim: destrói o grafo para o proximo caso de teste com outro grafo
     //e reinicia tudo que precisaria estar reiniciado/novo para um novo caso
@@ -171,7 +140,6 @@ void CriaListaVazia(tipoLista* eLista)
   eLista->inicio->prox = NULL;
   eLista->fim = eLista->inicio;
   InicializaNoSentinela(&(eLista->inicio->no));
-  //printf("Lista vazia criada.\n");
 }
 
 // retorna 1 se esta vazia, 0 se nao esta vazia.
@@ -275,8 +243,6 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
   apontador aux = NULL;
-  //char* novoBrancos = (char*) malloc(50*sizeof(char));
-  //novoBrancos = "  ";
 
   char novoBrancos[50] = "  ";
   strcat(novoBrancos, Brancos);
@@ -304,10 +270,6 @@ void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** 
       aux = aux->prox;
     }
   }
-  //int EstaVazia(tipoLista lista)
-  // retorna 1 se esta vazia, 0 se nao esta vazia.
-  //lista de adjacencia do vertice
-  //(*(eGrafo))[vertice]
 
   ((*eCor)[vertice]) = PRETO;
   (*(eTempo)) = (*(eTempo)) + 1;
