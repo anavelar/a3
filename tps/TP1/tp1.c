@@ -1,9 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#define INVALIDO -1
 #define BRANCO 1
 #define CINZA 2
 #define PRETO 3
+
+#define INICIALIZACAO -1
+#define NORMAL 1
+#define DIFERENTE 0
+
+#define VALORENORME 1000
+
 
 //--------------------------------- ESTRUTURAS DE DADOS
 //-- LISTAS ENCADEADAS
@@ -36,14 +45,13 @@ void ImprimeLista (tipoLista lista);
 void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices);
 void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino);
 //-- DFS
-void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
+int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
 
 //---------------------------------PROGRAMA
 int main(){
 
   int j, k;
   int numCasos = 0;
-  char brancos[50] = "  ";
 
   tipoGrafo Grafo = NULL;
   int numVertices = 0;
@@ -54,7 +62,9 @@ int main(){
   int* antecessor = NULL;
   int tempo = 0;
   int* d = NULL;
-  int* f = NULL;
+  int* f = NULL
+  int* setasEntrando = NULL;
+  tipoLista verticesRaiz;
 
   //Le num casos
   scanf("%d\n", &numCasos);
@@ -67,40 +77,61 @@ int main(){
     //Cria o Grafo como matriz Adjacencias
     InicializaGrafoSemArestas(&Grafo, numVertices);
 
+    //Inicializa o vetor para achar, ao inserir as arestas, os vertices
+    //raiz do DFS
+    setasEntrando = (int*) malloc((numVertices+1)*(sizeof(int)));
+    //inicializa a sentinela
+    setasEntrando[0] = VALORENORME;
+    for(k=1; k<(numVertices+1); k++)
+    {
+      setasEntrando[k] = 0;
+    }
+
     //Insere as arestas nele
     for(k=0; k<numArestas; k++)
     {
       scanf("%d %d\n", &vOrigem, &vDestino);
       InsereAresta(&Grafo, vOrigem, vDestino);
+      setasEntrando[vDestino]++;
     }
+
+    //Procura vertices raizes do DFS e os separa dos outros
 
     //Faz busca em profundidade nele
     //Prepara o Grafo para o DFS
-    cor = (int*) malloc(numVertices*(sizeof(int)));
-    antecessor = (int*) malloc(numVertices*(sizeof(int)));
-    d = (int*) malloc(numVertices*(sizeof(int)));
-    f = (int*) malloc(numVertices*(sizeof(int)));
+    cor = (int*) malloc((numVertices+1)*(sizeof(int)));
+    antecessor = (int*) malloc((numVertices+1)*(sizeof(int)));
+    d = (int*) malloc((numVertices+1)*(sizeof(int)));
+    f = (int*) malloc((numVertices+1)*(sizeof(int)));
     tempo = 0;
-    for(k=0; k<numVertices; k++)
+
+    //Para a sentinela:
+    cor[k] = INVALIDO;
+    antecessor[k] = INICIALIZACAO;
+    d[k] = INICIALIZACAO;
+    f[k] = INICIALIZACAO;
+
+    for(k=1; k<numVertices+1; k++)
     {
       cor[k] = BRANCO;
-      antecessor[k] = -1;
-      d[k] = -1;
-      f[k] = -1;
+      antecessor[k] = INICIALIZACAO;
+      d[k] = INICIALIZACAO;
+      f[k] = INICIALIZACAO;
     }
 
     //aqui*************************************************************
-
+    //SE RETORNAR DIFERENTE PRECISA PARAR A BUSCA: CHECAR O VALOR DE VISITADFS RETORNADO
+    //MAS ANTES DISSO, VER COMO ESCOLHER O VERTICE DE COMECAR A BUSCA DO VISITADFS
     //No Grafo
-    for(k=0; k<numVertices; k++)
+    //for(k=0; k<numVertices; k++) //nao vai ser assim: vai ser os com entrada zero
     {
       if(cor[k] == BRANCO)
       {
-        VisitaDFS(brancos, k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
-        //void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+        VisitaDFS(k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+        //int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
         //VisitaDFS(vertice k)
 
-        if(!EstaVazia(Grafo[k]))
+        if(!EstaVazia(Grafo[k])) ///****** checar se pode esse if vazio aqui
         {
         //printf("\n");
         }
@@ -114,6 +145,7 @@ int main(){
     free(antecessor);
     free(d);
     free(f);
+    free(setasEntrando);
     Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?
 
   }
@@ -216,10 +248,10 @@ void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices)
 {
   int i;
 
-  (*(eGrafo)) = (tipoLista*) malloc(numVertices*sizeof(tipoLista));
+  (*(eGrafo)) = (tipoLista*) malloc((numVertices+1)*sizeof(tipoLista));
 
   //Inicializa cada uma dessas listas
-  for(i=0; i<numVertices; i++)
+  for(i=0; i<(numVertices+1); i++)
   {
     CriaListaVazia(&((*(eGrafo))[i]));
   }
@@ -239,16 +271,14 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 }
 
 //-- DFS
-void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
   apontador aux = NULL;
-
-  char novoBrancos[50] = "  ";
-  strcat(novoBrancos, Brancos);
+  int corAux = INICIALIZACAO;
 
   ((*(eCor))[vertice]) = CINZA;
-  (*(eTempo)) = (*(eTempo)) + 1; //*********************************************
-  (*(eD))[vertice] = (*(eTempo)); //*********************************************
+  (*(eTempo)) = (*(eTempo)) + 1;
+  (*(eD))[vertice] = (*(eTempo));
 
   if(!EstaVazia((*eGrafo)[vertice])) //Caso o vertice tenha vizinhos / adjacentes
   {
@@ -257,13 +287,20 @@ void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** 
     {
       if((*eCor)[aux->no.chave] == BRANCO)
       {
-        //printf("%s%d-%d pathR(G,%d)\n", Brancos, vertice, aux->no.chave, aux->no.chave);
         (*eAntecessor)[aux->no.chave] = vertice;
-        VisitaDFS(novoBrancos, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        corAux = VisitaDFS(aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        if (corAux == DIFERENTE)
+        {
+          return DIFERENTE;
+        }
       }
-      else //**** ver se pode esse else vazio aqui
+      else
       {
-        //printf("%s%d-%d\n", Brancos, vertice, aux->no.chave);
+        if((*eCor)[aux->no.chave] == CINZA) //tem aresta de retorno: tem ciclo nesse demonio
+        {
+          printf("0 -1\n");
+          return DIFERENTE; //AQUI, NA Volta recursiva
+        }
       }
 
       aux = aux->prox;
@@ -273,5 +310,7 @@ void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** 
   ((*eCor)[vertice]) = PRETO;
   (*(eTempo)) = (*(eTempo)) + 1;
   ((*eF)[vertice]) = (*(eTempo));
+
+  return NORMAL;
 
 }

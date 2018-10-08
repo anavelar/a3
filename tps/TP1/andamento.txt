@@ -6,9 +6,18 @@ AO FINAL DOC: -- 2turnos no minimo acho
 AO FINAL: -- 1 turno no minimo essa parte aqui
 - Fazer makefile (de acordo com espec)
 - Modularizar o codigo em bibliotecas
+
+SE SOBRAR TEMPO:
+- Tem estruturas de dados nao sendo desalocadas direito, o valgrind vai pegar
+alem do risco de estourar a memoria como é mais do que uma por caso
 ------------------------------------------------------------------------------
 POSSÍVEIS PAUS:
 
+0 - verticesRaiz nao ta sendo desalocado, pode estourar a memoria
 1- Insere aresta está ordenado: pode dar pau.
 Se colocar o insere sem ser ordenado (apenas o codigo para insere com a lista vazia)
 pode dar menos pau. mas ver se o DFS vai executar direito como devia.
+2- seg fault no corAux: precisa corAux = INICIALIZACAO dentro do while tambem (mas antes do
+resultado da chamada)
+3- ****INDICES DOS VERTICES ESTAO TDS UM PRA CIMA MAS NAO SEI SE TD, ACHO QUE SIM MAS SEM CERTEZA,
+PODE HAVER ALGUM ACESSO INDEVIDO.
