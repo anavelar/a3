@@ -140,9 +140,6 @@ int main(){
     aux = verticesRaiz.inicio->prox; //endereco da primeira celula raiz possivel
   }
 
-  //aqui*************************************************************
-  //SE RETORNAR DIFERENTE PRECISA PARAR A BUSCA: CHECAR O VALOR DE VISITADFS RETORNADO
-
   //Percorre a lista de vertices raiz possiveis: DFS com os verticesRaiz so
   //Cada arvore da floresta que eh essa arvores
   while(aux != NULL)
