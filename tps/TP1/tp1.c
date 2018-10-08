@@ -51,7 +51,6 @@ int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int
 int main(){
 
   int j, k;
-  int numCasos = 0;
 
   tipoGrafo Grafo = NULL;
   int numVertices = 0;
@@ -65,90 +64,105 @@ int main(){
   int* f = NULL
   int* setasEntrando = NULL;
   tipoLista verticesRaiz;
+  tipoNo noAux;
+  apontador aux = NULL;
 
-  //Le num casos
-  scanf("%d\n", &numCasos);
+  //Inicializacoes
+  noAux.chave = INVALIDO;
+  CriaListaVazia(&verticesRaiz);
+
   //Para cada caso:
-  for(j=0; j<numCasos; j++)
+  //Le como sera grafo
+  scanf("%d %d\n", &numVertices, &numArestas);
+
+  //Cria o Grafo como matriz Adjacencias
+  InicializaGrafoSemArestas(&Grafo, numVertices);
+
+  //Inicializa o vetor para achar, ao inserir as arestas, os vertices
+  //raiz do DFS
+  setasEntrando = (int*) malloc((numVertices+1)*(sizeof(int)));
+  //inicializa a sentinela
+  setasEntrando[0] = VALORENORME;
+  for(k=1; k<(numVertices+1); k++)
   {
-    //Le como sera grafo
-    scanf("%d %d\n", &numVertices, &numArestas);
+    setasEntrando[k] = 0;
+  }
 
-    //Cria o Grafo como matriz Adjacencias
-    InicializaGrafoSemArestas(&Grafo, numVertices);
+  //Insere as arestas nele
+  for(k=0; k<numArestas; k++)
+  {
+    scanf("%d %d\n", &vOrigem, &vDestino);
+    InsereAresta(&Grafo, vOrigem, vDestino);
+    setasEntrando[vDestino]++;
+  }
 
-    //Inicializa o vetor para achar, ao inserir as arestas, os vertices
-    //raiz do DFS
-    setasEntrando = (int*) malloc((numVertices+1)*(sizeof(int)));
-    //inicializa a sentinela
-    setasEntrando[0] = VALORENORME;
-    for(k=1; k<(numVertices+1); k++)
+  //Procura vertices raizes do DFS e os separa dos outros
+  for(k=1; k<(numVertices+1); k++)
+  {
+    if(setasEntrando[k] == 0)
     {
-      setasEntrando[k] = 0;
+      noAux.chave = k;
+      Insere(&verticesRaiz, noAux);
     }
+  }
 
-    //Insere as arestas nele
-    for(k=0; k<numArestas; k++)
-    {
-      scanf("%d %d\n", &vOrigem, &vDestino);
-      InsereAresta(&Grafo, vOrigem, vDestino);
-      setasEntrando[vDestino]++;
-    }
+  //Faz busca em profundidade nele
+  //Prepara o Grafo para o DFS
+  cor = (int*) malloc((numVertices+1)*(sizeof(int)));
+  antecessor = (int*) malloc((numVertices+1)*(sizeof(int)));
+  d = (int*) malloc((numVertices+1)*(sizeof(int)));
+  f = (int*) malloc((numVertices+1)*(sizeof(int)));
+  tempo = 0;
 
-    //Procura vertices raizes do DFS e os separa dos outros
+  //Para a sentinela:
+  cor[k] = INVALIDO;
+  antecessor[k] = INICIALIZACAO;
+  d[k] = INICIALIZACAO;
+  f[k] = INICIALIZACAO;
 
-    //Faz busca em profundidade nele
-    //Prepara o Grafo para o DFS
-    cor = (int*) malloc((numVertices+1)*(sizeof(int)));
-    antecessor = (int*) malloc((numVertices+1)*(sizeof(int)));
-    d = (int*) malloc((numVertices+1)*(sizeof(int)));
-    f = (int*) malloc((numVertices+1)*(sizeof(int)));
-    tempo = 0;
-
-    //Para a sentinela:
-    cor[k] = INVALIDO;
+  for(k=1; k<numVertices+1; k++)
+  {
+    cor[k] = BRANCO;
     antecessor[k] = INICIALIZACAO;
     d[k] = INICIALIZACAO;
     f[k] = INICIALIZACAO;
-
-    for(k=1; k<numVertices+1; k++)
-    {
-      cor[k] = BRANCO;
-      antecessor[k] = INICIALIZACAO;
-      d[k] = INICIALIZACAO;
-      f[k] = INICIALIZACAO;
-    }
-
-    //aqui*************************************************************
-    //SE RETORNAR DIFERENTE PRECISA PARAR A BUSCA: CHECAR O VALOR DE VISITADFS RETORNADO
-    //MAS ANTES DISSO, VER COMO ESCOLHER O VERTICE DE COMECAR A BUSCA DO VISITADFS
-    //No Grafo
-    //for(k=0; k<numVertices; k++) //nao vai ser assim: vai ser os com entrada zero
-    {
-      if(cor[k] == BRANCO)
-      {
-        VisitaDFS(k, &Grafo, &cor, &antecessor, &tempo, &d, &f);
-        //int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
-        //VisitaDFS(vertice k)
-
-        if(!EstaVazia(Grafo[k])) ///****** checar se pode esse if vazio aqui
-        {
-        //printf("\n");
-        }
-      }
-
-    }
-
-    //Ao fim: destrói o grafo para o proximo caso de teste com outro grafo
-    //e reinicia tudo que precisaria estar reiniciado/novo para um novo caso
-    free(cor);
-    free(antecessor);
-    free(d);
-    free(f);
-    free(setasEntrando);
-    Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?
-
   }
+
+  //aqui*************************************************************
+  //SE RETORNAR DIFERENTE PRECISA PARAR A BUSCA: CHECAR O VALOR DE VISITADFS RETORNADO
+
+  if(EstaVazia(verticesRaiz)) //Se não há vertices raiz
+  {
+    printf("Erro, nao ha vertices raiz.\n");
+    return 0;
+  }
+  else //Se ha vertices raiz possiveis
+  {
+    aux = verticesRaiz.inicio->prox; //endereco da primeira celula raiz possivel
+  }
+
+  //Percorre a lista de vertices raiz possiveis: DFS com os verticesRaiz so
+  //Cada arvore da floresta que eh essa arvores
+  while(aux != NULL)
+  {
+
+    VisitaDFS(aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+    //int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+    //VisitaDFS(vertice k)
+
+    aux = aux->prox;
+  }
+
+  //Ao fim: destrói o grafo para o proximo caso de teste com outro grafo
+  //e reinicia tudo que precisaria estar reiniciado/novo para um novo caso
+  free(cor);
+  free(antecessor);
+  free(d);
+  free(f);
+  free(setasEntrando);
+  Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?**** desalocar
+
+  // Desalocar/limpar verticesRaiz
 
   return 0;
 }

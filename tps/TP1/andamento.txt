@@ -1,3 +1,11 @@
+IMPLEMENTAR DEPOIS:
+1 - Caso em que nao ha vertices que ninguem entra esta imprimindo
+printf("Erro, não ha vertices raiz.\n");, TIRAR ISSO
+---- Imprimir "0 -1" pORQUE VAI SER SEMPRE UM CICLO?
+---- 1.VER SE TEM COMO ISSO EXISTIR E 2.VER SE ISSO GERA UM CICLO NECESSARIAMENTE
+
+ 
+------------------------------------------------------------------------------
 Importante:
 
 AO FINAL DOC: -- 2turnos no minimo acho
@@ -13,7 +21,8 @@ alem do risco de estourar a memoria como é mais do que uma por caso
 ------------------------------------------------------------------------------
 POSSÍVEIS PAUS:
 
-0 - verticesRaiz nao ta sendo desalocado, pode estourar a memoria
+0 - verticesRaiz nao ta sendo desalocado, acho que grafo tambem nao. valgrind vai pegar
+(e pode dar pau na memoria?)
 1- Insere aresta está ordenado: pode dar pau.
 Se colocar o insere sem ser ordenado (apenas o codigo para insere com a lista vazia)
 pode dar menos pau. mas ver se o DFS vai executar direito como devia.
