@@ -1,8 +1,14 @@
 Importante:
 
-AO FINAL DOC:
+AO FINAL DOC: -- 2turnos no minimo acho
 - Fazer a doc!!
 
-AO FINAL:
+AO FINAL: -- 1 turno no minimo essa parte aqui
 - Fazer makefile (de acordo com espec)
 - Modularizar o codigo em bibliotecas
+------------------------------------------------------------------------------
+POSSÍVEIS PAUS:
+
+1- Insere aresta está ordenado: pode dar pau.
+Se colocar o insere sem ser ordenado (apenas o codigo para insere com a lista vazia)
+pode dar menos pau. mas ver se o DFS vai executar direito como devia.

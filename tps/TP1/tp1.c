@@ -89,8 +89,7 @@ int main(){
       f[k] = -1;
     }
 
-    //Impressoes
-    printf("Caso %d:\n", (j+1));
+    //aqui*************************************************************
 
     //No Grafo
     for(k=0; k<numVertices; k++)
@@ -103,7 +102,7 @@ int main(){
 
         if(!EstaVazia(Grafo[k]))
         {
-          printf("\n");
+        //printf("\n");
         }
       }
 
@@ -258,13 +257,13 @@ void VisitaDFS(char* Brancos, int vertice, tipoGrafo* eGrafo, int** eCor, int** 
     {
       if((*eCor)[aux->no.chave] == BRANCO)
       {
-        printf("%s%d-%d pathR(G,%d)\n", Brancos, vertice, aux->no.chave, aux->no.chave);
+        //printf("%s%d-%d pathR(G,%d)\n", Brancos, vertice, aux->no.chave, aux->no.chave);
         (*eAntecessor)[aux->no.chave] = vertice;
         VisitaDFS(novoBrancos, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
       }
-      else
+      else //**** ver se pode esse else vazio aqui
       {
-        printf("%s%d-%d\n", Brancos, vertice, aux->no.chave);
+        //printf("%s%d-%d\n", Brancos, vertice, aux->no.chave);
       }
 
       aux = aux->prox;
