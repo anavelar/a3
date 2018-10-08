@@ -4,7 +4,7 @@ printf("Erro, não ha vertices raiz.\n");, TIRAR ISSO
 ---- Imprimir "0 -1" pORQUE VAI SER SEMPRE UM CICLO?
 ---- 1.VER SE TEM COMO ISSO EXISTIR E 2.VER SE ISSO GERA UM CICLO NECESSARIAMENTE
 
-2 - 
+2 - Desalocar coisas no final, valgrind.....
 ------------------------------------------------------------------------------
 Importante:
 
