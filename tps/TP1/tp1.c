@@ -77,7 +77,7 @@ int main(){
   //Para cada caso:
   //Le como sera grafo
   scanf("%d %d\n", &numVertices, &numArestas);
-  ramo = (char*) malloc(numVertices*(sizeof(char)));
+  ramo = (char*) malloc((numVertices+1)*(sizeof(char)));
   strcpy(ramo, "");
 
   //Cria o Grafo como matriz Adjacencias
@@ -163,7 +163,6 @@ int main(){
     else
     {
       aux = aux->prox;
-      strcpy(ramo, "");
     }
 
   }
@@ -305,15 +304,13 @@ int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAnt
   apontador aux = NULL;
   int corAux = INICIALIZACAO;
   char verticeConvertido[] = "padrao";
-  char stringAux[] = "aux"; //sss
   sprintf(verticeConvertido, "%d", vertice);
+  //teste - printf("vertice convertido eh %s, de comprimento %d.\n", verticeConvertido, strlen(verticeConvertido));
+  strcat(ramo, verticeConvertido);
 
   ((*(eCor))[vertice]) = CINZA;
   (*(eTempo)) = (*(eTempo)) + 1;
   (*(eD))[vertice] = (*(eTempo));
-
-  strcat(ramo, verticeConvertido);
-  strcpy(stringAux, ramo); //ssss
 
   if(!EstaVazia((*eGrafo)[vertice])) //Caso o vertice tenha vizinhos / adjacentes
   {
@@ -323,7 +320,7 @@ int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAnt
       if((*eCor)[aux->no.chave] == BRANCO)
       {
         (*eAntecessor)[aux->no.chave] = vertice;
-        corAux = VisitaDFS(stringAux, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        corAux = VisitaDFS(ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
         //corAux = VisitaDFS(ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
         if (corAux == DIFERENTE)
         {
@@ -349,11 +346,10 @@ int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAnt
 
   if( ((*eF)[vertice]) == (((*eD)[vertice])+1) )
   {
-    printf("%s\n", stringAux);
-    //printf("%s\n", ramo);
-    //strcpy(ramo, ""); //faz virar 65 e nao 1265
+    printf("%s\n", ramo);
   }
 
+  ramo[strlen(ramo)-strlen(verticeConvertido)] = '\0'; //marretada do capetaaaaaaaaaaaaaaaaaaaa
   return NORMAL;
 
 }

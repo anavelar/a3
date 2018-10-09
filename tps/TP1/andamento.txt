@@ -1,4 +1,6 @@
 IMPLEMENTAR DEPOIS:
+0 - ramo ultimas posicoes = '\0', comprimento e desalocação NA MARRETADA, OLHAR ISSO MELHOR
+
 1 - Caso em que nao ha vertices que ninguem entra esta imprimindo
 printf("Erro, não ha vertices raiz.\n");, TIRAR ISSO
 ---- Imprimir "0 -1" pORQUE VAI SER SEMPRE UM CICLO?
@@ -22,10 +24,8 @@ alem do risco de estourar a memoria como é mais do que uma por caso
 ------------------------------------------------------------------------------
 POSSÍVEIS PAUS:
 
-
-00********************************atribuicao de valor "" a variavel ramo diminiu seu espaço de alocacao??
- aí da erros de acesso!!
-00************************* segunda chamada eRamo na VisitaDFS ta certo passar assim?
+000 - ramo ultimas posicoes = '\0', comprimento e desalocação NA MARRETADA, OLHAR ISSO MELHOR
+00 - atribuicoes em ramo desalocam sua memoria a mais? acho q nao massss / e strcpy faz isso?
 0 - verticesRaiz nao ta sendo desalocado, acho que grafo tambem nao. valgrind vai pegar
 (e pode dar pau na memoria?)
 1- Insere aresta está ordenado: pode dar pau.
