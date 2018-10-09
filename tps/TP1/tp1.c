@@ -56,6 +56,7 @@ int main(){
   int numVertices = 0;
   int numArestas = 0;
   int vOrigem, vDestino;
+  char ramo[] = "ramo";
 
   int* cor = NULL;
   int* antecessor = NULL;
@@ -141,6 +142,7 @@ int main(){
   else //Se ha vertices raiz possiveis
   {
     aux = verticesRaiz.inicio->prox; //endereco da primeira celula raiz possivel
+    
   }
 
   //Percorre a lista de vertices raiz possiveis: DFS com os verticesRaiz so
