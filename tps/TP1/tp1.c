@@ -46,7 +46,7 @@ void ImprimeLista (tipoLista lista);
 void InicializaGrafoSemArestas(tipoGrafo* eGrafo, int numVertices);
 void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino);
 //-- DFS
-int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
+int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
 
 //---------------------------------PROGRAMA
 int main(){
@@ -57,7 +57,7 @@ int main(){
   int numVertices = 0;
   int numArestas = 0;
   int vOrigem, vDestino;
-  char ramo[] = "ramo";
+  char* ramo;
 
   int* cor = NULL;
   int* antecessor = NULL;
@@ -77,6 +77,8 @@ int main(){
   //Para cada caso:
   //Le como sera grafo
   scanf("%d %d\n", &numVertices, &numArestas);
+  ramo = (char*) malloc(numVertices*(sizeof(char)));
+  strcpy(ramo, "");
 
   //Cria o Grafo como matriz Adjacencias
   InicializaGrafoSemArestas(&Grafo, numVertices);
@@ -143,10 +145,6 @@ int main(){
   else //Se ha vertices raiz possiveis
   {
     aux = verticesRaiz.inicio->prox; //endereco da primeira celula raiz possivel
-    sprintf(ramo, "%d", aux->no.chave);
-    printf("o valor de ramo eh %s, comprimento %d.\n", ramo, strlen(ramo));
-    //sprintf(oi, "%d", i);
-    //char oi[] = "a"; int i = 19887;
   }
 
   //Percorre a lista de vertices raiz possiveis: DFS com os verticesRaiz so
@@ -154,8 +152,8 @@ int main(){
   while(aux != NULL)
   {
 
-    indicaCiclo = VisitaDFS(aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
-    //int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+    indicaCiclo = VisitaDFS(ramo, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+    //int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
     //VisitaDFS(vertice k)
 
     if(!indicaCiclo) //Se tem ciclo
@@ -165,6 +163,7 @@ int main(){
     else
     {
       aux = aux->prox;
+      strcpy(ramo, "");
     }
 
   }
@@ -176,6 +175,7 @@ int main(){
   //free(f);
   //free(setasEntrando);
   //Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?**** desalocar
+  //desalocar variavel ramo
 
   // Desalocar/limpar verticesRaiz
 
@@ -300,14 +300,20 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 }
 
 //-- DFS
-int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
   apontador aux = NULL;
   int corAux = INICIALIZACAO;
+  char verticeConvertido[] = "padrao";
+  char stringAux[] = "aux"; //sss
+  sprintf(verticeConvertido, "%d", vertice);
 
   ((*(eCor))[vertice]) = CINZA;
   (*(eTempo)) = (*(eTempo)) + 1;
   (*(eD))[vertice] = (*(eTempo));
+
+  strcat(ramo, verticeConvertido);
+  strcpy(stringAux, ramo); //ssss
 
   if(!EstaVazia((*eGrafo)[vertice])) //Caso o vertice tenha vizinhos / adjacentes
   {
@@ -317,7 +323,8 @@ int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int
       if((*eCor)[aux->no.chave] == BRANCO)
       {
         (*eAntecessor)[aux->no.chave] = vertice;
-        corAux = VisitaDFS(aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        corAux = VisitaDFS(stringAux, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        //corAux = VisitaDFS(ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
         if (corAux == DIFERENTE)
         {
           return DIFERENTE;
@@ -339,6 +346,13 @@ int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int
   ((*eCor)[vertice]) = PRETO;
   (*(eTempo)) = (*(eTempo)) + 1;
   ((*eF)[vertice]) = (*(eTempo));
+
+  if( ((*eF)[vertice]) == (((*eD)[vertice])+1) )
+  {
+    printf("%s\n", stringAux);
+    //printf("%s\n", ramo);
+    //strcpy(ramo, ""); //faz virar 65 e nao 1265
+  }
 
   return NORMAL;
 
