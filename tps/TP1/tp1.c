@@ -147,6 +147,7 @@ int main(){
   //Cada arvore da floresta que eh essa arvores
   while(aux != NULL)
   {
+
     indicaCiclo = VisitaDFS(aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
     //int VisitaDFS(int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
     //VisitaDFS(vertice k)
