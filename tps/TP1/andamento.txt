@@ -18,6 +18,7 @@ AO FINAL: -- 1 turno no minimo essa parte aqui
 SE SOBRAR TEMPO:
 - Tem estruturas de dados nao sendo desalocadas direito, o valgrind vai pegar
 alem do risco de estourar a memoria como é mais do que uma por caso
+-trocar a funcao da bib math.h por outra
 ------------------------------------------------------------------------------
 POSSÍVEIS PAUS:
 
