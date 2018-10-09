@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #define INVALIDO -1
 #define BRANCO 1
@@ -142,7 +143,10 @@ int main(){
   else //Se ha vertices raiz possiveis
   {
     aux = verticesRaiz.inicio->prox; //endereco da primeira celula raiz possivel
-    
+    sprintf(ramo, "%d", aux->no.chave);
+    printf("o valor de ramo eh %s, comprimento %d.\n", ramo, strlen(ramo));
+    //sprintf(oi, "%d", i);
+    //char oi[] = "a"; int i = 19887;
   }
 
   //Percorre a lista de vertices raiz possiveis: DFS com os verticesRaiz so
