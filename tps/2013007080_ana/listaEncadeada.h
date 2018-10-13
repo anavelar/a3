@@ -1,6 +1,11 @@
 #ifndef LISTAS
 #define LISTAS
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
 //Estruturas de dados
 typedef struct tipoCelulah* apontador;
 typedef struct{

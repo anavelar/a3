@@ -3,7 +3,6 @@
 #include <string.h>
 #include <math.h>
 #include "grafos.h"
-#include "listaEncadeada.h"
 
 #define INVALIDO -1
 #define VALORENORME 1000

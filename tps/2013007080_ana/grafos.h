@@ -1,7 +1,7 @@
-#include "listaEncadeada.h"
-
 #ifndef GRAFOS
 #define GRAFOS
+
+#include "listaEncadeada.h"
 
 #define BRANCO 1
 #define CINZA 2
