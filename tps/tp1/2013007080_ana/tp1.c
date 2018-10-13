@@ -1,5 +1,6 @@
 // Ja inclui as bib padrao:
 // sdtlib, sdtio, string, math
+// constantes usadas estao aqui tb, alem da estr dados e funcoes
 #include "grafos.h"
 
 #define INVALIDO -1
