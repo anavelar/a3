@@ -1,0 +1,27 @@
+Na entrega:
+-----------
+
+- LIMPAR A PASTA DE ENTREGA 2013007080
+  - DEIXAR SOMENTE
+    - Arquivos .c e .h
+    - Makefile
+    - Documentacao em pdf
+  -----> Todos na raiz, sem pastas.
+  -----> Nao mandar nenhum txt, nenhum teste, nenhuma pasta.
+
+
+- COMPACTAR EM ZIP E ENVIAR NO MOODLE
+  - Na pasta logo acima da pasta 2013007080_ana, fazer:
+  	zip -r 2013007080_ana_avelar.zip 2013007080_ana_avelar
+
+- Remover comentários se der e dar uma organizada se der
+
+
+OBS:
+----
+ - Sem DOC ou sem codigo a nota é zero.
+
+
+PLUS:***********
+----------------
+ - Testar o codigo nas maquinas Linux da graduacao?
