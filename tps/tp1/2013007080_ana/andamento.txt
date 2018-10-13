@@ -1,5 +1,5 @@
-AGORA:
-------------------------------------------------------------------------------------
+AGORA: (ja li e fiz secoes 5 e 7 da espec, falta a 6(doc) mas de codigo arrumar falta o aqui abaixo:
+----------------------------------------------------------------------------------------------------
 DE CODIGO:
 1 - ARGC E ARGV:
 • O utilit´ario make deve ser utilizado para auxiliar a compila¸c˜ao, um arquivo Makefile
