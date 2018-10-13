@@ -1,13 +1,8 @@
 AGORA: (ja li e fiz secoes 5 e 7 da espec, falta a 6(doc) mas de codigo arrumar falta o aqui abaixo:
 ----------------------------------------------------------------------------------------------------
 DE CODIGO:
-1 - ARGC E ARGV:
-• O utilit´ario make deve ser utilizado para auxiliar a compila¸c˜ao, um arquivo Makefile
-deve portanto ser inclu´ıdo no c´odigo submetido. O utilit´ario dever´a gerar um execut´avel
-com o nome tp1 que dever´a obrigatoriamente ser capaz de receber o nome do arquivo
-de entrada e do arquivo de sa´ıda. O comando para execut´a-lo dever´a seguir o exemplo
-abaixo:
-/.tp1 input.txt output.txt
+1 - ARGC E ARGV: /.tp1 input.txt output.txt
+----Conferir depois passo a passo no codigo se foi tudo redirecionado.
 
 2- VALGRIND e vazemento de memoria (no final?)
 a) Usar o valgrind para checar se não esta tendo vazamento de memoria
