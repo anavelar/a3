@@ -1,0 +1,91 @@
+Anotações
+------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------
+Aula de Compiladores e processo de compilação do Estratégia
+-----------------------------------------------------------
+
+NOMENCLATURA
+------------
+
+- CÓDIGO FONTE:
+Os .c, .java, linguagens de "Alto nível".
+
+- ASSEMBLY / LINGUAGEM DE MONTAGEM:
+Instruções em MIPS,  que depende da arquitetura.
+
+- LINGUAGEM DE MÁQUINA / CÓDIGO DE MÁQUINA --- Código Objeto:
+Instruções de OC2 já traduzidas para 0's e 1's.
+
+
+
+COMPONENTES
+-----------
+
+- PRÉ- PROCESSADOR:
+O pré-processador é um programa que recebe um texto e efetua conversões
+léxicas, tais como substituição de macros, inclusão condicional, inclusão de ficheiros
+e exclusão de comentários. É baseado em Diretivas de Compilação (Ex: #define,
+#include, etc), que são comandos que não são compilados, dirigidos ao pré-processador
+e executado pelo compilador antes do processo de compilação em si.
+
+- COMPILADOR
+O compilador é um programa de computador que lê um código-fonte escrito em
+uma linguagem de alto nível (java, c, qq uma independente da arquitetura tipo MIPS
+do PC) e o traduz para uma linguagem de baixo nível (linguagens que dependem da
+arquitetura: MIPS, X86, e código de máquina binário delas por exemplo).
+O processo de compilação é dividido em duas fases: Análise ou Front-End (Análise
+Léxica, Sintática, Semântica, Geração de Código Intermediário) e Síntese ou Backend
+(Otimização de Código Intermediário e Geração de Código Final).
+
+
+- MONTADOR
+O processo de Montagem traduz um programa escrito em linguagem de montagem (Ex: Assembly)
+em um equivalente em linguagem de máquina (com algumas referências).
+
+- LIGADOR
+Ligadores são programas que recebem como entrada um conjunto de arquivos objeto (binários)
+bibliotecas padrão, arquivos de controle, parâmetros diversos e bibliotecas
+compartilhadas e os unem em um módulo, denominado Módulo de Carga (executável).
+Produz o executável ao resolver as referências entre os binários.
+Ele é responsável por resolver referencias internas e externas.
+
+- CARREGADOR:
+Executa o executável (Carrega o programa na memória e dá play.)
+
+
+
+PROCESSOS
+---------
+- COMPILADOR:
+Traduz código fonte (.c, .java) para assembly (MPIS).
+
+- MONTADOR / ASSEMBLER / Processo de Montagem:
+Traduz código assembly (MIPS) para o código de máquina (0's e 1's).
+
+
+----------------------------------
+Makefiles, gcc, e correlacionados
+----------------------------------
+
+GCC
+---
+When you invoke GCC , it normally does preprocessing, compilation, assembly and linking.
+The "overall options" allow you to stop this process at an intermediate stage.
+
+GCC -c
+------
+For example, the -c option says not to run the linker.
+Then the output consists of object files (0s e 1s) output by the assembler.
+(Isto é: Compila e transforma em binário mas não conecta as referências.
+- faz o pre-processamento das diretivas de compilação,
+- compila (linguagem -> assembly),
+- monta (assembly->binario) mas
+não faz a conexão entre as referências dos binários.)
+
+
+-------------------
+Links Interessantes
+-------------------
+- Parametros do gcc: https://linux.die.net/man/1/gcc
+- Modularizacao, arquivos .c e .h: https://www.ime.usp.br/~pf/algoritmos/apend/interfaces.html

@@ -1,7 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
+// Ja inclui as bib padrao:
+// sdtlib, sdtio, string, math
 #include "grafos.h"
 
 #define INVALIDO -1
