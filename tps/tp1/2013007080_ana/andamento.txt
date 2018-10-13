@@ -24,6 +24,7 @@ alem do risco de estourar a memoria como é mais do que uma por caso
 ------------------------------------------------------------------------------
 POSSÍVEIS PAUS:
 
+000 - Ao modulalizar, checar constantes nas bibliotecas ******************
 000 - ramo ultimas posicoes = '\0', comprimento e desalocação NA MARRETADA, OLHAR ISSO MELHOR
 00 - atribuicoes em ramo desalocam sua memoria a mais? acho q nao massss / e strcpy faz isso?
 0 - verticesRaiz nao ta sendo desalocado, acho que grafo tambem nao. valgrind vai pegar
