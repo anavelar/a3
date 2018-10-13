@@ -29,13 +29,13 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 }
 
 //DFS
-int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+int VisitaDFS(FILE** eponteiroArqSaida, char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
   apontador aux = NULL;
   int corAux = INICIALIZACAO;
   char verticeConvertido[] = "padrao";
   sprintf(verticeConvertido, "%d", vertice);
-  //teste - printf("vertice convertido eh %s, de comprimento %d.\n", verticeConvertido, strlen(verticeConvertido));
+  //teste - fprintf((*ponteiroArqSaida), "vertice convertido eh %s, de comprimento %d.\n", verticeConvertido, strlen(verticeConvertido));
   strcat(ramo, verticeConvertido);
 
   ((*(eCor))[vertice]) = CINZA;
@@ -50,8 +50,8 @@ int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAnt
       if((*eCor)[aux->no.chave] == BRANCO)
       {
         (*eAntecessor)[aux->no.chave] = vertice;
-        corAux = VisitaDFS(ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
-        //corAux = VisitaDFS(ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        corAux = VisitaDFS(eponteiroArqSaida, ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        //corAux = VisitaDFS(eponteiroArqSaida, ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
         if (corAux == DIFERENTE)
         {
           return DIFERENTE;
@@ -61,7 +61,7 @@ int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAnt
       {
         if((*eCor)[aux->no.chave] == CINZA) //tem aresta de retorno: tem ciclo nesse demonio
         {
-          printf("0 -1\n");
+          fprintf((*eponteiroArqSaida),"0 -1\n");
           return DIFERENTE;
         }
       }
@@ -76,7 +76,7 @@ int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAnt
 
   if( ((*eF)[vertice]) == (((*eD)[vertice])+1) )
   {
-    printf("%s\n", ramo);
+    fprintf((*eponteiroArqSaida), "%s\n", ramo);
   }
 
   ramo[strlen(ramo)-strlen(verticeConvertido)] = '\0'; //marretada do capetaaaaaaaaaaaaaaaaaaaa

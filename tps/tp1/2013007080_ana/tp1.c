@@ -7,10 +7,12 @@
 #define VALORENORME 1000
 
 //---------------------------------PROGRAMA
-int main(){
+int main(int argc, char** argv){
 
   int j, k;
 
+  FILE *ponteiroArqEntrada;
+  FILE *ponteiroArqSaida;
   tipoGrafo Grafo = NULL;
   int numVertices = 0;
   int numArestas = 0;
@@ -32,9 +34,28 @@ int main(){
   noAux.chave = INVALIDO;
   CriaListaVazia(&verticesRaiz);
 
+  //Entrada dos dados
+  if(argc != 3)
+  {
+    printf("\nERRO. Faltam parametros para a execucao do programa,");
+    printf("falta especificar o arquivo de entrada, de saida ou o executavel.\n");
+    printf("\nNao foi possivel executar o programa.\n\n");
+    return 0;
+  }
+
+  ponteiroArqSaida = fopen(argv[2],"w");
+  ponteiroArqEntrada = fopen(argv[1],"r");
+  if(ponteiroArqEntrada == NULL)
+  {
+    printf("\nNao foi possivel encontrar o arquivo de entrada.\n");
+    printf("\nNao foi possivel executar o programa.\n\n");
+    fclose(ponteiroArqSaida);
+    return 0;
+  }
+
   //Para cada caso:
   //Le como sera grafo
-  scanf("%d %d\n", &numVertices, &numArestas);
+  fscanf(ponteiroArqEntrada, "%d %d\n", &numVertices, &numArestas);
   ramo = (char*) malloc((numVertices+1)*(sizeof(char)));
   strcpy(ramo, "");
 
@@ -54,7 +75,7 @@ int main(){
   //Insere as arestas nele
   for(k=0; k<numArestas; k++)
   {
-    scanf("%d %d\n", &vOrigem, &vDestino);
+    fscanf(ponteiroArqEntrada, "%d %d\n", &vOrigem, &vDestino);
     InsereAresta(&Grafo, vOrigem, vDestino);
     setasEntrando[vDestino]++;
   }
@@ -94,10 +115,14 @@ int main(){
 
   if(EstaVazia(verticesRaiz)) //Se não há vertices raiz
   {
-    //printf("Erro, nao ha vertices raiz.\n");
+    //fprintf(ponteiroArqSaida, "Erro, nao ha vertices raiz.\n");
     //*************************************************************************
     //VOLTAR AQUI PARA VER SE EH ISSO MESMO
-    printf("0 -1");
+    //fprintf(FILE* ptf, "coisa a imprimir\n");
+    fprintf(ponteiroArqSaida, "0 -1");
+
+    fclose(ponteiroArqEntrada);
+    fclose(ponteiroArqSaida);
     return 0;
   }
   else //Se ha vertices raiz possiveis
@@ -110,13 +135,15 @@ int main(){
   while(aux != NULL)
   {
 
-    indicaCiclo = VisitaDFS(ramo, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
-    //int VisitaDFS(char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+    indicaCiclo = VisitaDFS(&ponteiroArqSaida, ramo, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+    //int VisitaDFS(&ponteiroArqSaida, char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
     //VisitaDFS(vertice k)
 
     if(!indicaCiclo) //Se tem ciclo
     {
-      return 0;
+      fclose(ponteiroArqEntrada);
+      fclose(ponteiroArqSaida);
+      return 0; //nao precisa imprimir: impressao feita quando achou o ciclo
     }
     else
     {
@@ -135,6 +162,7 @@ int main(){
   //desalocar variavel ramo
 
   // Desalocar/limpar verticesRaiz
-
+  fclose(ponteiroArqEntrada);
+  fclose(ponteiroArqSaida);
   return 0;
 }
