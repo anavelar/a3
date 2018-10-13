@@ -1,0 +1,37 @@
+IMPLEMENTAR DEPOIS:
+0 - ramo ultimas posicoes = '\0', comprimento e desalocação NA MARRETADA, OLHAR ISSO MELHOR
+
+1 - Caso em que nao ha vertices que ninguem entra esta imprimindo
+printf("Erro, não ha vertices raiz.\n");, TIRAR ISSO
+---- Imprimir "0 -1" pORQUE VAI SER SEMPRE UM CICLO?
+---- 1.VER SE TEM COMO ISSO EXISTIR E 2.VER SE ISSO GERA UM CICLO NECESSARIAMENTE
+
+2 - Desalocar coisas no final, valgrind.....
+------------------------------------------------------------------------------
+Importante:
+
+AO FINAL DOC: -- 2turnos no minimo acho
+- Fazer a doc!!
+
+AO FINAL: -- 1 turno no minimo essa parte aqui
+- Fazer makefile (de acordo com espec)
+- Modularizar o codigo em bibliotecas
+
+SE SOBRAR TEMPO:
+- Tem estruturas de dados nao sendo desalocadas direito, o valgrind vai pegar
+alem do risco de estourar a memoria como é mais do que uma por caso
+-trocar a funcao da bib math.h por outra
+------------------------------------------------------------------------------
+POSSÍVEIS PAUS:
+
+000 - ramo ultimas posicoes = '\0', comprimento e desalocação NA MARRETADA, OLHAR ISSO MELHOR
+00 - atribuicoes em ramo desalocam sua memoria a mais? acho q nao massss / e strcpy faz isso?
+0 - verticesRaiz nao ta sendo desalocado, acho que grafo tambem nao. valgrind vai pegar
+(e pode dar pau na memoria?)
+1- Insere aresta está ordenado: pode dar pau.
+Se colocar o insere sem ser ordenado (apenas o codigo para insere com a lista vazia)
+pode dar menos pau. mas ver se o DFS vai executar direito como devia.
+2- seg fault no corAux: precisa corAux = INICIALIZACAO dentro do while tambem (mas antes do
+resultado da chamada)
+3- ****INDICES DOS VERTICES ESTAO TDS UM PRA CIMA MAS NAO SEI SE TD, ACHO QUE SIM MAS SEM CERTEZA,
+PODE HAVER ALGUM ACESSO INDEVIDO.
