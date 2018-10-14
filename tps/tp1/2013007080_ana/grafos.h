@@ -7,6 +7,7 @@
 #define CINZA 2
 #define PRETO 3
 #define INICIALIZACAO -1
+
 #define DIFERENTE 0
 #define NORMAL 1
 
