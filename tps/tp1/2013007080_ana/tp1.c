@@ -170,6 +170,19 @@ int main(int argc, char** argv){
 
   }
 
+  //teste: Imprime os ramos construidos
+  //Cada ramo
+  for(k=0; k<numRamos; k++) //tem pelo menos 1 ramo
+  {
+    printf("Ramo %d:\n", (k+1));
+    //Elementos em cada ramo:
+    for(j=0; j<(tamanhoDesseRamo[k]); j++)
+    {
+      printf("%d\n", vetorRamos[k][j]);
+    }
+    printf("\n");
+  }
+
   //No final: Desalocar memoria
   //free(cor);
   //free(antecessor);

@@ -96,6 +96,6 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
 
   //Remove esse vertice do ramo de busca
   //ramo[strlen(ramo)-strlen(verticeConvertido)] = '\0'; //marretada do capetaaaaaaaaaaaaaaaaaaaa
-  (*etamanhoRamoBusca) = (*etamanhoRamoBusca) - 1;
+  (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) - 1;
   return NORMAL;
 }
