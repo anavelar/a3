@@ -29,14 +29,17 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 }
 
 //DFS
-int VisitaDFS(FILE** eponteiroArqSaida, char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* tamanhoDesseRamo, int* ramoBusca, int* eTamanhoRamoBusca, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
+  int i; //contador
   apontador aux = NULL;
   int corAux = INICIALIZACAO;
-  char verticeConvertido[] = "padrao";
-  sprintf(verticeConvertido, "%d", vertice);
-  //teste - fprintf((*ponteiroArqSaida), "vertice convertido eh %s, de comprimento %d.\n", verticeConvertido, strlen(verticeConvertido));
-  strcat(ramo, verticeConvertido);
+  //Insere o vertice visitado aqui no ramo
+  //char verticeConvertido[] = "padraozao";
+  //sprintf(verticeConvertido, "%d", vertice);
+  //strcat(ramo, verticeConvertido);
+  ramoBusca[(*eTamanhoRamoBusca)] = vertice;
+  (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) + 1;
 
   ((*(eCor))[vertice]) = CINZA;
   (*(eTempo)) = (*(eTempo)) + 1;
@@ -50,8 +53,8 @@ int VisitaDFS(FILE** eponteiroArqSaida, char* ramo, int vertice, tipoGrafo* eGra
       if((*eCor)[aux->no.chave] == BRANCO)
       {
         (*eAntecessor)[aux->no.chave] = vertice;
-        corAux = VisitaDFS(eponteiroArqSaida, ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
-        //corAux = VisitaDFS(eponteiroArqSaida, ramo, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        //chamada de funcao aqui usando ramo, removi, olhar (soh olhar) nos commits anteriores.
+        corAux = VisitaDFS(eponteiroArqSaida, vetorRamos, eNumRamos, tamanhoDesseRamo, ramoBusca, eTamanhoRamoBusca, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
         if (corAux == DIFERENTE)
         {
           return DIFERENTE;
@@ -76,10 +79,23 @@ int VisitaDFS(FILE** eponteiroArqSaida, char* ramo, int vertice, tipoGrafo* eGra
 
   if( ((*eF)[vertice]) == (((*eD)[vertice])+1) )
   {
-    fprintf((*eponteiroArqSaida), "%s\n", ramo);
+    //Chegou ao fim do ramo de busca.
+    //fprintf((*eponteiroArqSaida), "%s\n", ramo);
+
+    //Insere o ramo no vetor de Ramos:
+    vetorRamos[(*eNumRamos)] = (int*) malloc((*eTamanhoRamoBusca)*sizeof(int));
+    tamanhoDesseRamo[(*eNumRamos)] = (*eTamanhoRamoBusca);
+    for(i=0; i<(*eTamanhoRamoBusca); i++)
+    {
+      vetorRamos[(*eNumRamos)][i] = ramoBusca[i];
+    }
+
+    //Por ultimo de tudo!!:
+    (*eNumRamos) = (*eNumRamos) + 1;
   }
 
-  ramo[strlen(ramo)-strlen(verticeConvertido)] = '\0'; //marretada do capetaaaaaaaaaaaaaaaaaaaa
+  //Remove esse vertice do ramo de busca
+  //ramo[strlen(ramo)-strlen(verticeConvertido)] = '\0'; //marretada do capetaaaaaaaaaaaaaaaaaaaa
+  (*etamanhoRamoBusca) = (*etamanhoRamoBusca) - 1;
   return NORMAL;
-
 }

@@ -17,7 +17,6 @@ int main(int argc, char** argv){
   int numVertices = 0;
   int numArestas = 0;
   int vOrigem, vDestino;
-  char* ramo;
 
   int* cor = NULL;
   int* antecessor = NULL;
@@ -29,6 +28,15 @@ int main(int argc, char** argv){
   tipoNo noAux;
   apontador aux = NULL;
   int indicaCiclo = NORMAL; //Se tiver ciclo, ela vira o valor DIFERENTE (ZERO)
+
+  //char* ramo;
+  //Ramo de busca
+  int* ramoBusca = NULL;
+  int tamanhoRamoBusca = 0;
+  //Vetor com os ramos de busca
+  int** vetorRamos = NULL;
+  int numRamos = 0;
+  int* tamanhoDesseRamo = NULL;
 
   //Inicializacoes
   noAux.chave = INVALIDO;
@@ -56,8 +64,19 @@ int main(int argc, char** argv){
   //Para cada caso:
   //Le como sera grafo
   fscanf(ponteiroArqEntrada, "%d %d\n", &numVertices, &numArestas);
-  ramo = (char*) malloc((numVertices+1)*(sizeof(char)));
-  strcpy(ramo, "");
+  //ramo = (char*) malloc((numVertices+1)*(sizeof(char)));
+  //strcpy(ramo, "");
+  //Inicializa o ramo de busca
+  ramoBusca = (int*) malloc(numVertices*(sizeof(int)));
+  tamanhoRamoBusca = 0;
+  //Inicializa o vetor de ramos encontrados
+  vetorRamos = (int**) malloc(numVertices*(sizeof(int*)));
+  tamanhoDesseRamo = (int*) malloc(numVertices*(sizeof(int)));
+  for(j=0; j<numVertices; j++)
+  {
+    vetorRamos[j] = NULL;
+    //tamanhoDesseRamo = 0; //Nao precisa inicializar e vai gastar tempo
+  }
 
   //Cria o Grafo como matriz Adjacencias
   InicializaGrafoSemArestas(&Grafo, numVertices);
@@ -99,10 +118,10 @@ int main(int argc, char** argv){
   tempo = 0;
 
   //Incializa a sentinela:
-  cor[k] = INVALIDO;
-  antecessor[k] = INICIALIZACAO;
-  d[k] = INICIALIZACAO;
-  f[k] = INICIALIZACAO;
+  cor[0] = INVALIDO;
+  antecessor[0] = INVALIDO;
+  d[0] = INVALIDO;
+  f[0] = INVALIDO;
 
   //Inicializa os outros
   for(k=1; k<numVertices+1; k++)
@@ -118,7 +137,6 @@ int main(int argc, char** argv){
     //fprintf(ponteiroArqSaida, "Erro, nao ha vertices raiz.\n");
     //*************************************************************************
     //VOLTAR AQUI PARA VER SE EH ISSO MESMO
-    //fprintf(FILE* ptf, "coisa a imprimir\n");
     fprintf(ponteiroArqSaida, "0 -1");
 
     fclose(ponteiroArqEntrada);
@@ -134,9 +152,9 @@ int main(int argc, char** argv){
   //Cada arvore da floresta que eh essa arvores
   while(aux != NULL)
   {
-
-    indicaCiclo = VisitaDFS(&ponteiroArqSaida, ramo, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
-    //int VisitaDFS(&ponteiroArqSaida, char* ramo, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+    indicaCiclo = VisitaDFS(&ponteiroArqSaida, vetorRamos, &numRamos, tamanhoDesseRamo, ramoBusca, &tamanhoRamoBusca, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+    //int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* tamanhoDesseRamo,int* ramoBusca, int* eTamanhoRamoBusca, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
+    //chamada do VisitaDFS usando o ramo char/vetor de char isso.
     //VisitaDFS(vertice k)
 
     if(!indicaCiclo) //Se tem ciclo
@@ -160,6 +178,7 @@ int main(int argc, char** argv){
   //free(setasEntrando);
   //Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?**** desalocar
   //desalocar variavel ramo
+  //desalocar ramo de busca, reinicializar seu tamanho (se necessario esta parte)
 
   // Desalocar/limpar verticesRaiz
   fclose(ponteiroArqEntrada);
