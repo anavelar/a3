@@ -36,6 +36,11 @@ int main(int argc, char** argv){
   int** vetorRamos = NULL;
   int numRamos = 0;
   int* tamanhoDesseRamo = NULL;
+  int* vetorResultado = NULL;
+  int verticesInseridos = 0;
+  int* inicioRamo = NULL;
+  int verticeMax = INVALIDO;
+  int ramoVerticeMax = INVALIDO;
 
   //Inicializacoes
   noAux.chave = INVALIDO;
@@ -69,9 +74,11 @@ int main(int argc, char** argv){
   //Inicializa o vetor de ramos encontrados
   vetorRamos = (int**) malloc(numVertices*(sizeof(int*)));
   tamanhoDesseRamo = (int*) malloc(numVertices*(sizeof(int)));
+  inicioRamo = (int*) malloc(numVertices*(sizeof(int)));
   for(j=0; j<numVertices; j++)
   {
     vetorRamos[j] = NULL;
+    inicioRamo[j] = 0;
     //tamanhoDesseRamo = 0; //Nao precisa inicializar e vai gastar tempo
   }
 
@@ -163,6 +170,59 @@ int main(int argc, char** argv){
       aux = aux->prox;
     }
 
+  }
+
+  //Gera resultado a partir dos Ramos e o imprime no arquivo
+  //******************************AQUI
+  //Inicializa o vetor de resultados
+  vetorResultado = (int*) malloc(numVertices*(sizeof(int)));
+  verticesInseridos = 0;
+
+  //Ate inserir todos os vertices no vetor de Resultados:
+  //Procura pelo vertice max da vez e on insere no vetor de resultados
+  for(j=0; j<numVertices; j++)
+  {
+    //Procura o vertice max entre os ramos
+    for(k=0; k<numRamos; k++)
+    {
+      if((0+inicioRamo[k]) < tamanhoDesseRamo[k]) //Se ainda ha vertices nesse ramo
+      {
+        if( vetorRamos[k][0+inicioRamo[k]] > verticeMax )
+        {
+          verticeMax = vetorRamos[k][0+inicioRamo[k]];
+          ramoVerticeMax = k;
+        }
+      }
+    }
+
+    //Apos achar verticeMax (e seu ramo ramoVerticeMax)
+    //Insere o max no vetor de resultados
+    vetorResultado[verticesInseridos] = verticeMax;
+    verticesInseridos++;
+
+    //Retira verticeMax da busca nos ramos
+    inicioRamo[ramoVerticeMax]++;
+
+    //Reinicializa para busca
+    verticeMax = INVALIDO;
+    ramoVerticeMax = INVALIDO;
+  }
+
+  //teste
+  //Imprime os resultados
+  //ARRUMAR ISSO, EH O X QUE VAI SER 1 OU 2 (CASO X=O JA TRATADO).
+  fprintf(ponteiroArqSaida, "%d ", 27);
+  //imprime cada vertice
+  for(k=(numVertices-1); k>=0; k--)
+  {
+    if(k==0)
+    {
+      fprintf(ponteiroArqSaida, "%d", vetorResultado[k]);
+    }
+    else
+    {
+      fprintf(ponteiroArqSaida, "%d,", vetorResultado[k]);
+    }
   }
 
   //No final: Desalocar memoria
