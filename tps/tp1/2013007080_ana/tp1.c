@@ -29,7 +29,6 @@ int main(int argc, char** argv){
   apontador aux = NULL;
   int indicaCiclo = NORMAL; //Se tiver ciclo, ela vira o valor DIFERENTE (ZERO)
 
-  //char* ramo;
   //Ramo de busca
   int* ramoBusca = NULL;
   int tamanhoRamoBusca = 0;
@@ -64,8 +63,6 @@ int main(int argc, char** argv){
   //Para cada caso:
   //Le como sera grafo
   fscanf(ponteiroArqEntrada, "%d %d\n", &numVertices, &numArestas);
-  //ramo = (char*) malloc((numVertices+1)*(sizeof(char)));
-  //strcpy(ramo, "");
   //Inicializa o ramo de busca
   ramoBusca = (int*) malloc(numVertices*(sizeof(int)));
   tamanhoRamoBusca = 0;
@@ -153,8 +150,6 @@ int main(int argc, char** argv){
   while(aux != NULL)
   {
     indicaCiclo = VisitaDFS(&ponteiroArqSaida, vetorRamos, &numRamos, tamanhoDesseRamo, ramoBusca, &tamanhoRamoBusca, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
-    //int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* tamanhoDesseRamo,int* ramoBusca, int* eTamanhoRamoBusca, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF);
-    //chamada do VisitaDFS usando o ramo char/vetor de char isso.
     //VisitaDFS(vertice k)
 
     if(!indicaCiclo) //Se tem ciclo
@@ -170,19 +165,6 @@ int main(int argc, char** argv){
 
   }
 
-  //teste: Imprime os ramos construidos
-  //Cada ramo
-  for(k=0; k<numRamos; k++) //tem pelo menos 1 ramo
-  {
-    printf("Ramo %d:\n", (k+1));
-    //Elementos em cada ramo:
-    for(j=0; j<(tamanhoDesseRamo[k]); j++)
-    {
-      printf("%d\n", vetorRamos[k][j]);
-    }
-    printf("\n");
-  }
-
   //No final: Desalocar memoria
   //free(cor);
   //free(antecessor);
@@ -192,6 +174,7 @@ int main(int argc, char** argv){
   //Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?**** desalocar
   //desalocar variavel ramo
   //desalocar ramo de busca, reinicializar seu tamanho (se necessario esta parte)
+  //procurar tudo alocado para desalocar
 
   // Desalocar/limpar verticesRaiz
   fclose(ponteiroArqEntrada);

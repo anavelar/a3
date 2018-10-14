@@ -35,9 +35,6 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
   apontador aux = NULL;
   int corAux = INICIALIZACAO;
   //Insere o vertice visitado aqui no ramo
-  //char verticeConvertido[] = "padraozao";
-  //sprintf(verticeConvertido, "%d", vertice);
-  //strcat(ramo, verticeConvertido);
   ramoBusca[(*eTamanhoRamoBusca)] = vertice;
   (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) + 1;
 
@@ -53,7 +50,6 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
       if((*eCor)[aux->no.chave] == BRANCO)
       {
         (*eAntecessor)[aux->no.chave] = vertice;
-        //chamada de funcao aqui usando ramo, removi, olhar (soh olhar) nos commits anteriores.
         corAux = VisitaDFS(eponteiroArqSaida, vetorRamos, eNumRamos, tamanhoDesseRamo, ramoBusca, eTamanhoRamoBusca, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
         if (corAux == DIFERENTE)
         {
@@ -80,8 +76,6 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
   if( ((*eF)[vertice]) == (((*eD)[vertice])+1) )
   {
     //Chegou ao fim do ramo de busca.
-    //fprintf((*eponteiroArqSaida), "%s\n", ramo);
-
     //Insere o ramo no vetor de Ramos:
     vetorRamos[(*eNumRamos)] = (int*) malloc((*eTamanhoRamoBusca)*sizeof(int));
     tamanhoDesseRamo[(*eNumRamos)] = (*eTamanhoRamoBusca);
@@ -95,7 +89,6 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
   }
 
   //Remove esse vertice do ramo de busca
-  //ramo[strlen(ramo)-strlen(verticeConvertido)] = '\0'; //marretada do capetaaaaaaaaaaaaaaaaaaaa
   (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) - 1;
   return NORMAL;
 }
