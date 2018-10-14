@@ -173,7 +173,6 @@ int main(int argc, char** argv){
   }
 
   //Gera resultado a partir dos Ramos e o imprime no arquivo
-  //******************************AQUI
   //Inicializa o vetor de resultados
   vetorResultado = (int*) malloc(numVertices*(sizeof(int)));
   verticesInseridos = 0;
@@ -202,6 +201,20 @@ int main(int argc, char** argv){
 
     //Retira verticeMax da busca nos ramos
     inicioRamo[ramoVerticeMax]++;
+
+    //Elimina as duplicatas do verticeMax
+    //Procura o vertice max entre os ramos
+    for(k=0; k<numRamos; k++)
+    {
+      if((0+inicioRamo[k]) < tamanhoDesseRamo[k]) //Se ainda ha vertices nesse ramo
+      {
+        if( (k != ramoVerticeMax) && (vetorRamos[k][0+inicioRamo[k]] == verticeMax) )
+        {
+          //tira essa duplicata da busca
+          inicioRamo[k]++;
+        }
+      }
+    }
 
     //Reinicializa para busca
     verticeMax = INVALIDO;
