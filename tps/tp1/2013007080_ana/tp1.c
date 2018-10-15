@@ -149,7 +149,7 @@ int main(int argc, char** argv){
     //fprintf(ponteiroArqSaida, "Erro, nao ha vertices raiz.\n");
     //*************************************************************************
     //VOLTAR AQUI PARA VER SE EH ISSO MESMO
-    fprintf(ponteiroArqSaida, "0 -1");
+    fprintf(ponteiroArqSaida, "0 -1\n");
 
     fclose(ponteiroArqEntrada);
     fclose(ponteiroArqSaida);
@@ -253,7 +253,7 @@ int main(int argc, char** argv){
   {
     if(k==0)
     {
-      fprintf(ponteiroArqSaida, "%d", vetorResultado[k]);
+      fprintf(ponteiroArqSaida, "%d\n", vetorResultado[k]);
     }
     else
     {
