@@ -29,7 +29,7 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 }
 
 //DFS
-int VisitaDFS(FILE** eponteiroArqSaida, int* verticesDepois, int** vetorRamos, int* eNumRamos, int* tamanhoDesseRamo, int* ramoBusca, int* eTamanhoRamoBusca, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+int VisitaDFS(FILE** eponteiroArqSaida, int* verticesAPartirDaqui, int** vetorRamos, int* eNumRamos, int* tamanhoDesseRamo, int* ramoBusca, int* eTamanhoRamoBusca, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
   int i; //contador
   apontador aux = NULL;
@@ -50,16 +50,18 @@ int VisitaDFS(FILE** eponteiroArqSaida, int* verticesDepois, int** vetorRamos, i
       if((*eCor)[aux->no.chave] == BRANCO)
       {
         (*eAntecessor)[aux->no.chave] = vertice;
-        vd = VisitaDFS(eponteiroArqSaida, verticesDepois, vetorRamos, eNumRamos, tamanhoDesseRamo, ramoBusca, eTamanhoRamoBusca, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        vd = VisitaDFS(eponteiroArqSaida, verticesAPartirDaqui, vetorRamos, eNumRamos, tamanhoDesseRamo, ramoBusca, eTamanhoRamoBusca, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
         if (vd == DIFERENTE) //caso X=0
         {
           return DIFERENTE;
         }
         else
         {
-          if((vd+1) > verticesDepois[vertice])
+          if((vd+1) > verticesAPartirDaqui[vertice])
           {
-            verticesDepois[vertice] = (vd+1);
+            verticesAPartirDaqui[vertice] = (vd+1);
+            //TESTE
+            printf("verttice %d recebe o valor %d no vetor.\n", vertice, (vd+1) );
           }
         }
       }
@@ -75,15 +77,17 @@ int VisitaDFS(FILE** eponteiroArqSaida, int* verticesDepois, int** vetorRamos, i
           //Se o vizinho eh preto
           if((*eCor)[aux->no.chave] == PRETO)
           {
-            if( (verticesDepois[aux->no.chave]+1) > verticesDepois[vertice] )
+            if( (verticesAPartirDaqui[aux->no.chave]+1) > verticesAPartirDaqui[vertice] ) //***************************8PAU AQUI?
             {
-              verticesDepois[vertice] = verticesDepois[aux->no.chave] + 1;
+              verticesAPartirDaqui[vertice] = (verticesAPartirDaqui[aux->no.chave] + 1);
+              //TESTE
+              printf("verttice %d recebe o valor %d no vetor.\n", vertice, (verticesAPartirDaqui[aux->no.chave] + 1) );
             }
           }
         }
       }
 
-      aux = aux->prox;
+      aux = aux->prox; //************
     }
   }
 
@@ -91,7 +95,12 @@ int VisitaDFS(FILE** eponteiroArqSaida, int* verticesDepois, int** vetorRamos, i
   (*(eTempo)) = (*(eTempo)) + 1;
   ((*eF)[vertice]) = (*(eTempo));
 
-  //Se esse vertice eh folha?
+  //Se esse vertice eh folha? NAO
+  //Fim do ramo DE BUSCA.
+  //Pode ser :
+  //- fim do ramo pq prox preto
+  //- fim do ramo com folha
+  //- fim do ramo pq prox pretos ou cinzas - istoe - tem adj mas nao te prox branco
   if( ((*eF)[vertice]) == (((*eD)[vertice])+1) )
   {
     //Chegou ao fim do ramo de busca.
@@ -106,14 +115,19 @@ int VisitaDFS(FILE** eponteiroArqSaida, int* verticesDepois, int** vetorRamos, i
     //Por ultimo de tudo!!:
     (*eNumRamos) = (*eNumRamos) + 1;
 
-    //Remove esse vertice do ramo de busca
-    (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) - 1;
-
-    verticesDepois[vertice] = 1;
-    return (verticesDepois[vertice]);
+    //questao aqui tem o 4 do teste (prox pretos ou cinzas) *******************************************************8AQUI
+    //Se esse no eh uma folha
+    if(EstaVazia((*eGrafo)[vertice])) //Caso o vertice nao tenha vizinhos / adjacentes
+    {
+      verticesAPartirDaqui[vertice] = 1;
+      //TESTE
+      printf("verttice %d recebe o valor %d no vetor.\n", vertice, 1 );
+    }
   }
 
   //Remove esse vertice do ramo de busca
   (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) - 1;
-  return verticesDepois[vertice];
+
+  printf("Vertice %d retorna o valor para o vetor %d ao sair dele no DFS.\n", vertice, verticesAPartirDaqui[vertice]);
+  return verticesAPartirDaqui[vertice];
 }

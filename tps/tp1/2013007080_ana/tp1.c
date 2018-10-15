@@ -42,8 +42,8 @@ int main(int argc, char** argv){
   int verticeMax = INVALIDO;
   int ramoVerticeMax = INVALIDO;
 
-  int* verticesDepois = NULL;
-  int X = 2; 
+  int* verticesAPartirDaqui = NULL;
+  int X = 2;
 
   //Inicializacoes
   noAux.chave = INVALIDO;
@@ -79,15 +79,15 @@ int main(int argc, char** argv){
   tamanhoDesseRamo = (int*) malloc(numVertices*(sizeof(int)));
   inicioRamo = (int*) malloc(numVertices*(sizeof(int)));
   //Inicializa o vetor para encontrar o valor de X
-  verticesDepois = (int*) malloc((numVertices+1)*(sizeof(int)));
-  verticesDepois[0] = INVALIDO; //sentinela
+  verticesAPartirDaqui = (int*) malloc((numVertices+1)*(sizeof(int)));
+  verticesAPartirDaqui[0] = INVALIDO; //sentinela
   //Inicializacao dos vetores acima:
   for(j=0; j<numVertices; j++)
   {
     vetorRamos[j] = NULL;
     inicioRamo[j] = 0;
     //tamanhoDesseRamo = 0; //Nao precisa inicializar e vai gastar tempo
-    verticesDepois[j+1] = 0;
+    verticesAPartirDaqui[j+1] = 0;
   }
 
   //Cria o Grafo como matriz Adjacencias
@@ -164,7 +164,7 @@ int main(int argc, char** argv){
   //Cada arvore da floresta que eh essa arvores
   while(aux != NULL)
   {
-    indicaCiclo = VisitaDFS(&ponteiroArqSaida, verticesDepois, vetorRamos, &numRamos, tamanhoDesseRamo, ramoBusca, &tamanhoRamoBusca, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+    indicaCiclo = VisitaDFS(&ponteiroArqSaida, verticesAPartirDaqui, vetorRamos, &numRamos, tamanhoDesseRamo, ramoBusca, &tamanhoRamoBusca, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
     //VisitaDFS(vertice k)
 
     if(indicaCiclo == DIFERENTE) //Se tem ciclo
@@ -175,20 +175,15 @@ int main(int argc, char** argv){
     }
     else
     {
-      if((indicaCiclo + 1) > verticesDepois[aux->no.chave])
-      {
-        verticesDepois[aux->no.chave] = (indicaCiclo + 1);
-      }
-
       aux = aux->prox;
     }
 
   }
 
-  //teste de associar o valor X - //****************************************************************88AQUI
+  //Associa o valor X --- ********************************
   for(j=1; j<(numVertices+1); j++)
   {
-    if(verticesDepois[j] == numVertices)
+    if(verticesAPartirDaqui[j] == numVertices)
     {
       X = 1;
       break;
@@ -261,7 +256,15 @@ int main(int argc, char** argv){
     }
   }
 
+  //teste debug  ***************************************AQUI
+  printf("Vertices Depois:\n");
+  for(k=1; k<(numVertices+1); k++)
+  {
+    printf("%d: %d.\n", k, verticesAPartirDaqui[k]);
+  }
+
   //No final: Desalocar memoria
+  //depois: desalocar nos returns
   //free(cor);
   //free(antecessor);
   //free(d);
