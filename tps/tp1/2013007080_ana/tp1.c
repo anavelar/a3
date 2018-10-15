@@ -27,7 +27,7 @@ int main(int argc, char** argv){
   tipoLista verticesRaiz;
   tipoNo noAux;
   apontador aux = NULL;
-  int indicaCiclo = NORMAL; //Se tiver ciclo, ela vira o valor DIFERENTE (ZERO)
+  int indicaCiclo = 0; //Se tiver ciclo, ela vira o valor DIFERENTE
 
   //Ramo de busca
   int* ramoBusca = NULL;
@@ -41,6 +41,9 @@ int main(int argc, char** argv){
   int* inicioRamo = NULL;
   int verticeMax = INVALIDO;
   int ramoVerticeMax = INVALIDO;
+
+  int* verticesDepois = NULL;
+  int X = 2;
 
   //Inicializacoes
   noAux.chave = INVALIDO;
@@ -75,11 +78,16 @@ int main(int argc, char** argv){
   vetorRamos = (int**) malloc(numVertices*(sizeof(int*)));
   tamanhoDesseRamo = (int*) malloc(numVertices*(sizeof(int)));
   inicioRamo = (int*) malloc(numVertices*(sizeof(int)));
+  //Inicializa o vetor para encontrar o valor de X
+  verticesDepois = (int*) malloc((numVertices+1)*(sizeof(int)));
+  verticesDepois[0] = INVALIDO; //sentinela
+  //Inicializacao dos vetores acima:
   for(j=0; j<numVertices; j++)
   {
     vetorRamos[j] = NULL;
     inicioRamo[j] = 0;
     //tamanhoDesseRamo = 0; //Nao precisa inicializar e vai gastar tempo
+    verticesDepois[j+1] = 0;
   }
 
   //Cria o Grafo como matriz Adjacencias
@@ -156,10 +164,10 @@ int main(int argc, char** argv){
   //Cada arvore da floresta que eh essa arvores
   while(aux != NULL)
   {
-    indicaCiclo = VisitaDFS(&ponteiroArqSaida, vetorRamos, &numRamos, tamanhoDesseRamo, ramoBusca, &tamanhoRamoBusca, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
+    indicaCiclo = VisitaDFS(&ponteiroArqSaida, verticesDepois, vetorRamos, &numRamos, tamanhoDesseRamo, ramoBusca, &tamanhoRamoBusca, aux->no.chave, &Grafo, &cor, &antecessor, &tempo, &d, &f);
     //VisitaDFS(vertice k)
 
-    if(!indicaCiclo) //Se tem ciclo
+    if(indicaCiclo == DIFERENTE) //Se tem ciclo
     {
       fclose(ponteiroArqEntrada);
       fclose(ponteiroArqSaida);
@@ -167,9 +175,24 @@ int main(int argc, char** argv){
     }
     else
     {
+      if((indicaCiclo + 1) > verticesDepois[aux->no.chave])
+      {
+        verticesDepois[aux->no.chave] = (indicaCiclo + 1);
+      }
+
       aux = aux->prox;
     }
 
+  }
+
+  //teste de associar o valor X - //****************************************************************88AQUI
+  for(j=1; j<(numVertices+1); j++)
+  {
+    if(verticesDepois[j] == numVertices)
+    {
+      X = 1;
+      break;
+    }
   }
 
   //Gera resultado a partir dos Ramos e o imprime no arquivo
@@ -224,7 +247,7 @@ int main(int argc, char** argv){
   //teste
   //Imprime os resultados
   //ARRUMAR ISSO, EH O X QUE VAI SER 1 OU 2 (CASO X=O JA TRATADO).
-  fprintf(ponteiroArqSaida, "%d ", 27);
+  fprintf(ponteiroArqSaida, "%d ", X);
   //imprime cada vertice
   for(k=(numVertices-1); k>=0; k--)
   {

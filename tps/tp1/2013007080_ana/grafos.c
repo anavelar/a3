@@ -29,11 +29,11 @@ void InsereAresta(tipoGrafo* eGrafo, int verticeOrigem, int verticeDestino)
 }
 
 //DFS
-int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* tamanhoDesseRamo, int* ramoBusca, int* eTamanhoRamoBusca, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
+int VisitaDFS(FILE** eponteiroArqSaida, int* verticesDepois, int** vetorRamos, int* eNumRamos, int* tamanhoDesseRamo, int* ramoBusca, int* eTamanhoRamoBusca, int vertice, tipoGrafo* eGrafo, int** eCor, int** eAntecessor, int* eTempo, int** eD, int** eF)
 {
   int i; //contador
   apontador aux = NULL;
-  int corAux = INICIALIZACAO;
+  int vd = 0;
   //Insere o vertice visitado aqui no ramo
   ramoBusca[(*eTamanhoRamoBusca)] = vertice;
   (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) + 1;
@@ -50,10 +50,17 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
       if((*eCor)[aux->no.chave] == BRANCO)
       {
         (*eAntecessor)[aux->no.chave] = vertice;
-        corAux = VisitaDFS(eponteiroArqSaida, vetorRamos, eNumRamos, tamanhoDesseRamo, ramoBusca, eTamanhoRamoBusca, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
-        if (corAux == DIFERENTE)
+        vd = VisitaDFS(eponteiroArqSaida, verticesDepois, vetorRamos, eNumRamos, tamanhoDesseRamo, ramoBusca, eTamanhoRamoBusca, aux->no.chave, eGrafo, eCor, eAntecessor, eTempo, eD, eF);
+        if (vd == DIFERENTE) //caso X=0
         {
           return DIFERENTE;
+        }
+        else
+        {
+          if((vd+1) > verticesDepois[vertice])
+          {
+            verticesDepois[vertice] = (vd+1);
+          }
         }
       }
       else
@@ -62,6 +69,17 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
         {
           fprintf((*eponteiroArqSaida),"0 -1\n");
           return DIFERENTE;
+        }
+        else
+        {
+          //Se o vizinho eh preto
+          if((*eCor)[aux->no.chave] == PRETO)
+          {
+            if( (verticesDepois[aux->no.chave]+1) > verticesDepois[vertice] )
+            {
+              verticesDepois[vertice] = verticesDepois[aux->no.chave] + 1;
+            }
+          }
         }
       }
 
@@ -73,6 +91,7 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
   (*(eTempo)) = (*(eTempo)) + 1;
   ((*eF)[vertice]) = (*(eTempo));
 
+  //Se esse vertice eh folha?
   if( ((*eF)[vertice]) == (((*eD)[vertice])+1) )
   {
     //Chegou ao fim do ramo de busca.
@@ -86,9 +105,15 @@ int VisitaDFS(FILE** eponteiroArqSaida, int** vetorRamos, int* eNumRamos, int* t
 
     //Por ultimo de tudo!!:
     (*eNumRamos) = (*eNumRamos) + 1;
+
+    //Remove esse vertice do ramo de busca
+    (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) - 1;
+
+    verticesDepois[vertice] = 1;
+    return (verticesDepois[vertice]);
   }
 
   //Remove esse vertice do ramo de busca
   (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) - 1;
-  return NORMAL;
+  return verticesDepois[vertice];
 }
