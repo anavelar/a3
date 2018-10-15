@@ -43,7 +43,7 @@ int main(int argc, char** argv){
   int ramoVerticeMax = INVALIDO;
 
   int* verticesDepois = NULL;
-  int X = 2;
+  int X = 2; 
 
   //Inicializacoes
   noAux.chave = INVALIDO;
