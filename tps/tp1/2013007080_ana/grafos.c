@@ -60,8 +60,6 @@ int VisitaDFS(FILE** eponteiroArqSaida, int* verticesAPartirDaqui, int** vetorRa
           if((vd+1) > verticesAPartirDaqui[vertice])
           {
             verticesAPartirDaqui[vertice] = (vd+1);
-            //TESTE
-            printf("verttice %d recebe o valor %d no vetor.\n", vertice, (vd+1) );
           }
         }
       }
@@ -80,8 +78,6 @@ int VisitaDFS(FILE** eponteiroArqSaida, int* verticesAPartirDaqui, int** vetorRa
             if( (verticesAPartirDaqui[aux->no.chave]+1) > verticesAPartirDaqui[vertice] ) //***************************8PAU AQUI?
             {
               verticesAPartirDaqui[vertice] = (verticesAPartirDaqui[aux->no.chave] + 1);
-              //TESTE
-              printf("verttice %d recebe o valor %d no vetor.\n", vertice, (verticesAPartirDaqui[aux->no.chave] + 1) );
             }
           }
         }
@@ -120,14 +116,11 @@ int VisitaDFS(FILE** eponteiroArqSaida, int* verticesAPartirDaqui, int** vetorRa
     if(EstaVazia((*eGrafo)[vertice])) //Caso o vertice nao tenha vizinhos / adjacentes
     {
       verticesAPartirDaqui[vertice] = 1;
-      //TESTE
-      printf("verttice %d recebe o valor %d no vetor.\n", vertice, 1 );
     }
   }
 
   //Remove esse vertice do ramo de busca
   (*eTamanhoRamoBusca) = (*eTamanhoRamoBusca) - 1;
 
-  printf("Vertice %d retorna o valor para o vetor %d ao sair dele no DFS.\n", vertice, verticesAPartirDaqui[vertice]);
   return verticesAPartirDaqui[vertice];
 }

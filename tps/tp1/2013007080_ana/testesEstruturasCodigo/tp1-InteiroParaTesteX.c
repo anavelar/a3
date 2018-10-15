@@ -239,8 +239,9 @@ int main(int argc, char** argv){
     ramoVerticeMax = INVALIDO;
   }
 
+  //teste
   //Imprime os resultados
-  //ARRUMAR ISSO, O X QUE VAI SER 1 OU 2 (CASO X=O JA TRATADO).
+  //ARRUMAR ISSO, EH O X QUE VAI SER 1 OU 2 (CASO X=O JA TRATADO).
   fprintf(ponteiroArqSaida, "%d ", X);
   //imprime cada vertice
   for(k=(numVertices-1); k>=0; k--)
@@ -255,6 +256,26 @@ int main(int argc, char** argv){
     }
   }
 
+  //teste debug  ***************************************AQUI
+  printf("Vertices Depois:\n");
+  for(k=1; k<(numVertices+1); k++)
+  {
+    printf("%d: %d.\n", k, verticesAPartirDaqui[k]);
+  }
+
+  //No final: Desalocar memoria
+  //depois: desalocar nos returns
+  //free(cor);
+  //free(antecessor);
+  //free(d);
+  //free(f);
+  //free(setasEntrando);
+  //Grafo = NULL; // OU free(Grafo); nao vai desalocar tudo mas ja ajuda sera?**** desalocar
+  //desalocar variavel ramo
+  //desalocar ramo de busca, reinicializar seu tamanho (se necessario esta parte)
+  //procurar tudo alocado para desalocar
+
+  // Desalocar/limpar verticesRaiz
   fclose(ponteiroArqEntrada);
   fclose(ponteiroArqSaida);
   return 0;
