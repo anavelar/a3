@@ -1,3 +1,35 @@
+1 - Valgrind e desalocar
+2 - Calculo de X e conferir condicoes ta feito pro cocos,
+posso conferir td pq dve ter caso faltando.
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+Mais anotacoes durante o codigo: arquivo andamento.txt abaixo:
+-------------------------------------------------------------------------------
+
+
+
+
+AGORA: (ja li e fiz secoes 5 e 7 da espec, falta a 6(doc) mas de codigo arrumar falta o aqui abaixo:
+----------------------------------------------------------------------------------------------------
+DE CODIGO:
+1 - ARGC E ARGV: /.tp1 input.txt output.txt
+----Conferir depois passo a passo no codigo se foi tudo redirecionado.
+
+2- VALGRIND e vazemento de memoria (no final?)
+a) Usar o valgrind para checar se não esta tendo vazamento de memoria
+b) Pela espec: Alocar dinâmico (o que for, nao tudo!!) e desalocar para o valgrind
+"As estruturas de dados devem ser alocadas dinamicamente"
+
+
+AO FIM: ver documento entrega na pasta tp1. (limpar pasta e compactar em zip, etc).
+-------------------------------------------------------------------------------
 IMPLEMENTAR DEPOIS:
 0 - ramo ultimas posicoes = '\0', comprimento e desalocação NA MARRETADA, OLHAR ISSO MELHOR
 
