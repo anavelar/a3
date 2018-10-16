@@ -12,7 +12,7 @@ Na entrega:
 
 - COMPACTAR EM ZIP E ENVIAR NO MOODLE
   - Na pasta logo acima da pasta 2013007080_ana, fazer:
-  	zip -r 2013007080_ana_avelar.zip 2013007080_ana_avelar
+  	zip -r 2013007080_ana.zip 2013007080_ana
 
 - Remover comentários se der e dar uma organizada se der
 

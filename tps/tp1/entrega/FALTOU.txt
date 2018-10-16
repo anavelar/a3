@@ -1,0 +1,16 @@
+Faltou:
+- Desalocar 100% estruturas de dados.
+  (Grafo e vertices Raiz por exemplo não estão desalocados).
+
+- Análise de Complexidade, de tempo e de espaço (a de lá tá random).
+
+PLUS:
+- Gerar mais testes e analisar com tempo: Análise experimental.
+
+OUTROS:
+- Não sei se o cálculo de X está certo, e nem o de X =1. Conferir uma hora depois.
+
+
+Podia melhorar:
+Várias coisas. Várias funções e no fim teve até força bruta para andar rápido.
+Olhar nas anotações do TP e na DOC.
