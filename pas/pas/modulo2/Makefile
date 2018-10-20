@@ -7,14 +7,10 @@
 ### 3o) ADICIONAR LINHA DELA NO CLEAN PARA LIMPAR
 #	rm <numPA>
 
-all: 1127 1276
+all: 1286
 
-1127: 1127_ana_avelar.c
-	gcc -g 1127_ana_avelar.c -o 1127
-
-1276: 1276_ana_avelar.c
-	gcc -g 1276_ana_avelar.c -o 1276
+1286: 1286.c
+	gcc -g 1286.c -o 1286
 
 clean:
-	rm 1127
-	rm 1276
+	rm 1286
