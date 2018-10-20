@@ -1,0 +1,4 @@
+É o problema da mochila inteira
+com repetições.
+
+É por programação dinâmica?
