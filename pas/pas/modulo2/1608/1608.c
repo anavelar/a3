@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define INICIALIZACAO 0
 
 int main() {
 
@@ -10,10 +9,10 @@ int main() {
 
   int i, j, k; //Contadores
 
-  int numCasosTeste = INICIALIZACAO; //Ate 100
-  long int dinheiro = INICIALIZACAO; //De 1 ate 10^9, 1 bilhao
-  int numIngredientesExistem = INICIALIZACAO; //De 1 a 100
-  int numBolosExistem = INICIALIZACAO; //De 1 a 100
+  int numCasosTeste; //Ate 100
+  long int dinheiro; //De 1 ate 10^9, 1 bilhao
+  int numIngredientesExistem; //De 1 a 100
+  int numBolosExistem; //De 1 a 100
 
   //Vetor com os ingredientes (indices) e seus precos - id de 0 a (I-1)
   //Cada ingrediente custa entre 1 e 1000
@@ -21,14 +20,13 @@ int main() {
 
   //Leitura de cada bolo
   //Ingredientes necessarios no bolo
-  int numIngredientesDesteBolo = INICIALIZACAO; //De 1 a 100
-  long int custoIngrediente = INICIALIZACAO; //Entre 1 e 10^6
-  int qualIngrediente = INICIALIZACAO; //Entre 0 e 99
-  int quantidade = INICIALIZACAO; //Entre 1 e 1000
-  long int precoDesseBolo = INICIALIZACAO; //Ate 10^8: 100*1000*1000
-  //long int precoBoloMaisBarato =  MAISCARO; **************************
-
-  //talve precise de variaveis auxiliares aqui.
+  int numIngredientesDesteBolo; //De 1 a 100
+  long int custoIngrediente; //Entre 1 e 10^6
+  int qualIngrediente; //Entre 0 e 99
+  int quantidade; //Entre 1 e 1000
+  long int precoDesseBolo; //Ate 10^8: 100*1000*1000
+  long int precoBoloMaisBarato; //Max 10^8
+  long int maxBolosPossivel;
 
   //PROGRAMA MESMO
   //--------------
@@ -47,8 +45,8 @@ int main() {
     scanf("%d\n", &(precoIngrediente[(numIngredientesExistem-1)]));
 
     //Para cada bolo existente
-    precoDesseBolo = INICIALIZACAO; //pode remover talvez *****************
-    //precoBoloMaisBarato =  MAISCARO; *****************************
+    precoDesseBolo = 0;
+    precoBoloMaisBarato =  100000001;
     for(j=0; j<numBolosExistem; j++)
     {
       scanf("%d ", &numIngredientesDesteBolo);
@@ -63,24 +61,19 @@ int main() {
       custoIngrediente = precoIngrediente[qualIngrediente]*quantidade;
       precoDesseBolo = precoDesseBolo + custoIngrediente;
 
-      //aqui e nos dependentes daqui anteriores**********************8
+      if(precoDesseBolo < precoBoloMaisBarato )
+      {
+        precoBoloMaisBarato = precoDesseBolo;
+      }
     }
 
+    //Resultado do caso de teste
+    maxBolosPossivel = dinheiro / precoBoloMaisBarato; //deve retornar int
+    printf("%li\n", maxBolosPossivel);
 
-
-
-
-    //CONFERIR DE NOVO SE DESALOQUEI TUDO
     //Reinicia as variaveis para o novo caso de teste
-    dinheiro = INICIALIZACAO;
-    numIngredientesExistem = INICIALIZACAO;
-    numBolosExistem = INICIALIZACAO;
     free(precoIngrediente); //ou algo similiar
     precoIngrediente = NULL;
-    numIngredientesDesteBolo = INICIALIZACAO;
-    precoDesseBolo = INICIALIZACAO;
-    precoBoloMaisBarato =  INICIALIZACAO;
-    //talve mais variaveis auxiliares aqui.
 
   }
 
