@@ -1,0 +1,4 @@
+Eh igualzinho ao problema da mochila com repeticoes ilimitada,
+um problema eh mapeavel em outro por mapeamento NP.
+
+Assim, eh garantia de que os subproblemas da subestrutura levam à solucao otima.

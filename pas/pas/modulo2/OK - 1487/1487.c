@@ -37,14 +37,23 @@ int main()
     }
 
     //Programa
-    //Para cada tempoMax possivel, de tempoMax 0 ate tempoMax do problema
+    //Podemos ver subestrutura otima no problema.
+    //A solucao para o tempo maximo menor é usada para chegar no tempoMaximo meta
+    //do problema. Assim, eh possivel usar programacao dinamica e armazenar a
+    //pontucao maxima (otima) para tempos menores.
+
+    //Percorrendo tempos menores < TempoTotalMax para achar o otimo deles,
+    //que vai ser usado para composicao da solucao e para chegar ao otimo final.
     for(tempoMax=0; tempoMax<(tempoTotalMaximo+1); tempoMax++)
     {
-      //Analisa cada atracao do parque
+      //Para cada tempo menor, analisa a solucao, percorrendo todos os brinquedos
+      //para calcular a solucao otima naquele tempo.
       for(brinquedo=0; brinquedo<numBrinquedos; brinquedo++)
       {
+        //Se eh possivel esse brinquedo estar na solucao
         if(tempoBrinquedo[brinquedo] <= tempoMax)
         {
+          //Subestrutura otima: se ((a solucao otima sem ele) + ele) fica melhor do que a solucao otima atual
           if(pontucaoMaxPorTempo[tempoMax] < (pontucaoMaxPorTempo[tempoMax-tempoBrinquedo[brinquedo]]+pontuacaoBrinquedo[brinquedo]))
           {
             pontucaoMaxPorTempo[tempoMax] = (pontucaoMaxPorTempo[tempoMax-tempoBrinquedo[brinquedo]]+pontuacaoBrinquedo[brinquedo]);
