@@ -1,0 +1,2 @@
+a foi atribuido 4.
+novoa = a << 1 eh igual a 8.

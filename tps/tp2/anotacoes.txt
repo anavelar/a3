@@ -1,0 +1,10 @@
+para gerar os 2^1000 possiveis casos
+vou usar vetor de bits fazendo vetor de
+char com 125 posicoes.
+
+para percorrer e gerar, vou so somar 1
+(assim vai de 1 a 2^1000) e checar o bit
+naquela posicao. Checar o bit eh o q eu
+faço no teste.
+
+Cada 0 ou 1 eh mais ou menos de um S.
