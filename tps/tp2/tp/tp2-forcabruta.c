@@ -7,6 +7,10 @@ int main(int argc, char *argv[ ]) {
   FILE* pArqEntrada;
   FILE* pArqSaida;
 
+  int i; //Contador
+  int numCasosTeste; // I, onde 1 <= I <=10
+  int tamanhoSequencia; //S - tamanho da sequencia. 1<= S <= 1000
+
   //Entrada dos dados
   if(argc != 3)
   {
@@ -28,19 +32,35 @@ int main(int argc, char *argv[ ]) {
   }
 
   //PROGRAMA
-  int leitura;
+  fscanf(pArqEntrada, "%d\n", &numCasosTeste);
+  //Para cada instancia do arquivo lido
+  for(i=0; i<numCasosTeste; i++)
+  {
 
+
+
+
+
+
+    //Ao fim da instancia: impressao no arquivo de saida do resultado.
+    //Depois:: desalocar coisas para a proxima instancia!
+  }
+
+
+
+
+
+  /*
+  int leitura;
   fscanf(pArqEntrada, "%d\n", &leitura);
   fprintf(pArqSaida,"Impressao do forcao bruta: lido %d.\n", leitura);
-
-
-
-
-
+  */
 
   //FIM DO PROGRAMA
   fclose(pArqEntrada);
   fclose(pArqSaida);
+
+  //t
 
   return 0;
 }
