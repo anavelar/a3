@@ -1,0 +1,9 @@
+maximo eh: 7.
+Instancia 0 tem um campo nao inteiro com 3 elementos/bits nele: 
+000000111
+maximo eh: 15.
+Instancia 1 tem um campo nao inteiro com 4 elementos/bits nele: 
+000001111
+maximo eh: 1.
+Instancia 3 tem um campo nao inteiro com 1 elementos/bits nele: 
+000000001

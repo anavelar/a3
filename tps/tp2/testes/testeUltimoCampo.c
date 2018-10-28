@@ -84,12 +84,32 @@ int main(int argc, char *argv[ ]) {
         }
         else //Se o ultimo campo deve ser percorrido parcialmente
         {
-          //AQUI***********************************************************
+          //AQUI***********************************************************8
+          //teste
+          int valorBit;
+          //fimteste
           maximo = 0;
           for(k=0; k<=bitsAmais-1; k++)
           {
             maximo = (maximo | (1 << k));
           }
+          fprintf(pArqSaida, "maximo eh: %d.\n", maximo);
+
+          //teste
+          //percorre o campo todo
+          fprintf(pArqSaida, "Instancia %d tem um campo nao inteiro ", i);
+          fprintf(pArqSaida, "com %d elementos/bits nele: \n", bitsAmais);
+          for(k=8; k>=0; k--)
+          {
+            valorBit = (maximo & (1 << k));
+            if(valorBit != 0)
+            {
+              valorBit = 1;
+            }
+
+            fprintf(pArqSaida, "%d", valorBit);
+          }
+          fprintf(pArqSaida, "\n");
 
           //OBS.: 1o e 2o casos do 1o toy de testes
           /*
