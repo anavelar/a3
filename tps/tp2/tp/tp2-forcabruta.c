@@ -22,6 +22,7 @@ int main(int argc, char *argv[ ]) {
                                    //elemento da sequencia.
   double qtdadeChars;
   int tamVetorBits;
+  int bitsAmais;
 
   //Entrada dos dados
   if(argc != 3)
@@ -59,31 +60,53 @@ int main(int argc, char *argv[ ]) {
     }
     fscanf(pArqEntrada, "%d\n", &sequencia[j]);
 
+    //Geracao do vetor de sinais
     qtdadeChars = (double) tamanhoSequencia / BITS_CAMPO;
     tamVetorBits = (int) ceil(qtdadeChars);
+    bitsAmais = tamanhoSequencia % BITS_CAMPO;
     vetorBits = (unsigned char*) malloc(tamVetorBits*(sizeof(unsigned char)));
+    for(j=0; j<tamVetorBits; j++)
+    {
+      vetorBits[j] = 0;
+    }
+
+    //Procura do maior valor para a sequencia por forca bruta,
+    //varendo todo o espaço de solucoes.
+    //Primeiro: percorrendo cada campo do vetor de bits
+    for(j=(tamVetorBits-1); j>=0; j--)
+    {
+      if(j == 0) //Se esta no ultimo campo do vetor de bits
+      {
+        if(bitsAmais == 0) //Se o ultimo campo deve ser percorrido inteiro
+        {
+
+        }
+        else //Se o ultimo campo deve ser percorrido parcialmente
+        {
+
+        }
+      }
+      else //Se nao esta no ultimo campo do vetor de bits? VER
+      {
+
+      }
+
+    }
 
 
-
-
-
-
+    /* ---- TESTE
+    printf("Instancia %d:\n", i);
+    printf("Qtdade de itens:%d\n", tamanhoSequencia);
+    printf("bits em um campo:%d\n", BITS_CAMPO);
+    printf("Campos necessarios:%d\n", tamVetorBits);
+    printf("Elementos no ultimo campo:%d.\n\n", bitsAmais);
+    */
 
     //Ao fim da instancia: impressao no arquivo de saida do resultado.
     //Depois:: desalocar coisas para a proxima instancia!
     free(sequencia);
     free(vetorBits);
   }
-
-
-
-
-
-  /*
-  int leitura;
-  fscanf(pArqEntrada, "%d\n", &leitura);
-  fprintf(pArqSaida,"Impressao do forcao bruta: lido %d.\n", leitura);
-  */
 
   //FIM DO PROGRAMA
   fclose(pArqEntrada);

@@ -6,7 +6,9 @@ DECISAO DE PROJETO (QUE PODE MUDAR)
 DUVIDAS / POSSIVEIS PAUS:
 -------------------------
 - Declaracao int i, j;
-- 
+- Para aceitar a bib math.h tive q colocar gcc -m apos
+o nome do arquivo. Porque?? Sei la.
+-
 
 
 
