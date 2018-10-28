@@ -1,6 +1,12 @@
+DECISAO DE PROJETO (QUE PODE MUDAR)
+- vetor de 125 chars ao inves de vetor de 16
+ ------------- sE RESOLVER TROCAR,trocar em varios lugares inclusive no define.
+
+
 DUVIDAS / POSSIVEIS PAUS:
 -------------------------
-
+- Declaracao int i, j;
+- 
 
 
 
@@ -14,7 +20,8 @@ OLHANDO NO MOODLE *****************************************************
 1. NÃO ESQUECER DE CONFERIR SE ENTRADA E SAIDA EH PELO STDIN (SEC 3)
 OU ARQUIVO (SEC 7).
 
-2. Limites de S e M e todos no Moodle.
+2. Limites de S, M e de cada item da sequencia todos no Moodle.******* PODE ESTOURAR!!
+ ---------------Se precisar mudar, mudar na declaraao, no scanf... procurar
 -------------------------------------------------------------------------------
 POSSIVEIS OTIMIZACOES
 ---------------------
@@ -24,5 +31,6 @@ POSSIVEIS OTIMIZACOES
 AO FIM******************************************************************
 ------
 
+0. Separar estruturas de dados se tiver, nos dois programas.
 1. Entre outros normais de todo TP, checar valgrind.
 -------------------------------------------------------------------------------

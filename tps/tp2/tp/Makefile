@@ -1,7 +1,7 @@
 all: tp2-forcabruta tp2-pd
 
 tp2-forcabruta: tp2-forcabruta.c
-	gcc -g tp2-forcabruta.c -o tp2-forcabruta
+	gcc -g tp2-forcabruta.c -o tp2-forcabruta -lm
 
 #Talvex trocar por guloso depois, ver
 tp2-pd: tp2-pd.c

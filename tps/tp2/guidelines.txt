@@ -8,3 +8,10 @@ naquela posicao. Checar o bit eh o q eu
 faço no teste.
 
 Cada 0 ou 1 eh mais ou menos de um S.
+-----------------------------------------------------
+DECISOES DE PROJETO:
+
+- Salvar em 8bits ao inves de 64 bits. Isso porque agrupar por 64 elementos
+quando as entradas podem ser menores do que isso pode nao adiantar nada.
+32 e 16 ainda sao grandes. Mas 8 eh pequena caso entre 1000. paciencia. Precisava
+ter um estimativa da entrada mais comum.
