@@ -10,7 +10,7 @@ int main(int argc, char *argv[ ]) {
   FILE* pArqEntrada;
   FILE* pArqSaida;
 
-  int i, j, k; //Contadores
+  int i, j, k, l; //Contadores
   int numCasosTeste; // I, onde 1 <= I <=10
   int tamanhoSequencia; //S - tamanho da sequencia. 1<= S <= 10^3
   int valorInicio; // V, 0 <= V <= X (e X<= 10^3)
@@ -20,10 +20,14 @@ int main(int argc, char *argv[ ]) {
   unsigned char* vetorBits = NULL; //unsigned char: 8bits, de 0 a 255.
                                    //cada bit vai representar o sinal de um
                                    //elemento da sequencia.
-  double qtdadeChars;
-  int tamVetorBits;
-  int bitsAmais;
-  unsigned char maximo;
+  double qtdadeChars; //double do int tamVetorBits
+  int tamVetorBits; //de 1 a 125? (125 p 8 bits por campo)
+  int bitsAmais; //de 0 a 7?
+  unsigned char maximo; //ate onde percorrer no ultimo bit dentro do campo (ver aqui abaixo)
+  int maximoPercorrer; //quando sabe que varreu o espaco de solucoes
+  int indiceVetorReal; //Entre 0 e 124 (max 125 posicoes)
+  int indiceVetorNumero; //Entre 0 e 124 (max 125 posicoes)
+
 
   //Entrada dos dados
   if(argc != 3)
@@ -66,55 +70,109 @@ int main(int argc, char *argv[ ]) {
     tamVetorBits = (int) ceil(qtdadeChars);
     bitsAmais = tamanhoSequencia % BITS_CAMPO;
     vetorBits = (unsigned char*) malloc(tamVetorBits*(sizeof(unsigned char)));
+
+    //Procura do maior valor para a sequencia por forca bruta,
+    //varendo todo o espaço de solucoes.
+    //---------------------------------------------------------
+
+    //Calcula quando todo o espaco de solucoes vai ter sido varrido
+    //maximoPercorrer: quando vai ter varrido o espaco de solucoes
+    //Tamanho maximo de maximoPercorrer = 255*125 = 31875 (cabe num int, que eh 32mil e alguma coisa).
+    maximoPercorrer = 0;
+    //Para os campos cheios
+    for(j=0; j<(tamVetorBits-1); j++)
+    {
+      maximoPercorrer = maximoPercorrer + 255;
+    }
+    //para o ultimo campo, que pode ou nao ser completo (j = tamVetorBits-1) aqui
+    if(bitsAmais == 0) //Caso o ultimo campo seja cheio
+    {
+      maximoPercorrer = maximoPercorrer + 255;
+    }
+    else //Caso o ultimo campo nao seja cheio
+    {
+      //Calcula o maximo dele
+      maximo = 0;
+      for(k=0; k<=bitsAmais-1; k++)
+      {
+        maximo = (maximo | (1 << k));
+      }
+
+      maximoPercorrer = maximoPercorrer + maximo;
+    }
+
+
+    //Varre a espaco de solucoes
+
+    //Do vetor de bits todo zero 00000... a todo 1 11111...
     for(j=0; j<tamVetorBits; j++)
     {
       vetorBits[j] = 0;
     }
+    l = 0;
+    indiceVetorReal = tamVetorBits - 1;
+    indiceVetorNumero = 0;
 
-    //Procura do maior valor para a sequencia por forca bruta,
-    //varendo todo o espaço de solucoes.
-    //Primeiro: percorrendo cada campo do vetor de bits
-    for(j=(tamVetorBits-1); j>=0; j--)
+    //Para cada configuracao do vetor de bits possivel:
+    while(l != maximoPercorrer) //l desfazer se nao usar
     {
-      if(j == 0) //Se esta no ultimo campo do vetor de bits
+      //Percorrendo o vetor todo uma vez.
+      //Percorrendo cada campo do vetor de bits
+      for(j=(tamVetorBits-1); j>=0; j--)
       {
-        if(bitsAmais == 0) //Se o ultimo campo deve ser percorrido inteiro
+        if(j == 0) //Se esta no ultimo campo do vetor de bits
         {
-
-        }
-        else //Se o ultimo campo deve ser percorrido parcialmente
-        {
-          //AQUI***********************************************************
-          maximo = 0;
-          for(k=0; k<=bitsAmais-1; k++)
-          {
-            maximo = (maximo | (1 << k));
-          }
-
-          //OBS.: 1o e 2o casos do 1o toy de testes
-          /*
-          for(k=0, k<; k++)
+          if(bitsAmais == 0) //Se o ultimo campo deve ser percorrido inteiro
           {
 
           }
-          */
+          else //Se o ultimo campo deve ser percorrido parcialmente
+          {
+            //AQUI***********************************************************
+            maximo = 0;
+            for(k=0; k<=bitsAmais-1; k++)
+            {
+              maximo = (maximo | (1 << k));
+            }
+
+            //OBS.: 1o e 2o casos do 1o toy de testes
+            for(k=0, k<=maximo; k++) //ta certo aqui?
+            {
+
+            }
+
+          }
+        }
+        else //Se nao esta no ultimo campo do vetor de bits? VER
+        {
+
         }
       }
-      else //Se nao esta no ultimo campo do vetor de bits? VER
+
+      //Agora muda o vetor todo para novos 010101100.. aqui abaixo:
+
+      //Reinicia o loop
+      //Soma 1 no vetor e atualiza com isso TODOS OS CAMPOS
+      if( tamVetorBits == 1) //Se so tem uma celula
+      {
+
+      }
+      else //Se a ultima celula nao eh a unica, logo esta cheia.
       {
 
       }
 
+      //Calcula novo l
+      l = 0;
+      for(j=0; j<tamVetorBits; j++)
+      {
+        l = l + vetorBits[j];
+      }
+
+      //Atualiza indices para os do novo loop
+      indiceVetorReal--;
+      indiceVetorNumero++;
     }
-
-
-    /* ---- TESTE
-    printf("Instancia %d:\n", i);
-    printf("Qtdade de itens:%d\n", tamanhoSequencia);
-    printf("bits em um campo:%d\n", BITS_CAMPO);
-    printf("Campos necessarios:%d\n", tamVetorBits);
-    printf("Elementos no ultimo campo:%d.\n\n", bitsAmais);
-    */
 
     //Ao fim da instancia: impressao no arquivo de saida do resultado.
     //Depois:: desalocar coisas para a proxima instancia!
@@ -125,8 +183,6 @@ int main(int argc, char *argv[ ]) {
   //FIM DO PROGRAMA
   fclose(pArqEntrada);
   fclose(pArqSaida);
-
-  //t
 
   return 0;
 }
