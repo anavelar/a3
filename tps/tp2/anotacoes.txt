@@ -1,3 +1,6 @@
+NÃO ESQUECER DE CONFERIR SE ENTRADA E SAIDA EH PELO STDIN (SEC 3)
+OU ARQUIVO (SEC 7)
+------------------------------------------
 para gerar os 2^1000 possiveis casos
 vou usar vetor de bits fazendo vetor de
 char com 125 posicoes.
