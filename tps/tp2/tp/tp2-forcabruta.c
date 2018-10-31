@@ -114,8 +114,8 @@ int main(int argc, char *argv[ ]) {
     indiceVetorNumero = 0;
 
     //Para cada configuracao do vetor de bits possivel:
-    //Cada passada no vetor de bits?
-    //Cada: Percorrendo o vetor todo uma vez. ?
+    //Cada passada no vetor de bitsx**m?
+    //Cada: Percorrendo o vetor todo uma vezx**m?
     while(l != maximoPercorrer) //l desfazer se nao usar
     {
       //Percorrendo cada campo do vetor de bits
@@ -125,27 +125,23 @@ int main(int argc, char *argv[ ]) {
         {
           if(bitsAmais == 0) //Se o ultimo campo deve ser percorrido inteiro
           {
-              //comentario
+
           }
           else //Se o ultimo campo deve ser percorrido parcialmente
           {
-            //AQUI***********************************************************
-            maximo = 0;
-            for(k=0; k<=bitsAmais-1; k++)
-            {
-              maximo = (maximo | (1 << k));
-            }
 
             //OBS.: 1o e 2o casos do 1o toy de testes
-            for(k=0; k<=maximo; k++) //ta certo aqui?
+            //1 bit a mais = so o campo zero. 2: so o 0 e o 1. Etc.
+            for(k=0; k<bitsAmais; k++)
             {
-              //comentario
+                //
             }
+
           }
         }
         else //Se nao esta no ultimo campo do vetor de bits? VER
         {
-          //comentario
+
         }
       }
 
