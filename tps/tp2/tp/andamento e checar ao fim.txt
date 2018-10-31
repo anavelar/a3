@@ -5,11 +5,15 @@ DECISAO DE PROJETO (QUE PODE MUDAR)
 
 DUVIDAS / POSSIVEIS PAUS:
 -------------------------
+- logica de preenchimento da variavel maximoPercorrer quando bitsAmais != 0.
+- variavel chamada S ta brilhando diferente na sintaxe apesar de eu ter testado
 - Declaracao int i, j;
 - Para aceitar a bib math.h tive q colocar gcc -m apos
 o nome do arquivo. Porque?? Sei la.
 - ***********************************************ATRIBUICAO DO L NO FIM DO WHILE
-
+- Se M for 10^6 vai precisar trocar tipo de M que so aceita ate 32mil, ver esses
+  limites no forum do moodle+toddyinho.
+- ver se int eh ok para os elementos da sequencia S ou estoura.
 
 
 
@@ -27,12 +31,13 @@ OU ARQUIVO (SEC 7).
 -------------------------------------------------------------------------------
 POSSIVEIS OTIMIZACOES
 ---------------------
-
+0 - loop de for que preenche maximoPercorrer pode ser uma atribuicao so
 1- data types (podem diminuir dependendo do tipo)
 -------------------------------------------------------------------------------
 AO FIM******************************************************************
 ------
 
+00. Testar com os toys disponíveis, incluindo o da espec!!
 0. Separar estruturas de dados se tiver, nos dois programas.
 1. Entre outros normais de todo TP, checar valgrind.
 -------------------------------------------------------------------------------

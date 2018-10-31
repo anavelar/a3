@@ -12,7 +12,7 @@ int main(int argc, char *argv[ ]) {
 
   int i, j, k, l; //Contadores
   int numCasosTeste; // I, onde 1 <= I <=10
-  int tamanhoSequencia; //S - tamanho da sequencia. 1<= S <= 10^3
+  int S; //S - tamanho da sequencia. 1<= S <= 10^3
   int valorInicio; // V, 0 <= V <= X (e X<= 10^3)
   int limiteRodada; //X, 1<= X <= 10^3
   int minimoRodada; //M, ??
@@ -20,7 +20,7 @@ int main(int argc, char *argv[ ]) {
   unsigned char* vetorBits = NULL; //unsigned char: 8bits, de 0 a 255.
                                    //cada bit vai representar o sinal de um
                                    //elemento da sequencia.
-  double qtdadeChars; //double do int tamVetorBits
+  double qtdadeChars; //double do int tamVetorBits arredondado para baixo
   int tamVetorBits; //de 1 a 125? (125 p 8 bits por campo)
   int bitsAmais; //de 0 a 7?
   unsigned char maximo; //ate onde percorrer no ultimo bit dentro do campo (ver aqui abaixo)
@@ -56,19 +56,19 @@ int main(int argc, char *argv[ ]) {
   for(i=0; i<numCasosTeste; i++)
   {
     //Leitura do dados daquela instancia
-    fscanf(pArqEntrada, "%d %d ", &tamanhoSequencia, &valorInicio);
+    fscanf(pArqEntrada, "%d %d ", &S, &valorInicio);
     fscanf(pArqEntrada, "%d %d\n", &limiteRodada, &minimoRodada);
-    sequencia = (int*) malloc(tamanhoSequencia*(sizeof(int)));
-    for(j=0; j<(tamanhoSequencia-1); j++)
+    sequencia = (int*) malloc(S*(sizeof(int)));
+    for(j=0; j<(S-1); j++)
     {
       fscanf(pArqEntrada, "%d ", &sequencia[j]);
     }
     fscanf(pArqEntrada, "%d\n", &sequencia[j]);
 
     //Geracao do vetor de sinais
-    qtdadeChars = (double) tamanhoSequencia / BITS_CAMPO;
+    qtdadeChars = (double) S / BITS_CAMPO;
     tamVetorBits = (int) ceil(qtdadeChars);
-    bitsAmais = tamanhoSequencia % BITS_CAMPO;
+    bitsAmais = S % BITS_CAMPO;
     vetorBits = (unsigned char*) malloc(tamVetorBits*(sizeof(unsigned char)));
 
     //Procura do maior valor para a sequencia por forca bruta,
@@ -114,9 +114,10 @@ int main(int argc, char *argv[ ]) {
     indiceVetorNumero = 0;
 
     //Para cada configuracao do vetor de bits possivel:
+    //Cada passada no vetor de bits?
+    //Cada: Percorrendo o vetor todo uma vez. ?
     while(l != maximoPercorrer) //l desfazer se nao usar
     {
-      //Percorrendo o vetor todo uma vez.
       //Percorrendo cada campo do vetor de bits
       for(j=(tamVetorBits-1); j>=0; j--)
       {
@@ -124,7 +125,7 @@ int main(int argc, char *argv[ ]) {
         {
           if(bitsAmais == 0) //Se o ultimo campo deve ser percorrido inteiro
           {
-
+              //comentario
           }
           else //Se o ultimo campo deve ser percorrido parcialmente
           {
@@ -136,19 +137,19 @@ int main(int argc, char *argv[ ]) {
             }
 
             //OBS.: 1o e 2o casos do 1o toy de testes
-            for(k=0, k<=maximo; k++) //ta certo aqui?
+            for(k=0; k<=maximo; k++) //ta certo aqui?
             {
-
+              //comentario
             }
-
           }
         }
         else //Se nao esta no ultimo campo do vetor de bits? VER
         {
-
+          //comentario
         }
       }
 
+      //---------------------------------------------------------------------
       //Agora muda o vetor todo para novos 010101100.. aqui abaixo:
 
       //Reinicia o loop
@@ -170,8 +171,11 @@ int main(int argc, char *argv[ ]) {
       }
 
       //Atualiza indices para os do novo loop
-      indiceVetorReal--;
-      indiceVetorNumero++;
+      //Ve ser ja fez todos os cenarios daquele campo.
+      //Se sim atualiza os indices e vai para o proximo campo
+      //se nao deixa os indices certos, confirmar isso aqui
+      //indiceVetorReal--;
+      //indiceVetorNumero++;
     }
 
     //Ao fim da instancia: impressao no arquivo de saida do resultado.
