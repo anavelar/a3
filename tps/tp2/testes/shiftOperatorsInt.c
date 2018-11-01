@@ -5,7 +5,7 @@
 int main(int argc, char *argv[ ]) {
 
   unsigned char a;
-  unsigned char n; //indice do bit, de 0 a 7 (8 bits, 1 byte).
+  int n; //indice do bit, de 0 a 7 (8 bits, 1 byte).
   //int n; //indice do bit, de 0 a 7 (8 bits, 1 byte).
          //0 o mais a direita, 7 o  mais a esquerda.
   unsigned char valorBit; //Indica se bit eh zero ou 1.
@@ -16,10 +16,10 @@ int main(int argc, char *argv[ ]) {
                 //Mais uma operacao e nao precisa.
 
   //ATRIBUICOES
-  a = 7;
+  a = 9;
   printf("O binario de %d eh ", a);
 
-  for(n=7; n<8; n--) //n eh unsigned int: n-1 = 0-1 = 255. Aqui, n de 7 a 0.
+  for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
   {
     valorBit = (a & (1 << n));
 

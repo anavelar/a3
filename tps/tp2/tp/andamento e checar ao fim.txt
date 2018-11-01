@@ -5,8 +5,9 @@ DECISAO DE PROJETO (QUE PODE MUDAR)
 
 DUVIDAS / POSSIVEIS PAUS:
 -------------------------
+- CONFERIR SE EU RESETEI VARIAVEIS NOVAS ANTES DE OUTRO LOOP!!!
 - logica de preenchimento da variavel maximoPercorrer quando bitsAmais != 0.
-- variavel chamada S ta brilhando diferente na sintaxe apesar de eu ter testado
+- variavel V e variavel chamada S ta brilhando diferente na sintaxe apesar de eu ter testado
 - Declaracao int i, j;
 - Para aceitar a bib math.h tive q colocar gcc -m apos
 o nome do arquivo. Porque?? Sei la.

@@ -1,2 +1,1 @@
-a foi atribuido 4.
-novoa = a << 1 eh igual a 8.
+O binario de 7 eh 00000111
