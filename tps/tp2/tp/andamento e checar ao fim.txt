@@ -5,6 +5,9 @@ DECISAO DE PROJETO (QUE PODE MUDAR)
 
 DUVIDAS / POSSIVEIS PAUS:
 -------------------------
+- ERRO AO TESTAR CONDICOES DO PRINTF
+- nao estou desalocando tudo para entrar em novo loop / instancia?
+- condicao de terminacao com l associado.
 - acesso ao bit no caso do ultimo campo do vetor de bits caso nao completo
   (mas acho que esta certo).
 
@@ -38,6 +41,8 @@ OU ARQUIVO (SEC 7).
 -------------------------------------------------------------------------------
 POSSIVEIS OTIMIZACOES
 ---------------------
+0 - dentro da funcao confereVizinho, conferir se o indice ainda esta no vetor,
+nao precisa e uma operacao a mais toda vez.
 0 - loop de for que preenche maximoPercorrer pode ser uma atribuicao so
 1- data types (podem diminuir dependendo do tipo)
 2 - temp apenas int e nao long int? OU NAO, ENVOLVE VALOR CONF

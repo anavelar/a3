@@ -6,6 +6,22 @@
 #define SIM 1
 #define NAO 0
 
+//FUNCOES - PASSAR P TAD
+//(ate agora eu soh somei um ao vetorbits[0])
+void confereVizinho(unsigned char* vetorBits, int indice){
+
+  //Caso eu tenha feito a virada agora
+  if((vetorBits[indice] == 0) && ((indice+1) < tamVetorBits))
+  {
+    //cuidado com o ultimo, pensar no caso dele
+    vetorBits[indice+1]++;
+    confereVizinho[indice+1];
+  }
+}
+
+
+
+//PROGRAMA
 int main(int argc, char *argv[ ]) {
 
   //INICIALIZACAO
@@ -110,7 +126,6 @@ int main(int argc, char *argv[ ]) {
       maximoPercorrer = maximoPercorrer + maximo;
     }
 
-
     //Varre a espaco de solucoes
 
     //Inicializacoes
@@ -123,12 +138,12 @@ int main(int argc, char *argv[ ]) {
     l = 0;
 
     indiceVetorBits = 0;
-    valorConfMax = 0;
+    valorConfMax = -1;
 
     //Para cada configuracao do vetor de bits possivel:
     //Cada passada no vetor de bitsx**m?
     //Cada: Percorrendo o vetor todo uma vezx**m?
-    while(l != maximoPercorrer) //l desfazer se nao usar
+    while(1) //sempre, condicao de interrupcao esta la em baixo
     {
       //Inicializacoes necessarias
       valorConf = V;
@@ -154,11 +169,12 @@ int main(int argc, char *argv[ ]) {
 
               if(valorBit != 0) //Se o bit n for 1 (-)
               {
-                temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+                //temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+                temp = valorConf - sequencia[(8*j)+(7-n)];
 
                 if(temp >= 0) //Se a operacao nao estorou limites
                 {
-                  valorConf = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+                  valorConf = temp;
                 }
                 else //Se a operacao estourou limites: aborta essa conf
                     // cuidado com o valor la em baixo.
@@ -169,11 +185,12 @@ int main(int argc, char *argv[ ]) {
               }
               else //Se o bit n for 0 (+)
               {
-                temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+                //temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+                temp = valorConf + sequencia[(8*j)+(7-n)];
 
                 if(temp <= X) //Se a operacao nao estorou limites
                 {
-                  valorConf = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+                  valorConf = temp;
                 }
                 else //Se a operacao estourou limites: aborta essa conf
                     // cuidado com o valor la em baixo.
@@ -204,7 +221,7 @@ int main(int argc, char *argv[ ]) {
 
                 if(temp >= 0) //Se a operacao nao estorou limites
                 {
-                  valorConf = valorConf - sequencia[S-bitsAmais+n];
+                  valorConf = temp;
                 }
                 else //Se a operacao estourou limites: aborta essa conf
                     // cuidado com o valor la em baixo.
@@ -219,7 +236,7 @@ int main(int argc, char *argv[ ]) {
 
                 if(temp <= X) //Se a operacao nao estorou limites
                 {
-                  valorConf = valorConf + sequencia[S-bitsAmais+n];
+                  valorConf = temp;
                 }
                 else //Se a operacao estourou limites: aborta essa conf
                     // cuidado com o valor la em baixo.
@@ -245,11 +262,12 @@ int main(int argc, char *argv[ ]) {
 
             if(valorBit != 0) //Se o bit n for 1 (-)
             {
-              temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+              //temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+              temp = valorConf - sequencia[(8*j)+(7-n)];
 
               if(temp >= 0) //Se a operacao nao estorou limites
               {
-                valorConf = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+                valorConf = temp;
               }
               else //Se a operacao estourou limites: aborta essa conf
                   // cuidado com o valor la em baixo.
@@ -260,11 +278,12 @@ int main(int argc, char *argv[ ]) {
             }
             else //Se o bit n for 0 (+)
             {
-              temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+              //temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+              temp = valorConf + sequencia[(8*j)+(7-n)];
 
               if(temp <= X) //Se a operacao nao estorou limites
               {
-                valorConf = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+                valorConf = temp;
               }
               else //Se a operacao estourou limites: aborta essa conf
                   // cuidado com o valor la em baixo.
@@ -287,46 +306,83 @@ int main(int argc, char *argv[ ]) {
       //Agora muda o vetor todo para novos 010101100.. aqui abaixo:
       //-------------------REVER TUDO ISSO, LOGICA DE PERCORRER MUDEI UM POUCO
 
-      //Reinicia o loop
-      //Soma 1 no vetor e atualiza com isso TODOS OS CAMPOS
-      if( tamVetorBits == 1) //Se so tem uma celula
-      {
-
-      }
-      else //Se a ultima celula nao eh a unica, logo esta cheia.
-      {
-
-      }
-
-      //Calcula novo l --- conferir se depois q mudei mudou aqui***********
-      //ver se nao vai sair antes também!!! ao total
+      //Confere se este eh o loop final
       l = 0;
       for(j=0; j<tamVetorBits; j++)
       {
         l = l + vetorBits[j];
       }
-
-      //Atualiza indices para os do novo loop
-      //Ve ser ja fez todos os cenarios daquele campo.
-      //Se sim atualiza os indices e vai para o proximo campo
-      //se nao deixa os indices certos, confirmar isso aqui
-      //indiceVetorBits++;
-
-      //OBRIGATORIO, mas precisa conferir também se não abortou
-      //se tiver abortado descarta o valor conf do ramo:
-      //checa o valorConf encontrado nessa conf do vetor
-      //conferir depois o valorConf p caso nao abortou se eh isso mesmo
-      if ( (abortouConf == NAO) && (valorConf > valorConfMax) )
+      //Confere se eh o loop final.
+      //Se for, checa valor conf antes de sair (e lembra q tem
+      //mais instancias, nao dar return, fazer de outra forma
+      if(l == maximoPercorrer) //************************************************** aqui 2
       {
-        valorConfMax = valorConf;
+        //Acabou essa instância
+        //---------------------
+
+        //Fim de toda conf de uma instancia
+        //OBRIGATORIO, mas precisa conferir também se não abortou
+        //se tiver abortado descarta o valor conf do ramo:
+        //checa o valorConf encontrado nessa conf do vetor
+        //conferir depois o valorConf p caso nao abortou se eh isso mesmo
+        if( (abortouConf == NAO) && (valorConf > valorConfMax) )
+        {
+          valorConfMax = valorConf;
+        }
+
+        //Imprime sobre ela ---//fazer aqui 2*******************************************
+        if(valorConfMax == -1) //Se não completou nenhuma conf possivel
+                               //sem estourar. Casos 3 e 4: fora do intervalo [0,X]
+        {
+          printf("N,-1\n");
+        }
+        else  //Se teve pelo menos uma conf no trajeto que nao estourou
+        {
+          if(valorConfMax >= M)
+          {
+            printf("S,%li\n", valorConfMax);
+          }
+          else
+          {
+            printf("N,%li\n", valorConfMax);
+          }
+        }
+
+        //por ultimo sai do while infinito
+        break;
+      }
+      else //Nao acabou essa instancia: ainda há mais configurações para testar
+      {
+        //Reinicia o loop
+        //Soma 1 no vetor e atualiza com isso TODOS OS CAMPOS
+        vetorBits[0]++;
+        //Propaga o resultado em todo o numero
+        confereVizinho(vetorBits, 0);
+
+        //Atualiza indices para os do novo loop
+        //Ve ser ja fez todos os cenarios daquele campo.
+        //Se sim atualiza os indices e vai para o proximo campo
+        //se nao deixa os indices certos, confirmar isso aqui
+        //indiceVetorBits++;*/
+
+        //OBRIGATORIO, mas precisa conferir também se não abortou
+        //se tiver abortado descarta o valor conf do ramo:
+        //checa o valorConf encontrado nessa conf do vetor
+        //conferir depois o valorConf p caso nao abortou se eh isso mesmo
+        if( (abortouConf == NAO) && (valorConf > valorConfMax) )
+        {
+          valorConfMax = valorConf;
+        }
       }
 
+      //Reinicia nova configuracao do vetor
     }
 
     //Ao fim da instancia: impressao no arquivo de saida do resultado.
     //Depois:: desalocar coisas para a proxima instancia!
     free(sequencia);
     free(vetorBits);
+
   }
 
   //FIM DO PROGRAMA
