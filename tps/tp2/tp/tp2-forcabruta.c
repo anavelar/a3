@@ -8,18 +8,16 @@
 
 //FUNCOES - PASSAR P TAD
 //(ate agora eu soh somei um ao vetorbits[0])
-void confereVizinho(unsigned char* vetorBits, int indice){
+void confereVizinho(unsigned char* vetorBits, int indice, int tamVetorBits){
 
   //Caso eu tenha feito a virada agora
   if((vetorBits[indice] == 0) && ((indice+1) < tamVetorBits))
   {
     //cuidado com o ultimo, pensar no caso dele
     vetorBits[indice+1]++;
-    confereVizinho[indice+1];
+    confereVizinho(vetorBits, (indice+1), tamVetorBits);
   }
 }
-
-
 
 //PROGRAMA
 int main(int argc, char *argv[ ]) {
@@ -82,7 +80,7 @@ int main(int argc, char *argv[ ]) {
   {
     //Leitura do dados daquela instancia
     fscanf(pArqEntrada, "%d %d ", &S, &V);
-    fscanf(pArqEntrada, "%d %d\n", &X, &M);
+    fscanf(pArqEntrada, "%d %li\n", &X, &M);
     sequencia = (int*) malloc(S*(sizeof(int)));
     for(j=0; j<(S-1); j++)
     {
@@ -330,21 +328,21 @@ int main(int argc, char *argv[ ]) {
           valorConfMax = valorConf;
         }
 
-        //Imprime sobre ela ---//fazer aqui 2*******************************************
+        //Imprime sobre ela
         if(valorConfMax == -1) //Se não completou nenhuma conf possivel
                                //sem estourar. Casos 3 e 4: fora do intervalo [0,X]
         {
-          printf("N,-1\n");
+          fprintf(pArqSaida, "N,-1\n");
         }
         else  //Se teve pelo menos uma conf no trajeto que nao estourou
         {
           if(valorConfMax >= M)
           {
-            printf("S,%li\n", valorConfMax);
+            fprintf(pArqSaida, "S,%li\n", valorConfMax);
           }
           else
           {
-            printf("N,%li\n", valorConfMax);
+            fprintf(pArqSaida, "N,%li\n", valorConfMax);
           }
         }
 
@@ -357,7 +355,7 @@ int main(int argc, char *argv[ ]) {
         //Soma 1 no vetor e atualiza com isso TODOS OS CAMPOS
         vetorBits[0]++;
         //Propaga o resultado em todo o numero
-        confereVizinho(vetorBits, 0);
+        confereVizinho(vetorBits, 0, tamVetorBits);
 
         //Atualiza indices para os do novo loop
         //Ve ser ja fez todos os cenarios daquele campo.
