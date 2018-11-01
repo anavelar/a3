@@ -148,21 +148,25 @@ int main(int argc, char *argv[ ]) {
           //Dentro de um campo unsigned char do vetor de bits
           //aqui************** contador k ta livre soh
           //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
+          //Percorre os bits de um dos campos do vetor
           for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
           {
+            //Para cada bit do vetor
+            //----------------------
+
             valorBit = (vetorBits[j] & (1 << n));
 
             if(valorBit != 0) //Se o bit n for 1 (-)
             {
               //aqui**************************************
               //checar tb se pode add limite 0-X e se aborta etc
-              valorConf = valorConf - sequencia[];
+              valorConf = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
             }
             else //Se o bit n for 0 (+)
             {
               //aqui**************************************
               //checar tb se pode add limite 0-X e se aborta etc
-              valorConf = valorConf + sequencia[];
+              valorConf = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
             }
 
           }
