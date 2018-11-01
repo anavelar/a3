@@ -3,6 +3,8 @@
 #include <math.h>
 
 #define BITS_CAMPO 8
+#define SIM 1
+#define NAO 0
 
 int main(int argc, char *argv[ ]) {
 
@@ -32,6 +34,9 @@ int main(int argc, char *argv[ ]) {
   //resultado para cada conf do vetor e p conf global colocar aqui tb?
   long int valorConf; //valor de uma configuracao do vetor de bits
   long int valorConfMax; //maior valorConf ja encontrado ate agora
+  long int temp; //para checar se passou o limite ao add
+  //Para aborts
+  int abortouConf; //uma booleana na verdade aqui
 
   //Entrada dos dados
   if(argc != 3)
@@ -109,9 +114,6 @@ int main(int argc, char *argv[ ]) {
     //Varre a espaco de solucoes
 
     //Inicializacoes
-    valorConfMax = 0;
-    indiceVetorBits = 0;
-
     //Do vetor de bits todo zero 00000... a todo 1 11111...
     //Inicializa para a 1a configuracao do vetor
     for(j=0; j<tamVetorBits; j++)
@@ -120,6 +122,9 @@ int main(int argc, char *argv[ ]) {
     }
     l = 0;
 
+    indiceVetorBits = 0;
+    valorConfMax = 0;
+
     //Para cada configuracao do vetor de bits possivel:
     //Cada passada no vetor de bitsx**m?
     //Cada: Percorrendo o vetor todo uma vezx**m?
@@ -127,6 +132,7 @@ int main(int argc, char *argv[ ]) {
     {
       //Inicializacoes necessarias
       valorConf = V;
+      abortouConf = NAO;
 
       //Percorrendo cada campo do vetor de bits
       for(j=0; j<tamVetorBits; j++)
@@ -146,7 +152,6 @@ int main(int argc, char *argv[ ]) {
         else //Se nao esta no ultimo campo do vetor de bits, um dado campo
         {
           //Dentro de um campo unsigned char do vetor de bits
-          //aqui************** contador k ta livre soh
           //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
           //Percorre os bits de um dos campos do vetor
           for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
@@ -158,20 +163,42 @@ int main(int argc, char *argv[ ]) {
 
             if(valorBit != 0) //Se o bit n for 1 (-)
             {
-              //aqui**************************************
-              //checar tb se pode add limite 0-X e se aborta etc
-              valorConf = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+              temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+
+              if(temp >= 0) //Se a operacao nao estorou limites
+              {
+                valorConf = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+              }
+              else //Se a operacao estourou limites: aborta essa conf
+                  // cuidado com o valor la em baixo.
+              {
+                abortouConf = SIM;
+                break;
+              }
             }
             else //Se o bit n for 0 (+)
             {
-              //aqui**************************************
-              //checar tb se pode add limite 0-X e se aborta etc
-              valorConf = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+              temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+
+              if(temp <= X) //Se a operacao nao estorou limites
+              {
+                valorConf = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+              }
+              else //Se a operacao estourou limites: aborta essa conf
+                  // cuidado com o valor la em baixo.
+              {
+                abortouConf = SIM;
+                break;
+              }
             }
-
           }
-
         }
+
+        if(abortouConf == SIM)
+        {
+          break;
+        }
+
       }
 
       //---------------------------------------------------------------------
@@ -204,12 +231,13 @@ int main(int argc, char *argv[ ]) {
 
       //OBRIGATORIO, mas precisa conferir também se não abortou
       //se tiver abortado descarta o valor conf do ramo:
-      //
       //checa o valorConf encontrado nessa conf do vetor
-      //if(valorConf > valorConfMax)
-      //{
-      //  valorConfMax = valorConf;
-      //}
+      //conferir depois o valorConf p caso nao abortou se eh isso mesmo
+      if ( (abortouConf == NAO) && (valorConf > valorConfMax) )
+      {
+        valorConfMax = valorConf;
+      }
+
     }
 
     //Ao fim da instancia: impressao no arquivo de saida do resultado.

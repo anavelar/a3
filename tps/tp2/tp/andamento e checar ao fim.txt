@@ -34,6 +34,7 @@ POSSIVEIS OTIMIZACOES
 ---------------------
 0 - loop de for que preenche maximoPercorrer pode ser uma atribuicao so
 1- data types (podem diminuir dependendo do tipo)
+2 - temp apenas int e nao long int? OU NAO, ENVOLVE VALOR CONF
 -------------------------------------------------------------------------------
 AO FIM******************************************************************
 ------
@@ -42,3 +43,6 @@ AO FIM******************************************************************
 0. Separar estruturas de dados se tiver, nos dois programas.
 1. Entre outros normais de todo TP, checar valgrind.
 -------------------------------------------------------------------------------
+PARA O DE PROGRAMACAO DINAMICA
+
+- ver a variavel abortou também para salvar na matriz ou vetor
