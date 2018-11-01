@@ -142,11 +142,93 @@ int main(int argc, char *argv[ ]) {
         {
           if(bitsAmais == 0) //Se o ultimo campo deve ser percorrido inteiro
           {
+            //Dentro de um campo unsigned char do vetor de bits
+            //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
+            //Percorre os bits de um dos campos do vetor
+            for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
+            {
+              //Para cada bit do vetor
+              //----------------------
 
+              valorBit = (vetorBits[j] & (1 << n));
+
+              if(valorBit != 0) //Se o bit n for 1 (-)
+              {
+                temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+
+                if(temp >= 0) //Se a operacao nao estorou limites
+                {
+                  valorConf = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
+                }
+                else //Se a operacao estourou limites: aborta essa conf
+                    // cuidado com o valor la em baixo.
+                {
+                  abortouConf = SIM;
+                  break;
+                }
+              }
+              else //Se o bit n for 0 (+)
+              {
+                temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+
+                if(temp <= X) //Se a operacao nao estorou limites
+                {
+                  valorConf = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
+                }
+                else //Se a operacao estourou limites: aborta essa conf
+                    // cuidado com o valor la em baixo.
+                {
+                  abortouConf = SIM;
+                  break;
+                }
+              }
+            }
           }
           else //Se o ultimo campo deve ser percorrido parcialmente
           {
+            //Dentro de um campo unsigned char do vetor de bits
+            //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
+            //Percorre os bits de um dos campos do vetor
 
+            for(n=0; n<bitsAmais; n++)
+            {
+              //Para cada bit do vetor
+              //----------------------
+
+              //Acessa o bit
+              valorBit = (vetorBits[j] & (1 << n));
+
+              if(valorBit != 0) //Se o bit n for 1 (-)
+              {
+                temp = valorConf - sequencia[S-bitsAmais+n];
+
+                if(temp >= 0) //Se a operacao nao estorou limites
+                {
+                  valorConf = valorConf - sequencia[S-bitsAmais+n];
+                }
+                else //Se a operacao estourou limites: aborta essa conf
+                    // cuidado com o valor la em baixo.
+                {
+                  abortouConf = SIM;
+                  break;
+                }
+              }
+              else //Se o bit n for 0 (+)
+              {
+                temp = valorConf + sequencia[S-bitsAmais+n];
+
+                if(temp <= X) //Se a operacao nao estorou limites
+                {
+                  valorConf = valorConf + sequencia[S-bitsAmais+n];
+                }
+                else //Se a operacao estourou limites: aborta essa conf
+                    // cuidado com o valor la em baixo.
+                {
+                  abortouConf = SIM;
+                  break;
+                }
+              }
+            }
           }
         }
         else //Se nao esta no ultimo campo do vetor de bits, um dado campo
@@ -203,6 +285,7 @@ int main(int argc, char *argv[ ]) {
 
       //---------------------------------------------------------------------
       //Agora muda o vetor todo para novos 010101100.. aqui abaixo:
+      //-------------------REVER TUDO ISSO, LOGICA DE PERCORRER MUDEI UM POUCO
 
       //Reinicia o loop
       //Soma 1 no vetor e atualiza com isso TODOS OS CAMPOS

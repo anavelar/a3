@@ -5,6 +5,12 @@ DECISAO DE PROJETO (QUE PODE MUDAR)
 
 DUVIDAS / POSSIVEIS PAUS:
 -------------------------
+- acesso ao bit no caso do ultimo campo do vetor de bits caso nao completo
+  (mas acho que esta certo).
+
+- ESTA CERTA A LOGICA DE ULTIMO CAMPO PARA PERCORRER CAMPOS?
+  POR LOGICA DIGO VARIAVEIS.
+
 - CONFERIR SE EU RESETEI VARIAVEIS NOVAS ANTES DE OUTRO LOOP!!!
 - logica de preenchimento da variavel maximoPercorrer quando bitsAmais != 0.
 - variavel V e variavel chamada S ta brilhando diferente na sintaxe apesar de eu ter testado
