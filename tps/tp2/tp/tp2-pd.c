@@ -436,7 +436,7 @@ int main(int argc, char *argv[ ]) {
 
       //---------------------------------------------------------------------
       //Agora muda o vetor todo para novos 010101100.. aqui abaixo:
-      //-------------------REVER TUDO ISSO, LOGICA DE PERCORRER MUDEI UM POUCO
+      //--------------------------------------------------------------------
 
       //Confere se este eh o loop final
       l = 0;

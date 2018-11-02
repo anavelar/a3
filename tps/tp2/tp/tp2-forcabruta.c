@@ -302,7 +302,7 @@ int main(int argc, char *argv[ ]) {
 
       //---------------------------------------------------------------------
       //Agora muda o vetor todo para novos 010101100.. aqui abaixo:
-      //-------------------REVER TUDO ISSO, LOGICA DE PERCORRER MUDEI UM POUCO
+      //---------------------------------------------------------------------
 
       //Confere se este eh o loop final
       l = 0;
@@ -313,7 +313,7 @@ int main(int argc, char *argv[ ]) {
       //Confere se eh o loop final.
       //Se for, checa valor conf antes de sair (e lembra q tem
       //mais instancias, nao dar return, fazer de outra forma
-      if(l == maximoPercorrer) //************************************************** aqui 2
+      if(l == maximoPercorrer)
       {
         //Acabou essa instância
         //---------------------
