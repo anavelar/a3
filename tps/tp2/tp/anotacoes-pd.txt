@@ -18,5 +18,7 @@ POSSIVEIS OTIMIZACOES
 
 POSSIVEIS PAUS
 --------------
+- andar com o aux no vetor de programacao dinamica, atrivuicoes de um novo
+  quando muda o aux.
 - preenchimento vb0 para caso ultima celula do vetor bits e cheia.
 - vb0 para primeira celula nao cheia
