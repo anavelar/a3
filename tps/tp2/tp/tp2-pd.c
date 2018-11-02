@@ -62,6 +62,11 @@ int main(int argc, char *argv[ ]) {
   long int temp; //para checar se passou o limite ao add
   //Para aborts
   int abortouConf; //uma booleana na verdade aqui
+  tipoCampo* vb0;
+  int numDiferentesConfig; //de 2^1, 2, ate 2^7, ate 128.
+
+  //PD
+  apontador aux;
 
   //Entrada dos dados
   if(argc != 3)
@@ -105,11 +110,6 @@ int main(int argc, char *argv[ ]) {
     bitsAmais = S % BITS_CAMPO;
     vetorBits = (unsigned char*) malloc(tamVetorBits*(sizeof(unsigned char)));
 
-    //Parte de programacao dinamica: cria vetor dos vetores para armazenar espacos
-
-
-
-
     //Procura do maior valor para a sequencia por forca bruta,
     //varendo todo o espaço de solucoes.
     //---------------------------------------------------------
@@ -140,7 +140,39 @@ int main(int argc, char *argv[ ]) {
       maximoPercorrer = maximoPercorrer + maximo;
     }
 
+    //Parte de programacao dinamica: cria vetor dos vetores para armazenar espacos
+    //Cria vb0
+    if( (tamVetorBits == 1) && (bitsAmais != 0) ) //Se o vetorBits so tem uma celula (1o caso de toy por exemplo)
+    {
+      numDiferentesConfig = (int) (pow(((double) 2), ((double) bitsAmais)));
+      vb0 = (tipoCampo*) malloc(numDiferentesConfig*(sizeof(tipoCampo)));
+
+      //inicializa
+      for(j=0; j<numDiferentesConfig; j++)
+      {
+        vb0[j].indiceVB = 0;
+        vb0[j].conf = j;
+        vb0[j].valor = -1;
+        vb0[j].confProxCampo = NULL;
+      }
+    }
+    else //Se o vetor de bits tem mais de uma celula OU se tem uma unica celula porem 100% cheia
+    {
+      vb0 = (tipoCampo*) malloc(256*(sizeof(tipoCampo)));
+
+      //inicializa
+      for(j=0; j<256; j++)
+      {
+        vb0[j].indiceVB = 0;
+        vb0[j].conf = j;
+        vb0[j].valor = -1;
+        vb0[j].confProxCampo = NULL;
+      }
+    }//aqui agora*************************************************************************************************************************
+
+
     //Varre a espaco de solucoes
+    //--------------------------
 
     //Inicializacoes
     //Do vetor de bits todo zero 00000... a todo 1 11111...

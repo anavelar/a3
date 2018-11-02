@@ -15,3 +15,8 @@ POSSIVEIS OTIMIZACOES
 
 - OLHAR OTIMIZACOES DIVERSAS NOS DOIS (PD E FB) depois que funcionar
 - VER ANOTACOES DO FB
+
+POSSIVEIS PAUS
+--------------
+- preenchimento vb0 para caso ultima celula do vetor bits e cheia.
+- vb0 para primeira celula nao cheia
