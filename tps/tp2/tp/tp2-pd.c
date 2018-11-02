@@ -64,7 +64,6 @@ int main(int argc, char *argv[ ]) {
   int abortouConf; //uma booleana na verdade aqui
   tipoCampo* vb0;
   int numDiferentesConfig; //de 2^1, 2, ate 2^7, ate 128.
-
   //PD
   apontador aux;
 
@@ -168,7 +167,7 @@ int main(int argc, char *argv[ ]) {
         vb0[j].valor = -1;
         vb0[j].confProxCampo = NULL;
       }
-    }//aqui agora*************************************************************************************************************************
+    }
 
 
     //Varre a espaco de solucoes
@@ -183,6 +182,7 @@ int main(int argc, char *argv[ ]) {
     }
     l = 0;
 
+    aux = vb0[0]; //Aquie depende de onde começa o loop
     valorConfMax = -1;
 
     //Para cada configuracao do vetor de bits possivel:
@@ -293,6 +293,13 @@ int main(int argc, char *argv[ ]) {
         }
         else //Se nao esta no ultimo campo do vetor de bits, um dado campo
         {
+          //*******************************************************************************aqui
+          if()
+          {
+            
+          }
+
+
           //Dentro de um campo unsigned char do vetor de bits
           //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
           //Percorre os bits de um dos campos do vetor
@@ -334,6 +341,8 @@ int main(int argc, char *argv[ ]) {
               }
             }
           }
+
+
         }
 
         if(abortouConf == SIM)
