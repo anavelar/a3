@@ -6,6 +6,18 @@
 #define SIM 1
 #define NAO 0
 
+//ESTRUTURAS DE DADOS - PASSAR P TAD
+typedef struct tipocampo* apontador;
+
+typedef struct tipocampo{
+  int indiceVB; //indice desse campo do vetor de bits
+  unsigned char conf; //configuracao, de 0 a 255, desse campo. (valida
+                      //considerando os anteriores claro.
+  long int valor;      //valor calculado que vai ser salvo por prog dinamica;
+  apontador* confProxCampo; //vetor para o proximo campo onde cada item
+                                //eh uma configuracao possivel
+} tipoCampo;
+
 //FUNCOES - PASSAR P TAD
 //(ate agora eu soh somei um ao vetorbits[0])
 void confereVizinho(unsigned char* vetorBits, int indice, int tamVetorBits){
@@ -41,7 +53,6 @@ int main(int argc, char *argv[ ]) {
   int bitsAmais; //de 0 a 7?
   unsigned char maximo; //ate onde percorrer no ultimo bit dentro do campo (ver aqui abaixo)
   int maximoPercorrer; //quando sabe que varreu o espaco de solucoes
-  int indiceVetorBits; //Entre 0 e 124 (max 125 posicoes)
   //Usados para percorrer campo do vetor de bits
   unsigned char valorBit;
   int n;
@@ -94,6 +105,11 @@ int main(int argc, char *argv[ ]) {
     bitsAmais = S % BITS_CAMPO;
     vetorBits = (unsigned char*) malloc(tamVetorBits*(sizeof(unsigned char)));
 
+    //Parte de programacao dinamica: cria vetor dos vetores para armazenar espacos
+
+
+
+
     //Procura do maior valor para a sequencia por forca bruta,
     //varendo todo o espaço de solucoes.
     //---------------------------------------------------------
@@ -135,7 +151,6 @@ int main(int argc, char *argv[ ]) {
     }
     l = 0;
 
-    indiceVetorBits = 0;
     valorConfMax = -1;
 
     //Para cada configuracao do vetor de bits possivel:
@@ -167,7 +182,6 @@ int main(int argc, char *argv[ ]) {
 
               if(valorBit != 0) //Se o bit n for 1 (-)
               {
-                //temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
                 temp = valorConf - sequencia[(8*j)+(7-n)];
 
                 if(temp >= 0) //Se a operacao nao estorou limites
@@ -183,7 +197,6 @@ int main(int argc, char *argv[ ]) {
               }
               else //Se o bit n for 0 (+)
               {
-                //temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
                 temp = valorConf + sequencia[(8*j)+(7-n)];
 
                 if(temp <= X) //Se a operacao nao estorou limites
@@ -260,7 +273,6 @@ int main(int argc, char *argv[ ]) {
 
             if(valorBit != 0) //Se o bit n for 1 (-)
             {
-              //temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
               temp = valorConf - sequencia[(8*j)+(7-n)];
 
               if(temp >= 0) //Se a operacao nao estorou limites
@@ -276,7 +288,6 @@ int main(int argc, char *argv[ ]) {
             }
             else //Se o bit n for 0 (+)
             {
-              //temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
               temp = valorConf + sequencia[(8*j)+(7-n)];
 
               if(temp <= X) //Se a operacao nao estorou limites
@@ -356,12 +367,6 @@ int main(int argc, char *argv[ ]) {
         vetorBits[0]++;
         //Propaga o resultado em todo o numero
         confereVizinho(vetorBits, 0, tamVetorBits);
-
-        //Atualiza indices para os do novo loop
-        //Ve ser ja fez todos os cenarios daquele campo.
-        //Se sim atualiza os indices e vai para o proximo campo
-        //se nao deixa os indices certos, confirmar isso aqui
-        //indiceVetorBits++;*/
 
         //OBRIGATORIO, mas precisa conferir também se não abortou
         //se tiver abortado descarta o valor conf do ramo:
