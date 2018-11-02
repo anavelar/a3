@@ -1,0 +1,17 @@
+ANTES: VER ANOTACOES DO FB TAMBEM, QUE TAMBEM SAO SOBRE AQUI.
+
+DEPOIS: - NAO, DESISTI
+      MAS DOCUMENTAR ISSO PARA TESTES MAIORES
+      TENTAR IMPLEM COM AO INVES DE CHAR 8 BITS OUTRO 64BITS? -- TESTE MAX 50 BITS NOS EXEMPLOS, BOM P TESTES ACIMA 64 ELEMENTOS.
+                                                                  50/8 = 48/8 = 6, LOGO 6, ALGO.
+        ************* CRIAR NOVO CODIGO P ISSO, NAO COMMITAR EM CIMA.
+
+POSSIVEIS OTIMIZACOES
+---------------------
+- if dentro da funcao ConfereVizinho, quase certeza que dah pra
+  tirar o segundo teste.
+- um preenchimento de vetor com loop ao inves de 255*124, conferir
+  se daria pra fazer a troca mesmo
+
+- OLHAR OTIMIZACOES DIVERSAS NOS DOIS (PD E FB) depois que funcionar
+- VER ANOTACOES DO FB
