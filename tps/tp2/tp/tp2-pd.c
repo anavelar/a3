@@ -145,7 +145,7 @@ int main(int argc, char *argv[ ]) {
     {
       numDiferentesConfig = (int) (pow(((double) 2), ((double) bitsAmais)));
     }
-    
+
     if( (tamVetorBits == 1) && (bitsAmais != 0) ) //Se o vetorBits so tem uma celula (1o caso de toy por exemplo)
     {
       vb0 = (tipoCampo*) malloc(numDiferentesConfig*(sizeof(tipoCampo)));
@@ -197,9 +197,6 @@ int main(int argc, char *argv[ ]) {
       aux = &(vb0[vetorBits[0]]); //Aquie depende de onde começa o loop
       valorConf = V;
       abortouConf = NAO;
-      //teste
-      fprintf(pArqSaida, "Atribui NAO ao abortou ao analisar nova conf..\n");
-      //fimteste
 
       //Percorrendo cada campo do vetor de bits
       for(j=0; j<tamVetorBits; j++)
@@ -238,9 +235,6 @@ int main(int argc, char *argv[ ]) {
                       // cuidado com o valor la em baixo.
                   {
                     abortouConf = SIM;
-                    //teste
-                    fprintf(pArqSaida, "Atribui SIM ao abortou em estouro de limites.\n");
-                    //fimteste
                     break;
                   }
                 }
@@ -256,9 +250,6 @@ int main(int argc, char *argv[ ]) {
                       // cuidado com o valor la em baixo.
                   {
                     abortouConf = SIM;
-                    //teste
-                    fprintf(pArqSaida, "Atribui SIM ao abortou em estouro de limites.\n");
-                    //fimteste
                     break;
                   }
                 }
@@ -280,9 +271,6 @@ int main(int argc, char *argv[ ]) {
               if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
               {
                 abortouConf = SIM;
-                //teste
-                fprintf(pArqSaida, "Atribui SIM ao abortou quando achou valor igual a -1000.\n");
-                //fimteste
               }
               else //Se ja calculou e não estourou
               {
@@ -301,9 +289,6 @@ int main(int argc, char *argv[ ]) {
 
             if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
             {
-              //teste
-              fprintf(pArqSaida, "Na instancia %d o campo j=%d nao foi calculado e vai ser calulado.\n", (i+1), j);
-              //fimteste
               //- Calcula
               //Dentro de um campo unsigned char do vetor de bits
               //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
@@ -323,17 +308,11 @@ int main(int argc, char *argv[ ]) {
                   if(temp >= 0) //Se a operacao nao estorou limites
                   {
                     valorConf = temp;
-                    //teste
-                    fprintf(pArqSaida, "Em bit n=%d achou temp=%li e o atribui a vlorconf q agora eh %li..\n", n, temp, valorConf);
-                    //fimteste
                   }
                   else //Se a operacao estourou limites: aborta essa conf
                       // cuidado com o valor la em baixo.
                   {
                     abortouConf = SIM;
-                    //teste
-                    fprintf(pArqSaida, "Em bit n=%d Atribui SIM ao abortou em estouro de limites.\n", n);
-                    //fimteste
                     break;
                   }
                 }
@@ -344,20 +323,11 @@ int main(int argc, char *argv[ ]) {
                   if(temp <= X) //Se a operacao nao estorou limites
                   {
                     valorConf = temp;
-                    //teste
-                    fprintf(pArqSaida, "Em bit n=%d achou temp=%li e o atribui a vlorconf q agora eh %li..\n", n, temp, valorConf);
-                    //fimteste
                   }
                   else //Se a operacao estourou limites: aborta essa conf
                       // cuidado com o valor la em baixo.
                   {
                     abortouConf = SIM;
-                    //teste
-                    fprintf(pArqSaida, "Em bit n=%d Atribui SIM ao abortou em estouro de limites.\n", n);
-                    //fimteste
-                    //teste
-                    fprintf(pArqSaida, "Atribui SIM ao abortou em estouro de limites.\n");
-                    //fimteste
                     break;
                   }
                 }
@@ -378,9 +348,6 @@ int main(int argc, char *argv[ ]) {
               if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
               {
                 abortouConf = SIM;
-                //teste
-                fprintf(pArqSaida, "Atribui SIM ao abortou ao encontrar valor igual a -1000.\n");
-                //fimteste
               }
               else //Se ja calculou e não estourou
               {
@@ -400,9 +367,6 @@ int main(int argc, char *argv[ ]) {
 
           if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
           {
-            //teste
-            fprintf(pArqSaida, "Na instancia %d o campo j=%d nao foi calculado e vai ser calulado.\n", (i+1), j);
-            //fimteste
             //- Calcula e coloca na variavel de valor do montante
             //Dentro de um campo unsigned char do vetor de bits
             //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
@@ -426,9 +390,6 @@ int main(int argc, char *argv[ ]) {
                     // cuidado com o valor la em baixo.
                 {
                   abortouConf = SIM;
-                  //teste
-                  fprintf(pArqSaida, "Atribui SIM ao abortou em estouro de limites.\n");
-                  //fimteste
                   break;
                 }
               }
@@ -444,9 +405,6 @@ int main(int argc, char *argv[ ]) {
                     // cuidado com o valor la em baixo.
                 {
                   abortouConf = SIM;
-                  //teste
-                  fprintf(pArqSaida, "Atribui SIM ao abortou em estouro de limites.\n");
-                  //fimteste
                   break;
                 }
               }
@@ -468,9 +426,6 @@ int main(int argc, char *argv[ ]) {
             if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
             {
               abortouConf = SIM;
-              //teste
-              fprintf(pArqSaida, "Atribui SIM ao abortou ao encontrar valor igual a -1000.\n");
-              //fimteste
             }
             else //Se ja calculou e não estourou
             {
@@ -549,9 +504,6 @@ int main(int argc, char *argv[ ]) {
 
         if(abortouConf == SIM)
         {
-          //teste
-          fprintf(pArqSaida, "ABORTOU RAMO----------------------------------------------------.\n");
-          //fimteste
           break;
         }
 
@@ -581,9 +533,6 @@ int main(int argc, char *argv[ ]) {
         //se tiver abortado descarta o valor conf do ramo:
         //checa o valorConf encontrado nessa conf do vetor
         //conferir depois o valorConf p caso nao abortou se eh isso mesmo
-        //teste
-        fprintf(pArqSaida, "Fim instancia %d: valorConf:%li e valorConfMax:%li.\n", (i+1), valorConf, valorConfMax);
-        //fimteste
         if( (abortouConf == NAO) && (valorConf > valorConfMax) )
         {
           valorConfMax = valorConf;
