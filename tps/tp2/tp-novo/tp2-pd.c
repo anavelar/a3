@@ -1,7 +1,3 @@
-//versao debug
-//--------------------------
-
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -9,18 +5,6 @@
 #define BITS_CAMPO 8
 #define SIM 1
 #define NAO 0
-
-//ESTRUTURAS DE DADOS - PASSAR P TAD
-typedef struct tipocampo* apontador;
-
-typedef struct tipocampo{
-  int indiceVB; //indice desse campo do vetor de bits
-  unsigned char conf; //configuracao, de 0 a 255, desse campo. (valida
-                      //considerando os anteriores claro.
-  long int valor;      //valor calculado que vai ser salvo por prog dinamica;
-  apontador* confProxCampo; //vetor para o proximo campo onde cada item
-                                //eh uma configuracao possivel
-} tipoCampo;
 
 //FUNCOES - PASSAR P TAD
 //(ate agora eu soh somei um ao vetorbits[0])
@@ -66,10 +50,6 @@ int main(int argc, char *argv[ ]) {
   long int temp; //para checar se passou o limite ao add
   //Para aborts
   int abortouConf; //uma booleana na verdade aqui
-  tipoCampo* vb0;
-  int numDiferentesConfig; //de 2^1, 2, ate 2^7, ate 128.
-  //PD
-  apontador aux;
 
   //Entrada dos dados
   if(argc != 3)
@@ -112,23 +92,15 @@ int main(int argc, char *argv[ ]) {
     tamVetorBits = (int) ceil(qtdadeChars);
     bitsAmais = S % BITS_CAMPO;
     vetorBits = (unsigned char*) malloc(tamVetorBits*(sizeof(unsigned char)));
-    if(bitsAmais != 0) //Se ha bits a mais, calcula essa variavel.
-    {
-      numDiferentesConfig = (int) (pow(((double) 2), ((double) bitsAmais)));
-    }
 
-    //Procura o maior valor pra sequencia varrendo todo o espaço de solucoes
-    //---------------------------------------------------------------------
+    //Procura do maior valor pra sequencia varrendo todo o espaço de solucoes.
+    //------------------------------------------------------------------------
 
-    //1. Calcula quando todo o espaco de solucoes vai ter sido varrido
+    //1.Calcula quando todo o espaco de solucoes vai ter sido varrido
     //maximoPercorrer: quando vai ter varrido o espaco de solucoes
-    //Tamanho maximo de maximoPercorrer = 255*125 = 31875
-    //(cabe num int, que eh 32mil e alguma coisa).
-
-    //a.Para os campos cheios
+    //Tamanho maximo de maximoPercorrer = 255*125 = 31875 (cabe num int, que eh 32mil e alguma coisa).
     maximoPercorrer = 255 * (tamVetorBits-1);
-
-    //b.Para o ultimo campo, que pode ou nao ser completo (j = tamVetorBits-1) aqui
+    //para o ultimo campo, que pode ou nao ser completo (j = tamVetorBits-1) aqui
     if(bitsAmais == 0) //Caso o ultimo campo seja cheio
     {
       maximoPercorrer = maximoPercorrer + 255;
@@ -141,49 +113,16 @@ int main(int argc, char *argv[ ]) {
       {
         maximo = (maximo | (1 << k));
       }
-
-      //Soma esse maximo ao inves de 255
       maximoPercorrer = maximoPercorrer + maximo;
     }
 
-    //2.Parte de programacao dinamica: Cria vetor dos vetores para armazenar espacos
-    //Cria vb0 - vetor com as conf possiveis para vetorBits[0] inicial,
-    //de onde comeca a PD
-    if( (tamVetorBits == 1) && (bitsAmais != 0) ) //Se o vetorBits so tem uma celula (1o caso de toy por exemplo)
-    {
-      vb0 = (tipoCampo*) malloc(numDiferentesConfig*(sizeof(tipoCampo)));
-
-      //inicializa
-      for(k=0; k<numDiferentesConfig; k++)
-      {
-        vb0[k].indiceVB = 0;
-        vb0[k].conf = k;
-        vb0[k].valor = -1;
-        vb0[k].confProxCampo = NULL;
-      }
-    }
-    else //Se o vetor de bits tem mais de uma celula OU se tem uma unica celula porem 100% cheia
-    {
-      vb0 = (tipoCampo*) malloc(256*(sizeof(tipoCampo)));
-
-      //inicializa
-      for(k=0; k<256; k++)
-      {
-        vb0[k].indiceVB = 0;
-        vb0[k].conf = k;
-        vb0[k].valor = -1;
-        vb0[k].confProxCampo = NULL;
-      }
-    }
-
-    //3.Inicializacoes
+    //2.Inicializacoes
     //Do vetor de bits todo zero 00000... a todo 1 11111...
     //Inicializa para a 1a configuracao do vetor
     for(j=0; j<tamVetorBits; j++)
     {
       vetorBits[j] = 0;
     }
-
     l = 0;
     valorConfMax = -1;
 
@@ -193,7 +132,6 @@ int main(int argc, char *argv[ ]) {
     while(1) //sempre, condicao de interrupcao esta la em baixo
     {
       //Inicializacoes necessarias
-      aux = &(vb0[vetorBits[0]]); //Aqui depende de onde começa o loop
       valorConf = V;
       abortouConf = NAO;
 
@@ -209,9 +147,7 @@ int main(int argc, char *argv[ ]) {
             //Confere se esse campo já foi calculado
             //--------------------------------------
 
-            if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
-            {
-              //Calcula
+              //calcula
               //Dentro de um campo unsigned char do vetor de bits
               //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
               //Percorre os bits de um dos campos do vetor
@@ -254,40 +190,12 @@ int main(int argc, char *argv[ ]) {
                 }
               }
 
-              //coloca no vetor
-              if(abortouConf == NAO)
-              {
-                (*aux).valor = valorConf;
-              }
-              else //caso tenha abortado: salva isso no vetor pra nao precisar calular de novo
-              {
-                (*aux).valor = -1000;
-              }
-
-            }
-            else //Se o valor desse campo ja foi calculado + se eh um campo estourado
-            {
-              if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
-              {
-                abortouConf = SIM;
-              }
-              else //Se ja calculou e não estourou
-              {
-                valorConf = (*aux).valor;
-              }
-            }
-
-            //Atualiza o aux de PD / Ve como ele vai ficar para reiniciar **************************************aqui
-            //-----------------------------------------------------------
-
           }
           else //Se o ultimo campo deve ser percorrido parcialmente
           {
             //Confere se esse campo já foi calculado
             //--------------------------------------
 
-            if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
-            {
               //- Calcula
               //Dentro de um campo unsigned char do vetor de bits
               //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
@@ -332,31 +240,6 @@ int main(int argc, char *argv[ ]) {
                 }
               }
 
-              //- coloca no vetor
-              if(abortouConf == NAO)
-              {
-                (*aux).valor = valorConf;
-              }
-              else //caso tenha abortado: salva isso no vetor pra nao precisar calular de novo
-              {
-                (*aux).valor = -1000;
-              }
-            }
-            else //Se o valor desse campo já foi calculado + se eh um campo estourado
-            {
-              if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
-              {
-                abortouConf = SIM;
-              }
-              else //Se ja calculou e não estourou
-              {
-                valorConf = (*aux).valor;
-              }
-            }
-
-            //Atualiza o aux de PD / Ve como vai ficar ao reinciar **********************************************aqui2
-            //----------------------------------------------------
-
           }
         }
         else //Se nao esta no ultimo campo do vetor de bits, um dado campo
@@ -364,8 +247,6 @@ int main(int argc, char *argv[ ]) {
           //Confere se esse campo já foi calculado
           //--------------------------------------
 
-          if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
-          {
             //- Calcula e coloca na variavel de valor do montante
             //Dentro de um campo unsigned char do vetor de bits
             //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
@@ -409,87 +290,6 @@ int main(int argc, char *argv[ ]) {
               }
             }
 
-            //- coloca no vetor
-            if(abortouConf == NAO)
-            {
-              (*aux).valor = valorConf;
-            }
-            else //caso tenha abortado: salva isso no vetor pra nao precisar calular de novo
-            {
-              (*aux).valor = -1000;
-            }
-
-          }
-          else //Se o valor desse campo já foi calculado + se eh um campo estourado
-          {
-            if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
-            {
-              abortouConf = SIM;
-            }
-            else //Se ja calculou e não estourou
-            {
-              valorConf = (*aux).valor;
-            }
-          }
-
-          //Atualiza o aux de PD
-          //--------------------
-
-          if( (*aux).confProxCampo == NULL ) //Se nao tem lista dos proxcampos criadas para o aux mover
-          {
-            //cria a lista com todas as conf possiveis do proximo campo de bits
-            //-----------------------------------------------------------------
-            if(j == (tamVetorBits - 2)) //Se o proximo campo eh (tamVetorBits-1), o ultimo campo
-            {
-              if(bitsAmais == 0) //se eh um campo cheio normal
-              {
-                (*aux).confProxCampo = (apontador*) malloc(256*(sizeof(apontador)));
-                //inicializa
-                for(k=0; k<256; k++)
-                {
-                  (*aux).confProxCampo[k] = NULL;
-                }
-              }
-              else //se nao eh um campo cheio, tem bitsAmais bits nele ativos so
-              {
-                (*aux).confProxCampo = (apontador*) malloc(numDiferentesConfig*(sizeof(apontador)));
-                //inicializa
-                for(k=0; k<numDiferentesConfig; k++)
-                {
-                  (*aux).confProxCampo[k] = NULL;
-                }
-              }
-            }
-            else //Se o proximo campo nao eh o ultimo campo (entao com certeza eh cheio, 8 bits)
-            {
-              (*aux).confProxCampo = (apontador*) malloc(256*(sizeof(apontador)));
-              //inicializa
-              for(k=0; k<256; k++)
-              {
-                (*aux).confProxCampo[k] = NULL;
-              }
-            }
-          }
-
-          //Anda com o aux
-          if((*aux).confProxCampo[vetorBits[j+1]] == NULL)
-          {
-            //Cria essa celula e inicializa (basico?)
-            (*aux).confProxCampo[vetorBits[j+1]] = (tipoCampo*) malloc(sizeof(tipoCampo));
-
-            k = (*aux).indiceVB; //k atuando como temp
-            (*aux).confProxCampo[vetorBits[j+1]]->indiceVB = k+1;
-            (*aux).confProxCampo[vetorBits[j+1]]->conf = vetorBits[j+1];
-            (*aux).confProxCampo[vetorBits[j+1]]->valor = -1;
-            (*aux).confProxCampo[vetorBits[j+1]]->confProxCampo = NULL;
-
-            //move o aux
-            aux = (*aux).confProxCampo[vetorBits[j+1]];
-          }
-          else //Se o aux para o qual eu vou mover ja existe
-          {
-            aux = (*aux).confProxCampo[vetorBits[j+1]];
-          }
         }
 
         if(abortouConf == SIM)

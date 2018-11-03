@@ -1,3 +1,7 @@
+//versao debug
+//--------------------------
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -108,21 +112,23 @@ int main(int argc, char *argv[ ]) {
     tamVetorBits = (int) ceil(qtdadeChars);
     bitsAmais = S % BITS_CAMPO;
     vetorBits = (unsigned char*) malloc(tamVetorBits*(sizeof(unsigned char)));
-
-    //Procura do maior valor para a sequencia por forca bruta,
-    //varendo todo o espaço de solucoes.
-    //---------------------------------------------------------
-
-    //Calcula quando todo o espaco de solucoes vai ter sido varrido
-    //maximoPercorrer: quando vai ter varrido o espaco de solucoes
-    //Tamanho maximo de maximoPercorrer = 255*125 = 31875 (cabe num int, que eh 32mil e alguma coisa).
-    maximoPercorrer = 0;
-    //Para os campos cheios
-    for(j=0; j<(tamVetorBits-1); j++)
+    if(bitsAmais != 0) //Se ha bits a mais, calcula essa variavel.
     {
-      maximoPercorrer = maximoPercorrer + 255;
+      numDiferentesConfig = (int) (pow(((double) 2), ((double) bitsAmais)));
     }
-    //para o ultimo campo, que pode ou nao ser completo (j = tamVetorBits-1) aqui
+
+    //Procura o maior valor pra sequencia varrendo todo o espaço de solucoes
+    //---------------------------------------------------------------------
+
+    //1. Calcula quando todo o espaco de solucoes vai ter sido varrido
+    //maximoPercorrer: quando vai ter varrido o espaco de solucoes
+    //Tamanho maximo de maximoPercorrer = 255*125 = 31875
+    //(cabe num int, que eh 32mil e alguma coisa).
+
+    //a.Para os campos cheios
+    maximoPercorrer = 255 * (tamVetorBits-1);
+
+    //b.Para o ultimo campo, que pode ou nao ser completo (j = tamVetorBits-1) aqui
     if(bitsAmais == 0) //Caso o ultimo campo seja cheio
     {
       maximoPercorrer = maximoPercorrer + 255;
@@ -136,27 +142,24 @@ int main(int argc, char *argv[ ]) {
         maximo = (maximo | (1 << k));
       }
 
+      //Soma esse maximo ao inves de 255
       maximoPercorrer = maximoPercorrer + maximo;
     }
 
-    //Parte de programacao dinamica: cria vetor dos vetores para armazenar espacos
-    //Cria vb0
-    if(bitsAmais != 0) //se ha bits a mais, calcula essa variavel.
-    {
-      numDiferentesConfig = (int) (pow(((double) 2), ((double) bitsAmais)));
-    }
-
+    //2.Parte de programacao dinamica: Cria vetor dos vetores para armazenar espacos
+    //Cria vb0 - vetor com as conf possiveis para vetorBits[0] inicial,
+    //de onde comeca a PD
     if( (tamVetorBits == 1) && (bitsAmais != 0) ) //Se o vetorBits so tem uma celula (1o caso de toy por exemplo)
     {
       vb0 = (tipoCampo*) malloc(numDiferentesConfig*(sizeof(tipoCampo)));
 
       //inicializa
-      for(j=0; j<numDiferentesConfig; j++)
+      for(k=0; k<numDiferentesConfig; k++)
       {
-        vb0[j].indiceVB = 0;
-        vb0[j].conf = j;
-        vb0[j].valor = -1;
-        vb0[j].confProxCampo = NULL;
+        vb0[k].indiceVB = 0;
+        vb0[k].conf = k;
+        vb0[k].valor = -1;
+        vb0[k].confProxCampo = NULL;
       }
     }
     else //Se o vetor de bits tem mais de uma celula OU se tem uma unica celula porem 100% cheia
@@ -164,28 +167,24 @@ int main(int argc, char *argv[ ]) {
       vb0 = (tipoCampo*) malloc(256*(sizeof(tipoCampo)));
 
       //inicializa
-      for(j=0; j<256; j++)
+      for(k=0; k<256; k++)
       {
-        vb0[j].indiceVB = 0;
-        vb0[j].conf = j;
-        vb0[j].valor = -1;
-        vb0[j].confProxCampo = NULL;
+        vb0[k].indiceVB = 0;
+        vb0[k].conf = k;
+        vb0[k].valor = -1;
+        vb0[k].confProxCampo = NULL;
       }
     }
 
-
-    //Varre a espaco de solucoes
-    //--------------------------
-
-    //Inicializacoes
+    //3.Inicializacoes
     //Do vetor de bits todo zero 00000... a todo 1 11111...
     //Inicializa para a 1a configuracao do vetor
     for(j=0; j<tamVetorBits; j++)
     {
       vetorBits[j] = 0;
     }
-    l = 0;
 
+    l = 0;
     valorConfMax = -1;
 
     //Para cada configuracao do vetor de bits possivel:
@@ -194,7 +193,7 @@ int main(int argc, char *argv[ ]) {
     while(1) //sempre, condicao de interrupcao esta la em baixo
     {
       //Inicializacoes necessarias
-      aux = &(vb0[vetorBits[0]]); //Aquie depende de onde começa o loop
+      aux = &(vb0[vetorBits[0]]); //Aqui depende de onde começa o loop
       valorConf = V;
       abortouConf = NAO;
 
@@ -212,7 +211,7 @@ int main(int argc, char *argv[ ]) {
 
             if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
             {
-              //calcula
+              //Calcula
               //Dentro de um campo unsigned char do vetor de bits
               //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
               //Percorre os bits de um dos campos do vetor

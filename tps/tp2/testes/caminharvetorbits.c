@@ -4,6 +4,7 @@
 int main(int argc, char *argv[ ]) {
 
   unsigned char a;
+  int b;
   int n; //indice do bit, de 0 a 7 (8 bits, 1 byte).
   //int n; //indice do bit, de 0 a 7 (8 bits, 1 byte).
          //0 o mais a direita, 7 o  mais a esquerda.
@@ -18,8 +19,9 @@ int main(int argc, char *argv[ ]) {
   //ATRIBUICOES
   for(a=0; a<=255; a++)
   {
-    printf("a vale %hhu. ", a);
-    printf("O binario de a vale: ");
+    b = a;
+    printf("a vale %hhu, b vale %d.\n", a, b);
+    printf("a= ");
     for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
     {
       valorBit = (a & (1 << n));
@@ -32,14 +34,28 @@ int main(int argc, char *argv[ ]) {
       {
         printf("0");
       }
+    }
+    printf("\n");
+    printf("b= ");
+    for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
+    {
+      valorBit = (b & (1 << n));
 
+      if(valorBit != 0)
+      {
+        printf("1");
+      }
+      else
+      {
+        printf("0");
+      }
     }
     printf("\n");
 
   // LOOP INFINITO PORQUE DE 255 VAI P ZERO NO UNSIGNED CHAR
   //Coloquei aqui para ver
     parar++;
-    if (parar == 514) //para no 1 do 3o loop
+    if (parar == 260) //para no 1 do 3o loop
     {
       break;
     }

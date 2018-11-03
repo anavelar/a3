@@ -1,0 +1,4 @@
+possiveis paus
+--------------
+
+- atribuicao maximoPercorrer, qq coisa voltar pra do tp2-pd antigo.
