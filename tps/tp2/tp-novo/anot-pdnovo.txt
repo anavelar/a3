@@ -1,4 +1,8 @@
 possiveis paus
 --------------
 
+- RADICAL : qq coisa sair do fb antigo e colocar coisas a partir do segundo
+  commit aqui (o commit alem do commit de limpeza/remocao do pd-antigo).
+
+
 - atribuicao maximoPercorrer, qq coisa voltar pra do tp2-pd antigo.
