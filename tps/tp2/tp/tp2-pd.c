@@ -479,19 +479,10 @@ int main(int argc, char *argv[ ]) {
             (*aux).confProxCampo[vetorBits[j+1]] = (tipoCampo*) malloc(sizeof(tipoCampo));
 
             k = (*aux).indiceVB; //k atuando como temp
-            /*
-            *((*aux).confProxCampo[vetorBits[j+1]]).indiceVB = k+1;
-            *((*aux).confProxCampo[vetorBits[j+1]]).conf = vetorBits[j+1];
-            *((*aux).confProxCampo[vetorBits[j+1]]).valor = -1;
-            *((*aux).confProxCampo[vetorBits[j+1]]).confProxCampo = NULL;
-            */
-
-            //teste
             (*aux).confProxCampo[vetorBits[j+1]]->indiceVB = k+1;
             (*aux).confProxCampo[vetorBits[j+1]]->conf = vetorBits[j+1];
             (*aux).confProxCampo[vetorBits[j+1]]->valor = -1;
             (*aux).confProxCampo[vetorBits[j+1]]->confProxCampo = NULL;
-            //fimteste
 
             //move o aux
             aux = (*aux).confProxCampo[vetorBits[j+1]];
