@@ -6,6 +6,18 @@
 #define SIM 1
 #define NAO 0
 
+//ESTRUTURAS DE DADOS - PASSAR P TAD
+typedef struct tipocampo* apontador;
+
+typedef struct tipocampo{
+  int indiceVB; //indice desse campo do vetor de bits
+  unsigned char conf; //configuracao, de 0 a 255, desse campo. (valida
+                      //considerando os anteriores claro.
+  long int valor;      //valor calculado que vai ser salvo por prog dinamica;
+  apontador* confProxCampo; //vetor para o proximo campo onde cada item
+                                //eh uma configuracao possivel
+} tipoCampo;
+
 //FUNCOES - PASSAR P TAD
 //(ate agora eu soh somei um ao vetorbits[0])
 void confereVizinho(unsigned char* vetorBits, int indice, int tamVetorBits){
@@ -41,7 +53,6 @@ int main(int argc, char *argv[ ]) {
   int bitsAmais; //de 0 a 7?
   unsigned char maximo; //ate onde percorrer no ultimo bit dentro do campo (ver aqui abaixo)
   int maximoPercorrer; //quando sabe que varreu o espaco de solucoes
-  int indiceVetorBits; //Entre 0 e 124 (max 125 posicoes)
   //Usados para percorrer campo do vetor de bits
   unsigned char valorBit;
   int n;
@@ -51,6 +62,10 @@ int main(int argc, char *argv[ ]) {
   long int temp; //para checar se passou o limite ao add
   //Para aborts
   int abortouConf; //uma booleana na verdade aqui
+  tipoCampo* vb0;
+  int numDiferentesConfig; //de 2^1, 2, ate 2^7, ate 128.
+  //PD
+  apontador aux;
 
   //Entrada dos dados
   if(argc != 3)
@@ -124,7 +139,43 @@ int main(int argc, char *argv[ ]) {
       maximoPercorrer = maximoPercorrer + maximo;
     }
 
+    //Parte de programacao dinamica: cria vetor dos vetores para armazenar espacos
+    //Cria vb0
+    if(bitsAmais != 0) //se ha bits a mais, calcula essa variavel.
+    {
+      numDiferentesConfig = (int) (pow(((double) 2), ((double) bitsAmais)));
+    }
+
+    if( (tamVetorBits == 1) && (bitsAmais != 0) ) //Se o vetorBits so tem uma celula (1o caso de toy por exemplo)
+    {
+      vb0 = (tipoCampo*) malloc(numDiferentesConfig*(sizeof(tipoCampo)));
+
+      //inicializa
+      for(j=0; j<numDiferentesConfig; j++)
+      {
+        vb0[j].indiceVB = 0;
+        vb0[j].conf = j;
+        vb0[j].valor = -1;
+        vb0[j].confProxCampo = NULL;
+      }
+    }
+    else //Se o vetor de bits tem mais de uma celula OU se tem uma unica celula porem 100% cheia
+    {
+      vb0 = (tipoCampo*) malloc(256*(sizeof(tipoCampo)));
+
+      //inicializa
+      for(j=0; j<256; j++)
+      {
+        vb0[j].indiceVB = 0;
+        vb0[j].conf = j;
+        vb0[j].valor = -1;
+        vb0[j].confProxCampo = NULL;
+      }
+    }
+
+
     //Varre a espaco de solucoes
+    //--------------------------
 
     //Inicializacoes
     //Do vetor de bits todo zero 00000... a todo 1 11111...
@@ -135,7 +186,6 @@ int main(int argc, char *argv[ ]) {
     }
     l = 0;
 
-    indiceVetorBits = 0;
     valorConfMax = -1;
 
     //Para cada configuracao do vetor de bits possivel:
@@ -144,6 +194,7 @@ int main(int argc, char *argv[ ]) {
     while(1) //sempre, condicao de interrupcao esta la em baixo
     {
       //Inicializacoes necessarias
+      aux = &(vb0[vetorBits[0]]); //Aquie depende de onde começa o loop
       valorConf = V;
       abortouConf = NAO;
 
@@ -153,8 +204,170 @@ int main(int argc, char *argv[ ]) {
         if(j == tamVetorBits-1) //Se esta no ultimo campo do vetor de bits,
                                 //o que pode nao estar cheio
         {
+
           if(bitsAmais == 0) //Se o ultimo campo deve ser percorrido inteiro
           {
+            //Confere se esse campo já foi calculado
+            //--------------------------------------
+
+            if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
+            {
+              //calcula
+              //Dentro de um campo unsigned char do vetor de bits
+              //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
+              //Percorre os bits de um dos campos do vetor
+              for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
+              {
+                //Para cada bit do vetor
+                //----------------------
+
+                valorBit = (vetorBits[j] & (1 << n));
+
+                if(valorBit != 0) //Se o bit n for 1 (-)
+                {
+                  temp = valorConf - sequencia[(8*j)+(7-n)];
+
+                  if(temp >= 0) //Se a operacao nao estorou limites
+                  {
+                    valorConf = temp;
+                  }
+                  else //Se a operacao estourou limites: aborta essa conf
+                      // cuidado com o valor la em baixo.
+                  {
+                    abortouConf = SIM;
+                    break;
+                  }
+                }
+                else //Se o bit n for 0 (+)
+                {
+                  temp = valorConf + sequencia[(8*j)+(7-n)];
+
+                  if(temp <= X) //Se a operacao nao estorou limites
+                  {
+                    valorConf = temp;
+                  }
+                  else //Se a operacao estourou limites: aborta essa conf
+                      // cuidado com o valor la em baixo.
+                  {
+                    abortouConf = SIM;
+                    break;
+                  }
+                }
+              }
+
+              //coloca no vetor
+              if(abortouConf == NAO)
+              {
+                (*aux).valor = valorConf;
+              }
+              else //caso tenha abortado: salva isso no vetor pra nao precisar calular de novo
+              {
+                (*aux).valor = -1000;
+              }
+
+            }
+            else //Se o valor desse campo ja foi calculado + se eh um campo estourado
+            {
+              if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
+              {
+                abortouConf = SIM;
+              }
+              else //Se ja calculou e não estourou
+              {
+                valorConf = (*aux).valor;
+              }
+            }
+
+            //Atualiza o aux de PD / Ve como ele vai ficar para reiniciar **************************************aqui
+            //-----------------------------------------------------------
+
+          }
+          else //Se o ultimo campo deve ser percorrido parcialmente
+          {
+            //Confere se esse campo já foi calculado
+            //--------------------------------------
+
+            if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
+            {
+              //- Calcula
+              //Dentro de um campo unsigned char do vetor de bits
+              //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
+              //Percorre os bits de um dos campos do vetor
+              for(n=0; n<bitsAmais; n++)
+              {
+                //Para cada bit do vetor
+                //----------------------
+
+                //Acessa o bit
+                valorBit = (vetorBits[j] & (1 << n));
+
+                if(valorBit != 0) //Se o bit n for 1 (-)
+                {
+                  temp = valorConf - sequencia[S-bitsAmais+n];
+
+                  if(temp >= 0) //Se a operacao nao estorou limites
+                  {
+                    valorConf = temp;
+                  }
+                  else //Se a operacao estourou limites: aborta essa conf
+                      // cuidado com o valor la em baixo.
+                  {
+                    abortouConf = SIM;
+                    break;
+                  }
+                }
+                else //Se o bit n for 0 (+)
+                {
+                  temp = valorConf + sequencia[S-bitsAmais+n];
+
+                  if(temp <= X) //Se a operacao nao estorou limites
+                  {
+                    valorConf = temp;
+                  }
+                  else //Se a operacao estourou limites: aborta essa conf
+                      // cuidado com o valor la em baixo.
+                  {
+                    abortouConf = SIM;
+                    break;
+                  }
+                }
+              }
+
+              //- coloca no vetor
+              if(abortouConf == NAO)
+              {
+                (*aux).valor = valorConf;
+              }
+              else //caso tenha abortado: salva isso no vetor pra nao precisar calular de novo
+              {
+                (*aux).valor = -1000;
+              }
+            }
+            else //Se o valor desse campo já foi calculado + se eh um campo estourado
+            {
+              if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
+              {
+                abortouConf = SIM;
+              }
+              else //Se ja calculou e não estourou
+              {
+                valorConf = (*aux).valor;
+              }
+            }
+
+            //Atualiza o aux de PD / Ve como vai ficar ao reinciar **********************************************aqui2
+            //----------------------------------------------------
+
+          }
+        }
+        else //Se nao esta no ultimo campo do vetor de bits, um dado campo
+        {
+          //Confere se esse campo já foi calculado
+          //--------------------------------------
+
+          if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
+          {
+            //- Calcula e coloca na variavel de valor do montante
             //Dentro de um campo unsigned char do vetor de bits
             //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
             //Percorre os bits de um dos campos do vetor
@@ -167,7 +380,6 @@ int main(int argc, char *argv[ ]) {
 
               if(valorBit != 0) //Se o bit n for 1 (-)
               {
-                //temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
                 temp = valorConf - sequencia[(8*j)+(7-n)];
 
                 if(temp >= 0) //Se a operacao nao estorou limites
@@ -183,7 +395,6 @@ int main(int argc, char *argv[ ]) {
               }
               else //Se o bit n for 0 (+)
               {
-                //temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
                 temp = valorConf + sequencia[(8*j)+(7-n)];
 
                 if(temp <= X) //Se a operacao nao estorou limites
@@ -198,98 +409,96 @@ int main(int argc, char *argv[ ]) {
                 }
               }
             }
-          }
-          else //Se o ultimo campo deve ser percorrido parcialmente
-          {
-            //Dentro de um campo unsigned char do vetor de bits
-            //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
-            //Percorre os bits de um dos campos do vetor
 
-            for(n=0; n<bitsAmais; n++)
+            //- coloca no vetor
+            if(abortouConf == NAO)
             {
-              //Para cada bit do vetor
-              //----------------------
+              (*aux).valor = valorConf;
+            }
+            else //caso tenha abortado: salva isso no vetor pra nao precisar calular de novo
+            {
+              (*aux).valor = -1000;
+            }
 
-              //Acessa o bit
-              valorBit = (vetorBits[j] & (1 << n));
-
-              if(valorBit != 0) //Se o bit n for 1 (-)
-              {
-                temp = valorConf - sequencia[S-bitsAmais+n];
-
-                if(temp >= 0) //Se a operacao nao estorou limites
-                {
-                  valorConf = temp;
-                }
-                else //Se a operacao estourou limites: aborta essa conf
-                    // cuidado com o valor la em baixo.
-                {
-                  abortouConf = SIM;
-                  break;
-                }
-              }
-              else //Se o bit n for 0 (+)
-              {
-                temp = valorConf + sequencia[S-bitsAmais+n];
-
-                if(temp <= X) //Se a operacao nao estorou limites
-                {
-                  valorConf = temp;
-                }
-                else //Se a operacao estourou limites: aborta essa conf
-                    // cuidado com o valor la em baixo.
-                {
-                  abortouConf = SIM;
-                  break;
-                }
-              }
+          }
+          else //Se o valor desse campo já foi calculado + se eh um campo estourado
+          {
+            if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
+            {
+              abortouConf = SIM;
+            }
+            else //Se ja calculou e não estourou
+            {
+              valorConf = (*aux).valor;
             }
           }
-        }
-        else //Se nao esta no ultimo campo do vetor de bits, um dado campo
-        {
-          //Dentro de um campo unsigned char do vetor de bits
-          //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
-          //Percorre os bits de um dos campos do vetor
-          for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
+
+          //Atualiza o aux de PD
+          //--------------------
+
+          if( (*aux).confProxCampo == NULL ) //Se nao tem lista dos proxcampos criadas para o aux mover
           {
-            //Para cada bit do vetor
-            //----------------------
-
-            valorBit = (vetorBits[j] & (1 << n));
-
-            if(valorBit != 0) //Se o bit n for 1 (-)
+            //cria a lista com todas as conf possiveis do proximo campo de bits
+            //-----------------------------------------------------------------
+            if(j == (tamVetorBits - 2)) //Se o proximo campo eh (tamVetorBits-1), o ultimo campo
             {
-              //temp = valorConf - sequencia[(8*indiceVetorBits)+(7-n)];
-              temp = valorConf - sequencia[(8*j)+(7-n)];
-
-              if(temp >= 0) //Se a operacao nao estorou limites
+              if(bitsAmais == 0) //se eh um campo cheio normal
               {
-                valorConf = temp;
+                (*aux).confProxCampo = (apontador*) malloc(256*(sizeof(apontador)));
+                //inicializa
+                for(k=0; k<256; k++)
+                {
+                  (*aux).confProxCampo[k] = NULL;
+                }
               }
-              else //Se a operacao estourou limites: aborta essa conf
-                  // cuidado com o valor la em baixo.
+              else //se nao eh um campo cheio, tem bitsAmais bits nele ativos so
               {
-                abortouConf = SIM;
-                break;
+                (*aux).confProxCampo = (apontador*) malloc(numDiferentesConfig*(sizeof(apontador)));
+                //inicializa
+                for(k=0; k<numDiferentesConfig; k++)
+                {
+                  (*aux).confProxCampo[k] = NULL;
+                }
               }
             }
-            else //Se o bit n for 0 (+)
+            else //Se o proximo campo nao eh o ultimo campo (entao com certeza eh cheio, 8 bits)
             {
-              //temp = valorConf + sequencia[(8*indiceVetorBits)+(7-n)];
-              temp = valorConf + sequencia[(8*j)+(7-n)];
-
-              if(temp <= X) //Se a operacao nao estorou limites
+              (*aux).confProxCampo = (apontador*) malloc(256*(sizeof(apontador)));
+              //inicializa
+              for(k=0; k<256; k++)
               {
-                valorConf = temp;
-              }
-              else //Se a operacao estourou limites: aborta essa conf
-                  // cuidado com o valor la em baixo.
-              {
-                abortouConf = SIM;
-                break;
+                (*aux).confProxCampo[k] = NULL;
               }
             }
+          }
+
+          //Anda com o aux
+          if((*aux).confProxCampo[vetorBits[j+1]] == NULL)
+          {
+            //Cria essa celula e inicializa (basico?)
+            (*aux).confProxCampo[vetorBits[j+1]] = (tipoCampo*) malloc(sizeof(tipoCampo));
+
+            k = (*aux).indiceVB; //k atuando como temp
+            /*
+            *((*aux).confProxCampo[vetorBits[j+1]]).indiceVB = k+1;
+            *((*aux).confProxCampo[vetorBits[j+1]]).conf = vetorBits[j+1];
+            *((*aux).confProxCampo[vetorBits[j+1]]).valor = -1;
+            *((*aux).confProxCampo[vetorBits[j+1]]).confProxCampo = NULL;
+            */
+
+            //teste
+            (*aux).confProxCampo[vetorBits[j+1]]->indiceVB = k+1;
+            (*aux).confProxCampo[vetorBits[j+1]]->conf = vetorBits[j+1];
+            (*aux).confProxCampo[vetorBits[j+1]]->valor = -1;
+            (*aux).confProxCampo[vetorBits[j+1]]->confProxCampo = NULL;
+            //fimteste
+
+            //move o aux
+            aux = (*aux).confProxCampo[vetorBits[j+1]];
+          }
+          else //Se o aux para o qual eu vou mover ja existe
+          {
+            aux = (*aux).confProxCampo[vetorBits[j+1]];
           }
         }
 
@@ -302,18 +511,19 @@ int main(int argc, char *argv[ ]) {
 
       //---------------------------------------------------------------------
       //Agora muda o vetor todo para novos 010101100.. aqui abaixo:
-      //-------------------REVER TUDO ISSO, LOGICA DE PERCORRER MUDEI UM POUCO
+      //--------------------------------------------------------------------
 
       //Confere se este eh o loop final
+      //1-Calcula
       l = 0;
       for(j=0; j<tamVetorBits; j++)
       {
         l = l + vetorBits[j];
       }
-      //Confere se eh o loop final.
+      //2- Usa o calculo e confere
       //Se for, checa valor conf antes de sair (e lembra q tem
       //mais instancias, nao dar return, fazer de outra forma
-      if(l == maximoPercorrer) //************************************************** aqui 2
+      if(l == maximoPercorrer)
       {
         //Acabou essa instância
         //---------------------
@@ -357,16 +567,13 @@ int main(int argc, char *argv[ ]) {
         //Propaga o resultado em todo o numero
         confereVizinho(vetorBits, 0, tamVetorBits);
 
-        //Atualiza indices para os do novo loop
-        //Ve ser ja fez todos os cenarios daquele campo.
-        //Se sim atualiza os indices e vai para o proximo campo
-        //se nao deixa os indices certos, confirmar isso aqui
-        //indiceVetorBits++;*/
-
         //OBRIGATORIO, mas precisa conferir também se não abortou
         //se tiver abortado descarta o valor conf do ramo:
         //checa o valorConf encontrado nessa conf do vetor
         //conferir depois o valorConf p caso nao abortou se eh isso mesmo
+        //teste
+        //printf("Fim instancia %d: valorConf:%li e valorConfMax:%li.\n", (i+1), valorConf, valorConfMax);
+        //fimteste
         if( (abortouConf == NAO) && (valorConf > valorConfMax) )
         {
           valorConfMax = valorConf;
