@@ -1,0 +1,22 @@
+make && ls -lX
+
+make clean && ls -lX
+
+rm *-fb && rm *-pd && ls -lX
+
+-----------
+FORCA BRUTA
+-----------
+
+./tp2-forcabruta 1.tst.i 1-fb
+
+time ./tp2-forcabruta 1.tst.i 1-fb
+
+
+--
+PD
+--
+
+./tp2-pd 1.tst.i 1-pd
+
+time ./tp2-pd 1.tst.i 1-pd
