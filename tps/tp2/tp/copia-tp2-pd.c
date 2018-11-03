@@ -203,160 +203,97 @@ int main(int argc, char *argv[ ]) {
         if(j == tamVetorBits-1) //Se esta no ultimo campo do vetor de bits,
                                 //o que pode nao estar cheio
         {
-
+          /*
           if(bitsAmais == 0) //Se o ultimo campo deve ser percorrido inteiro
           {
-            //Confere se esse campo já foi calculado
-            //--------------------------------------
-
-            if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
+            //Dentro de um campo unsigned char do vetor de bits
+            //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
+            //Percorre os bits de um dos campos do vetor
+            for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
             {
-              //calcula
-              //Dentro de um campo unsigned char do vetor de bits
-              //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
-              //Percorre os bits de um dos campos do vetor
-              for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
+              //Para cada bit do vetor
+              //----------------------
+
+              valorBit = (vetorBits[j] & (1 << n));
+
+              if(valorBit != 0) //Se o bit n for 1 (-)
               {
-                //Para cada bit do vetor
-                //----------------------
+                temp = valorConf - sequencia[(8*j)+(7-n)];
 
-                valorBit = (vetorBits[j] & (1 << n));
-
-                if(valorBit != 0) //Se o bit n for 1 (-)
+                if(temp >= 0) //Se a operacao nao estorou limites
                 {
-                  temp = valorConf - sequencia[(8*j)+(7-n)];
-
-                  if(temp >= 0) //Se a operacao nao estorou limites
-                  {
-                    valorConf = temp;
-                  }
-                  else //Se a operacao estourou limites: aborta essa conf
-                      // cuidado com o valor la em baixo.
-                  {
-                    abortouConf = SIM;
-                    break;
-                  }
+                  valorConf = temp;
                 }
-                else //Se o bit n for 0 (+)
+                else //Se a operacao estourou limites: aborta essa conf
+                    // cuidado com o valor la em baixo.
                 {
-                  temp = valorConf + sequencia[(8*j)+(7-n)];
-
-                  if(temp <= X) //Se a operacao nao estorou limites
-                  {
-                    valorConf = temp;
-                  }
-                  else //Se a operacao estourou limites: aborta essa conf
-                      // cuidado com o valor la em baixo.
-                  {
-                    abortouConf = SIM;
-                    break;
-                  }
+                  abortouConf = SIM;
+                  break;
                 }
               }
+              else //Se o bit n for 0 (+)
+              {
+                temp = valorConf + sequencia[(8*j)+(7-n)];
 
-              //coloca no vetor
-              if(abortouConf == NAO)
-              {
-                (*aux).valor = valorConf;
-              }
-              else //caso tenha abortado: salva isso no vetor pra nao precisar calular de novo
-              {
-                (*aux).valor = -1000;
-              }
-
-            }
-            else //Se o valor desse campo ja foi calculado + se eh um campo estourado
-            {
-              if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
-              {
-                abortouConf = SIM;
-              }
-              else //Se ja calculou e não estourou
-              {
-                valorConf = (*aux).valor;
+                if(temp <= X) //Se a operacao nao estorou limites
+                {
+                  valorConf = temp;
+                }
+                else //Se a operacao estourou limites: aborta essa conf
+                    // cuidado com o valor la em baixo.
+                {
+                  abortouConf = SIM;
+                  break;
+                }
               }
             }
-
-            //Atualiza o aux de PD / Ve como ele vai ficar para reiniciar **************************************aqui
-            //-----------------------------------------------------------
-
+            */
           }
           else //Se o ultimo campo deve ser percorrido parcialmente
           {
-            //Confere se esse campo já foi calculado
-            //--------------------------------------
+            //Dentro de um campo unsigned char do vetor de bits
+            //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
+            //Percorre os bits de um dos campos do vetor
 
-            if((*aux).valor == -1) //Se o valor desse campo ainda não foi calculado
+            for(n=0; n<bitsAmais; n++)
             {
-              //- Calcula
-              //Dentro de um campo unsigned char do vetor de bits
-              //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
-              //Percorre os bits de um dos campos do vetor
-              for(n=0; n<bitsAmais; n++)
+              //Para cada bit do vetor
+              //----------------------
+
+              //Acessa o bit
+              valorBit = (vetorBits[j] & (1 << n));
+
+              if(valorBit != 0) //Se o bit n for 1 (-)
               {
-                //Para cada bit do vetor
-                //----------------------
+                temp = valorConf - sequencia[S-bitsAmais+n];
 
-                //Acessa o bit
-                valorBit = (vetorBits[j] & (1 << n));
-
-                if(valorBit != 0) //Se o bit n for 1 (-)
+                if(temp >= 0) //Se a operacao nao estorou limites
                 {
-                  temp = valorConf - sequencia[S-bitsAmais+n];
-
-                  if(temp >= 0) //Se a operacao nao estorou limites
-                  {
-                    valorConf = temp;
-                  }
-                  else //Se a operacao estourou limites: aborta essa conf
-                      // cuidado com o valor la em baixo.
-                  {
-                    abortouConf = SIM;
-                    break;
-                  }
+                  valorConf = temp;
                 }
-                else //Se o bit n for 0 (+)
+                else //Se a operacao estourou limites: aborta essa conf
+                    // cuidado com o valor la em baixo.
                 {
-                  temp = valorConf + sequencia[S-bitsAmais+n];
-
-                  if(temp <= X) //Se a operacao nao estorou limites
-                  {
-                    valorConf = temp;
-                  }
-                  else //Se a operacao estourou limites: aborta essa conf
-                      // cuidado com o valor la em baixo.
-                  {
-                    abortouConf = SIM;
-                    break;
-                  }
+                  abortouConf = SIM;
+                  break;
                 }
               }
+              else //Se o bit n for 0 (+)
+              {
+                temp = valorConf + sequencia[S-bitsAmais+n];
 
-              //- coloca no vetor
-              if(abortouConf == NAO)
-              {
-                (*aux).valor = valorConf;
-              }
-              else //caso tenha abortado: salva isso no vetor pra nao precisar calular de novo
-              {
-                (*aux).valor = -1000;
+                if(temp <= X) //Se a operacao nao estorou limites
+                {
+                  valorConf = temp;
+                }
+                else //Se a operacao estourou limites: aborta essa conf
+                    // cuidado com o valor la em baixo.
+                {
+                  abortouConf = SIM;
+                  break;
+                }
               }
             }
-            else //Se o valor desse campo já foi calculado + se eh um campo estourado
-            {
-              if((*aux).valor == -1000) //Se ja calculou e eh um campo estourado
-              {
-                abortouConf = SIM;
-              }
-              else //Se ja calculou e não estourou
-              {
-                valorConf = (*aux).valor;
-              }
-            }
-
-            //Atualiza o aux de PD / Ve como vai ficar ao reinciar **********************************************aqui2
-            //----------------------------------------------------
-
           }
         }
         else //Se nao esta no ultimo campo do vetor de bits, um dado campo
