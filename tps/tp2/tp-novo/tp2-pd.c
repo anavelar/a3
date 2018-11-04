@@ -7,8 +7,8 @@ int main(int argc, char *argv[ ]) {
     //Declaracoes
     //-------------
 
-    FILE* pArqEntrada;
-    FILE* pArqSaida;
+    FILE* pArqEntrada = NULL;
+    FILE* pArqSaida = NULL;
     int ok;
     int numCasosTeste;  // I, onde 1 <= I <=10
     int S, V, X;        //S - tamanho da sequencia. 1<= S <= 10^3
@@ -18,11 +18,11 @@ int main(int argc, char *argv[ ]) {
     int* sequencia = NULL; //Vetor com a sequencia --- No max 10^3 cada item msm?
 
     //Contadores
-    int i;
+    int i, j;
 
     //PD
-    long int* pd;
-    long int* pdAnterior;
+    long int* pd = NULL;
+    long int* pdAnterior = NULL;
     int s;   // minusculo - 1 <= s <= 10^3 - aux Szao - elemento em que estou
     long int temp;
 
@@ -44,8 +44,20 @@ int main(int argc, char *argv[ ]) {
     {
       LeDadosInstancia(&pArqEntrada, &S, &V, &X, &M, &sequencia);
 
+      //teste
+      printf("Instancia %d\n", i);
+      //fimteste
+
       //Programa
-      //InicializaPD(pd, &s, sequencia, V, X);
+      InicializaPD(&pd, &s, sequencia, V, X);
+
+      //if S >= 2
+      for(j=1; j<S; j++)
+      {
+        //para cada s, de s=2 ate s=S: (S-1) elementos
+        //void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequencia);
+        PDdes(&pd, &pdAnterior, &s, X, sequencia);
+      }
 
 
     }

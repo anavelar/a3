@@ -24,7 +24,6 @@ int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqS
   }
 }
 
-//sequencia esta sendo passado por referencia
 void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* eM, int** esequencia){
 
   int j; //Contador
@@ -40,35 +39,93 @@ void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* 
   fscanf(*(epArqEntrada), "%d\n", &((*esequencia)[j]));
 }
 
-//vetores passados por referencia
-//v e x por valor nao esquecer
-void InicializaPD(long int* pd, int* es, int* sequencia, int V, int X){
-
-  int numCasos; //temp
+void InicializaPD(long int** epd, int* es, int* sequencia, int V, int X){
 
   *(es) = 1;
-  numCasos = (int) pow(((double) 2), ((double) (*(es))));
-  pd = (long int*) malloc(numCasos*(sizeof(long int)));
+  *(epd) = (long int*) malloc(2*(sizeof(long int)));
 
   //Preenche primeiro campo
-  if( (V + sequencia[(*es)-1]) <= X ) //Se esta nos limites
+  if( (V + sequencia[0]) <= X ) //Se esta nos limites
   {
-    pd[0] = V + sequencia[(*es)-1];
+    (*epd)[0] = V + sequencia[0];
   }
   else // Se estourou
   {
-    pd[0] = -1;
+    (*epd)[0] = -1;
   }
 
   //Preenche segundo campo
-  if( (V - sequencia[(*es)-1]) >= 0) //Se esta nos limites
+  if( (V - sequencia[0]) >= 0) //Se esta nos limites
   {
-    pd[1] = V - sequencia[(*es)-1];
+    (*epd)[1] = V - sequencia[0];
   }
   else
   {
-    pd[1] = -1;
+    (*epd)[1] = -1;
   }
+
+  //teste
+  printf("s=%d: pd[0]=%li, pd[1]=%li\n", (*es), (*epd)[0], (*epd)[1]);
+  //fimteste
+}
+
+//Existe porque pdAnterior ainda eh nulo, p facilitar logica ponteiros
+void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequencia){
+
+  int k; //Contadores
+  int numCasos;
+  int tampdAnterior;
+
+  //Atualiza para o atual
+  (*es)++;
+  (*epdAnterior) = (*epd);
+  numCasos = (int) pow(((double) 2), ((double) (*es)));
+  (*epd) = (long int*) malloc(numCasos*sizeof(long int));
+  tampdAnterior = (int) pow(((double) 2), ((double) ((*es)-1)));
+
+  //Constroi pd
+  for(k=0; k<tampdAnterior; k++)
+  {
+    //Para cada celula do vetor pdAnterior
+
+    //Soma o valor da sequencia
+    /*
+    if( (*epdAnterior)[k] == -1 )
+    {
+      (*epd)[k+0]
+    }
+    */
+    if( ( (*epdAnterior)[k] + sequencia[(*es)-1]) <= X ) //Se esta nos limites
+    {
+      (*epd)[k+0] = (*epdAnterior)[k] + sequencia[(*es)-1];
+    }
+    else // Se estourou
+    {
+      (*epd)[k+0] = -1;
+    }
+
+    //Subtrai o valor da sequencia
+    if( ( (*epdAnterior)[k] - sequencia[(*es)-1]) >= 0) //Se esta nos limites
+    {
+      (*epd)[k+1] = (*epdAnterior)[k] - sequencia[(*es)-1];
+    }
+    else
+    {
+      (*epd)[k+1] = -1;
+    }
+  }
+
+  //Desaloca
+  free((*epdAnterior));
+
+  //teste
+  printf("s=%d: ", (*es));
+  for(k=0; k<numCasos; k++)
+  {
+    printf("pd[%d]=%li, ", k, ((*epd)[k]));
+  }
+  printf("\n");
+  //fimteste
 }
 
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida){

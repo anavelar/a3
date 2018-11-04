@@ -1,4 +1,8 @@
+AO FIM:
 
+Ao fim conferir assinaturas do .h se estao de acordo com o .c pq compilador
+nao ta avisando.
+-------------------------------------------------------------------------------
 
 Qualquer coisa voltar com a matriz estatica (PD):
 /* "estatico" / com grande alocacao *********************************************** REMOVER SE DINAMICO FUNCIONAR
