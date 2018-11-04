@@ -1,13 +1,11 @@
-possiveis paus
---------------
-
-- RADICAL : qq coisa sair do fb antigo e colocar coisas a partir do segundo
-  commit aqui (o commit alem do commit de limpeza/remocao do pd-antigo).
 
 
-- atribuicao maximoPercorrer, qq coisa voltar pra do tp2-pd antigo.
+Qualquer coisa voltar com a matriz estatica (PD)
 
 
-POSSIVEIS OTIMIZACOES / VIABILIZACOES
-- trocar long int por tipo menor (fala M ate 10^6 porem se eh limitado por X
-e X < 10^3, como pode? pensar isso e economiza memoria).
+-------------------------------------------------------------------------------
+IDEIA GERAL
+------------
+inicialmente ir fazendo matriz completa.
+
+Depois, se descobrir como otimizar, melhorar.
