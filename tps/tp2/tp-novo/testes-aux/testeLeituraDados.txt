@@ -1,0 +1,21 @@
+I:3, S:3, V:5, X:10 e M:10.
+5 3 7
+I:3, S:4, V:8, X:20 e M:10.
+15 2 9 10
+I:3, S:8, V:516, X:668 e M:442.
+79 417 337 349 40 41 45 42
+
+--------------------------------------------
+Logo abaixo da leitura dos dados da intancia coloquei no main para testar
+
+//teste
+printf("I:%d, ", numCasosTeste);
+printf("S:%d, V:%d, X:%d e M:%li.\n", S, V, X, M);
+
+int j;
+for(j=0; j<S; j++)
+{
+  printf("%d ", sequencia[j]);
+}
+printf("\n");
+//fimteste
