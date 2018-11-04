@@ -24,7 +24,6 @@ int main(int argc, char *argv[ ]) {
     long int* pd = NULL;
     long int* pdAnterior = NULL;
     int s;   // minusculo - 1 <= s <= 10^3 - aux Szao - elemento em que estou
-    long int temp;
 
 
     //Programa
@@ -44,10 +43,6 @@ int main(int argc, char *argv[ ]) {
     {
       LeDadosInstancia(&pArqEntrada, &S, &V, &X, &M, &sequencia);
 
-      //teste
-      printf("Instancia %d\n", i);
-      //fimteste
-
       //Programa
       InicializaPD(&pd, &s, sequencia, V, X);
 
@@ -55,7 +50,6 @@ int main(int argc, char *argv[ ]) {
       for(j=1; j<S; j++)
       {
         //para cada s, de s=2 ate s=S: (S-1) elementos
-        //void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequencia);
         PDdes(&pd, &pdAnterior, &s, X, sequencia);
       }
 

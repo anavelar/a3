@@ -65,16 +65,15 @@ void InicializaPD(long int** epd, int* es, int* sequencia, int V, int X){
   }
 
   //teste
-  printf("s=%d: pd[0]=%li, pd[1]=%li\n", (*es), (*epd)[0], (*epd)[1]);
+  printf("s=%d: pd[0]=%li, pd[1]=%li.\n", (*es), (*epd)[0], (*epd)[1]);
   //fimteste
+
 }
 
-//Existe porque pdAnterior ainda eh nulo, p facilitar logica ponteiros
 void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequencia){
 
-  int k; //Contadores
-  int numCasos;
-  int tampdAnterior;
+  long long int k; //Contadores
+  long long int numCasos, tampdAnterior;
 
   //Atualiza para o atual
   (*es)++;
@@ -88,30 +87,34 @@ void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequenci
   {
     //Para cada celula do vetor pdAnterior
 
-    //Soma o valor da sequencia
-    /*
-    if( (*epdAnterior)[k] == -1 )
+    if( (*epdAnterior)[k] == -1 ) //Se eh um ramo estourado
     {
-      (*epd)[k+0]
+      (*epd)[(2*k)] = -1;
+      (*epd)[(2*k)+1] = -1;
     }
-    */
-    if( ( (*epdAnterior)[k] + sequencia[(*es)-1]) <= X ) //Se esta nos limites
+    else //Se nao eh um ramo estourado
     {
-      (*epd)[k+0] = (*epdAnterior)[k] + sequencia[(*es)-1];
-    }
-    else // Se estourou
-    {
-      (*epd)[k+0] = -1;
-    }
+      //Gera o valor da celula com a soma
+      //Soma o valor da sequencia
+      if( ( (*epdAnterior)[k] + sequencia[(*es)-1]) <= X ) //Se esta nos limites
+      {
+        (*epd)[(2*k)] = (*epdAnterior)[k] + sequencia[(*es)-1];
+      }
+      else // Se estourou
+      {
+        (*epd)[(2*k)] = -1;
+      }
 
-    //Subtrai o valor da sequencia
-    if( ( (*epdAnterior)[k] - sequencia[(*es)-1]) >= 0) //Se esta nos limites
-    {
-      (*epd)[k+1] = (*epdAnterior)[k] - sequencia[(*es)-1];
-    }
-    else
-    {
-      (*epd)[k+1] = -1;
+      //Gera o valor da celula com a subtracao
+      //Subtrai o valor da sequencia
+      if( ( (*epdAnterior)[k] - sequencia[(*es)-1] ) >= 0 ) //Se esta nos limites
+      {
+        (*epd)[(2*k)+1] = (*epdAnterior)[k] - sequencia[(*es)-1];
+      }
+      else
+      {
+        (*epd)[(2*k)+1] = -1;
+      }
     }
   }
 

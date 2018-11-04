@@ -1,3 +1,9 @@
+POSSIVEIS PAUS / OTIMIZACOES:
+
+- pau para numeros gigantes: na funcao PDdes() coloquei long long int.
+Poderia ser unsigned log long int mas loop com unsigned eh uma desgraca de checks
+entao nao fiz e nao vou fazer isso.
+-------------------------------------------------------------------------------
 AO FIM:
 
 Ao fim conferir assinaturas do .h se estao de acordo com o .c pq compilador
