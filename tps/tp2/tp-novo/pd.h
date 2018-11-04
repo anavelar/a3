@@ -14,7 +14,7 @@ int InicializaPrograma(int argc, char *argv[], FILE** epArqEntrada, FILE** epArq
 void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* eM, int** esequencia);
 void InicializaPD(long int** epd, int* es, int* sequencia, int V, int X);
 void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequencia);
-void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M);
+void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M, int** esequencia);
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida);
 
 #endif

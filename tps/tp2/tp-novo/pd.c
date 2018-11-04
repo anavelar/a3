@@ -117,7 +117,7 @@ void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequenci
   free((*epdAnterior));
 }
 
-void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M){
+void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M, int** esequencia){
 
   long long int k; //Contador
   long int maximo = -1;
@@ -149,8 +149,9 @@ void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M){
     }
   }
 
-  //Desaloca pd
+  //Desalocacoes
   free((*epd));
+  free((*esequencia));
 
 }
 

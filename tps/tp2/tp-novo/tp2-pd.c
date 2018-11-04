@@ -54,7 +54,7 @@ int main(int argc, char *argv[ ]) {
       }
 
       //void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M)
-      BuscaResultadoeImprime(&pArqSaida, &pd, &s, M);
+      BuscaResultadoeImprime(&pArqSaida, &pd, &s, M, &sequencia);
     }
 
     //FIM DO PROGRAMA
