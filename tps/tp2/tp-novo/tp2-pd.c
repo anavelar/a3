@@ -13,22 +13,17 @@ int main(int argc, char *argv[ ]) {
                         //V, 0 <= V <= X (e X<= 10^3)
                         //X, 1<= X <= 10^3
     long int M;         //M, ate 10^6 pela espec logo long int
+    int* sequencia = NULL; //Vetor com a sequencia --- No max 10^3 cada item msm?
 
     //Contadores
-    int i;
+    int i, j;
 
-    /* "estatico" / com grande alocacao *********************************************** REMOVER SE DINAMICO FUNCIONAR
-    long int** pd;      //long int pq M eh long int.
-    long int tempPD;
-    int j; //contador, subir pra junto dos contadores
     //PD
-    pd = (long int**) malloc(S*(sizeof(long int*)));
-    for(j=0; j<S; j++)
-    {
-      tempPD = (int) pow(((double) 2), ((double) (j+1)));
-      pd[j] = (long int*) malloc(tempPD*(sizeof(long int)));
-    }
-    */
+    long int* pd;
+    long int* pdAnterior;
+    int s;   // minusculo - 1 <= s <= 10^3 - aux Szao
+    long int temp;
+
 
     //Entrada dos dados
     //-----------------
@@ -62,7 +57,40 @@ int main(int argc, char *argv[ ]) {
       //Leitura dos dados da instancia
       fscanf(pArqEntrada, "%d %d ", &S, &V);
       fscanf(pArqEntrada, "%d %li\n", &X, &M);
+      sequencia = (int*) malloc(S*(sizeof(int)));
+      for(j=0; j<(S-1); j++)
+      {
+        fscanf(pArqEntrada, "%d ", &sequencia[j]);
+      }
+      fscanf(pArqEntrada, "%d\n", &sequencia[j]);
 
+      //Programa
+
+      //long int* pd;
+      //long int* pdAnterior;
+      /*
+      tempPD = (int) pow(((double) 2), ((double) (k+1)));
+      pd[k] = (long int*) malloc(tempPD*(sizeof(long int)));
+      */
+      //Inicializacao
+      s = 1;
+      temp = (int) pow(((double) 2), ((double) s));
+      pd = (long int*) malloc(temp*(sizeof(long int)));
+
+      if( (V+sequencia[s-1]) <= X )
+      {
+        pd[0] = (V+sequencia[s-1]);
+      }
+      else //estourou
+      {
+        pd[0] = -1;
+      }
+
+      //if mais de 2 o S
+      // mudar indices for(j=0; j<S; j++)
+      {
+
+      }
 
 
 

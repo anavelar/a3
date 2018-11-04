@@ -1,7 +1,18 @@
 
 
-Qualquer coisa voltar com a matriz estatica (PD)
-
+Qualquer coisa voltar com a matriz estatica (PD):
+/* "estatico" / com grande alocacao *********************************************** REMOVER SE DINAMICO FUNCIONAR
+long int** pd;      //long int pq M eh long int.
+long int tempPD;
+int k; //contador, subir pra junto dos contadores
+//PD
+pd = (long int**) malloc(S*(sizeof(long int*)));
+for(k=0; k<S; k++)
+{
+  tempPD = (int) pow(((double) 2), ((double) (k+1)));
+  pd[k] = (long int*) malloc(tempPD*(sizeof(long int)));
+}
+*/
 
 -------------------------------------------------------------------------------
 IDEIA GERAL
