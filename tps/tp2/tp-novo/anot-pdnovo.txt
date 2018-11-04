@@ -6,3 +6,8 @@ possiveis paus
 
 
 - atribuicao maximoPercorrer, qq coisa voltar pra do tp2-pd antigo.
+
+
+POSSIVEIS OTIMIZACOES / VIABILIZACOES
+- trocar long int por tipo menor (fala M ate 10^6 porem se eh limitado por X
+e X < 10^3, como pode? pensar isso e economiza memoria).

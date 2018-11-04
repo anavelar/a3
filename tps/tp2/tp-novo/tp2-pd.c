@@ -26,7 +26,8 @@ int main(int argc, char *argv[ ]) {
   FILE* pArqEntrada;
   FILE* pArqSaida;
 
-  int i, j, k, l; //Contadores
+  int i, j, k;
+  int l; //nao usar como contador basico!!
   int numCasosTeste; // I, onde 1 <= I <=10
   int S; //S - tamanho da sequencia. 1<= S <= 10^3
   int V; // V, 0 <= V <= X (e X<= 10^3)
@@ -50,6 +51,9 @@ int main(int argc, char *argv[ ]) {
   long int temp; //para checar se passou o limite ao add
   //Para aborts
   int abortouConf; //uma booleana na verdade aqui
+  //PD
+  long int** pd; //long int pq M eh long int, e valorConfMax e valorConf tb.
+  long int tempPD;
 
   //Entrada dos dados
   if(argc != 3)
@@ -125,6 +129,18 @@ int main(int argc, char *argv[ ]) {
     }
     l = 0;
     valorConfMax = -1;
+
+    //3. PD
+    pd = (long int**) malloc((S-1)*(sizeof(long int*)));
+    for(j=0; j<(S-1); j++)
+    {
+      tempPD = (int) pow(((double) 2), ((double) (j+1)));
+      pd[j] = (long int*) malloc(tempPD*(sizeof(long int)));
+      for(k=0; k<tempPD; k++)
+      {
+        pd[j][k] = -1;
+      }
+    }
 
     //Para cada configuracao do vetor de bits possivel:
     //Cada passada no vetor de bitsx**m?
@@ -246,49 +262,58 @@ int main(int argc, char *argv[ ]) {
         {
           //Confere se esse campo já foi calculado
           //--------------------------------------
+          //- Calcula e coloca na variavel de valor do montante
+          //Dentro de um campo unsigned char do vetor de bits
+          //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
+          //Percorre os bits de um dos campos do vetor
+          for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
+          {
+            //Para cada bit do vetor
+            //----------------------
 
-            //- Calcula e coloca na variavel de valor do montante
-            //Dentro de um campo unsigned char do vetor de bits
-            //7 eh o bit mais a esquerda, 2^7. 0 mais a direita, 2^0.
-            //Percorre os bits de um dos campos do vetor
-            for(n=7; n>=0; n--) //Aqui, n de 7 a 0.
+            valorBit = (vetorBits[j] & (1 << n));
+
+            if(valorBit != 0) //Se o bit n for 1 (-)
             {
-              //Para cada bit do vetor
-              //----------------------
-
-              valorBit = (vetorBits[j] & (1 << n));
-
-              if(valorBit != 0) //Se o bit n for 1 (-)
+              //PD ******************************************************************AQUI
+              if(  )
               {
-                temp = valorConf - sequencia[(8*j)+(7-n)];
 
-                if(temp >= 0) //Se a operacao nao estorou limites
-                {
-                  valorConf = temp;
-                }
-                else //Se a operacao estourou limites: aborta essa conf
-                    // cuidado com o valor la em baixo.
-                {
-                  abortouConf = SIM;
-                  break;
-                }
               }
-              else //Se o bit n for 0 (+)
-              {
-                temp = valorConf + sequencia[(8*j)+(7-n)];
+              //nao esquecer de usar os anetriores para construir o atual
 
-                if(temp <= X) //Se a operacao nao estorou limites
-                {
-                  valorConf = temp;
-                }
-                else //Se a operacao estourou limites: aborta essa conf
-                    // cuidado com o valor la em baixo.
-                {
-                  abortouConf = SIM;
-                  break;
-                }
+              //FB
+              temp = valorConf - sequencia[(8*j)+(7-n)];
+
+              if(temp >= 0) //Se a operacao nao estorou limites
+              {
+                valorConf = temp;
+              }
+              else //Se a operacao estourou limites: aborta essa conf
+                  // cuidado com o valor la em baixo.
+              {
+                abortouConf = SIM;
+                break;
               }
             }
+            else //Se o bit n for 0 (+)
+            {
+              temp = valorConf + sequencia[(8*j)+(7-n)];
+
+              if(temp <= X) //Se a operacao nao estorou limites
+              {
+                valorConf = temp;
+              }
+              else //Se a operacao estourou limites: aborta essa conf
+                  // cuidado com o valor la em baixo.
+              {
+                abortouConf = SIM;
+                break;
+              }
+            }
+
+            //proximo bit
+          }
 
         }
 
