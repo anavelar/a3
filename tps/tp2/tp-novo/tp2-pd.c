@@ -53,7 +53,8 @@ int main(int argc, char *argv[ ]) {
         PDdes(&pd, &pdAnterior, &s, X, sequencia);
       }
 
-
+      //void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M)
+      BuscaResultadoeImprime(&pArqSaida, &pd, &s, M);
     }
 
     //FIM DO PROGRAMA

@@ -63,16 +63,11 @@ void InicializaPD(long int** epd, int* es, int* sequencia, int V, int X){
   {
     (*epd)[1] = -1;
   }
-
-  //teste
-  printf("s=%d: pd[0]=%li, pd[1]=%li.\n", (*es), (*epd)[0], (*epd)[1]);
-  //fimteste
-
 }
 
 void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequencia){
 
-  long long int k; //Contadores
+  long long int k; //Contador
   long long int numCasos, tampdAnterior;
 
   //Atualiza para o atual
@@ -120,15 +115,43 @@ void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequenci
 
   //Desaloca
   free((*epdAnterior));
+}
 
-  //teste
-  printf("s=%d: ", (*es));
+void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M){
+
+  long long int k; //Contador
+  long int maximo = -1;
+  long long int numCasos = (int) pow(((double) 2), ((double) (*es)));
+
+  //Percorre os resultados encontrados atras do maior
   for(k=0; k<numCasos; k++)
   {
-    printf("pd[%d]=%li, ", k, ((*epd)[k]));
+    if( ((*epd)[k]) > maximo)
+    {
+      maximo = ((*epd)[k]);
+    }
   }
-  printf("\n");
-  //fimteste
+
+  //Imprime no arquivo os resultados
+  if(maximo == -1) //Caso estourou
+  {
+    fprintf((*epArqSaida), "N,-1\n");
+  }
+  else
+  {
+    if( maximo >= M) //Caso ganhou o jogo
+    {
+      fprintf((*epArqSaida), "S,%li\n", maximo);
+    }
+    else     //Caso nao estourou mas nao atingiu o minimo para ganhar
+    {
+      fprintf((*epArqSaida), "N,%li\n", maximo);
+    }
+  }
+
+  //Desaloca pd
+  free((*epd));
+
 }
 
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida){
