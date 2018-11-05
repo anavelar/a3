@@ -3,18 +3,26 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>   //para a pow do inicializa e pd
 
-//Para nao esquecer no PD so, deixar comentado
-//MAIS = 0
-//MENOS = 1
+//Estruturas de dados
+typedef struct tipono* apontador;
+
+typedef struct tipono {
+  long int valor;
+  int indices;
+
+  apontador filhoSub;
+  apontador filhoAdd;
+} tipoNo;
+
 
 //Assinaturas das funcoes
 int InicializaPrograma(int argc, char *argv[], FILE** epArqEntrada, FILE** epArqSaida);
 void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* eM, int** esequencia);
-void InicializaPD(long int** epd, int* es, int* sequencia, int V, int X);
-void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequencia);
-void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M, int** esequencia);
+void InicializaNo(tipoNo* eno, long int valor, int indicesPai);
+void InicializaArvore(apontador* earvore, int V, long int* eValorMax);
+void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax);
+void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M);
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida);
 
 #endif

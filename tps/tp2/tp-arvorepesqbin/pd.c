@@ -39,119 +39,93 @@ void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* 
   fscanf(*(epArqEntrada), "%d\n", &((*esequencia)[j]));
 }
 
-void InicializaPD(long int** epd, int* es, int* sequencia, int V, int X){
+void InicializaNo(tipoNo* eno, long int valor, int indicesPai){
 
-  *(es) = 1;
-  *(epd) = (long int*) malloc(2*(sizeof(long int)));
+  (*eno).valor = valor;
+  (*eno).indices =  (indicesPai + 1);
 
-  //Preenche primeiro campo
-  if( (V + sequencia[0]) <= X ) //Se esta nos limites
+  (*eno).filhoSub = NULL;
+  (*eno).filhoAdd = NULL;
+}
+
+void InicializaArvore(apontador* earvore, int V, long int* eValorMax){
+
+  //Inicializacoes para cada caso
+  (*eValorMax) = -1;
+
+  //Cria arvore, insere o primeiro no e inicializa o no.
+  (*earvore) = (apontador) malloc(sizeof(tipoNo));
+
+  InicializaNo((*earvore), V, (-1));
+}
+
+void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
+
+  long int valorNovo;
+
+  //Adiciona os filhos dele se ele tiver
+  //------------------------------------
+
+  //Soma a sequencia a esse no
+  valorNovo =  (*eno).valor + sequencia[(*eno).indices];
+  if(valorNovo <= X)
   {
-    (*epd)[0] = V + sequencia[0];
+    (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
+    InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
   }
-  else // Se estourou
+  //else //Estourou
+
+  //Subtrai a sequencia a esse no
+  valorNovo = (*eno).valor - sequencia[(*eno).indices];
+  if(valorNovo >= 0) //*************aqui
   {
-    (*epd)[0] = -1;
+    (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
+    InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
+  }
+  //else //Estourou
+
+
+  //Visitas recursivas
+  //------------------
+  if( (*eno).filhoAdd != NULL )
+  {
+    VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
   }
 
-  //Preenche segundo campo
-  if( (V - sequencia[0]) >= 0) //Se esta nos limites
+  if( (*eno).filhoSub != NULL )
   {
-    (*epd)[1] = V - sequencia[0];
+    VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax);
   }
-  else
+
+  //Ao fim
+  //------
+  //Se estou em um no folha
+  if( (*eno).indices == S )
   {
-    (*epd)[1] = -1;
+    if((*eno).valor > (*evalorMax))
+    {
+      (*evalorMax) = (*eno).valor;
+    }
   }
 }
 
-void PDdes(long int** epd, long int** epdAnterior, int* es, int X, int* sequencia){
+void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M){
 
-  long long int k; //Contador
-  long long int numCasos, tampdAnterior;
-
-  //Atualiza para o atual
-  (*es)++;
-  (*epdAnterior) = (*epd);
-  numCasos = (int) pow(((double) 2), ((double) (*es)));
-  (*epd) = (long int*) malloc(numCasos*sizeof(long int));
-  tampdAnterior = (int) pow(((double) 2), ((double) ((*es)-1)));
-
-  //Constroi pd
-  for(k=0; k<tampdAnterior; k++)
-  {
-    //Para cada celula do vetor pdAnterior
-
-    if( (*epdAnterior)[k] == -1 ) //Se eh um ramo estourado
-    {
-      (*epd)[(2*k)] = -1;
-      (*epd)[(2*k)+1] = -1;
-    }
-    else //Se nao eh um ramo estourado
-    {
-      //Gera o valor da celula com a soma
-      //Soma o valor da sequencia
-      if( ( (*epdAnterior)[k] + sequencia[(*es)-1]) <= X ) //Se esta nos limites
-      {
-        (*epd)[(2*k)] = (*epdAnterior)[k] + sequencia[(*es)-1];
-      }
-      else // Se estourou
-      {
-        (*epd)[(2*k)] = -1;
-      }
-
-      //Gera o valor da celula com a subtracao
-      //Subtrai o valor da sequencia
-      if( ( (*epdAnterior)[k] - sequencia[(*es)-1] ) >= 0 ) //Se esta nos limites
-      {
-        (*epd)[(2*k)+1] = (*epdAnterior)[k] - sequencia[(*es)-1];
-      }
-      else
-      {
-        (*epd)[(2*k)+1] = -1;
-      }
-    }
-  }
-
-  //Desaloca
-  free((*epdAnterior));
-}
-
-void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M, int** esequencia){
-
-  long long int k; //Contador
-  long int maximo = -1;
-  long long int numCasos = (int) pow(((double) 2), ((double) (*es)));
-
-  //Percorre os resultados encontrados atras do maior
-  for(k=0; k<numCasos; k++)
-  {
-    if( ((*epd)[k]) > maximo)
-    {
-      maximo = ((*epd)[k]);
-    }
-  }
-
-  //Imprime no arquivo os resultados
-  if(maximo == -1) //Caso estourou
+  if(valorMax == -1)
   {
     fprintf((*epArqSaida), "N,-1\n");
   }
   else
   {
-    if( maximo >= M) //Caso ganhou o jogo
+    if(valorMax >= M)
     {
-      fprintf((*epArqSaida), "S,%li\n", maximo);
+      fprintf((*epArqSaida), "S,%li\n", valorMax);
     }
-    else     //Caso nao estourou mas nao atingiu o minimo para ganhar
+    else
     {
-      fprintf((*epArqSaida), "N,%li\n", maximo);
+      fprintf((*epArqSaida), "N,%li\n", valorMax);
     }
   }
-
-  //Desalocacoes
-  free((*epd));
-  free((*esequencia));
 
 }
 

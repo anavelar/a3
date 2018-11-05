@@ -21,10 +21,8 @@ int main(int argc, char *argv[ ]) {
     int i, j;
 
     //PD
-    long int* pd = NULL;
-    long int* pdAnterior = NULL;
-    int s;   // minusculo - 1 <= s <= 10^3 - aux Szao - elemento em que estou
-
+    apontador arvore; //vai apontar para o primeiro, no zero com V
+    long int valorMax;
 
     //Programa
     //--------
@@ -43,18 +41,11 @@ int main(int argc, char *argv[ ]) {
     {
       LeDadosInstancia(&pArqEntrada, &S, &V, &X, &M, &sequencia);
 
-      //Programa
-      InicializaPD(&pd, &s, sequencia, V, X);
+      InicializaArvore(&arvore, V, &valorMax);
 
-      //if S >= 2
-      for(j=1; j<S; j++)
-      {
-        //para cada s, de s=2 ate s=S: (S-1) elementos
-        PDdes(&pd, &pdAnterior, &s, X, sequencia);
-      }
+      VisitaNo(arvore, sequencia, X, S, &valorMax);
 
-      //void BuscaResultadoeImprime(FILE** epArqSaida, long int** epd, int* es, int M)
-      BuscaResultadoeImprime(&pArqSaida, &pd, &s, M, &sequencia);
+      ImprimeResultado(valorMax, &pArqSaida, M);
     }
 
     //FIM DO PROGRAMA
