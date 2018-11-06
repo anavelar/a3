@@ -62,51 +62,43 @@ void InicializaArvore(apontador* earvore, int V, long int* eValorMax){
 void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
 
   long int valorNovo;
-
-  //Adiciona os filhos dele se ele tiver
-  //------------------------------------
-
-  //Soma a sequencia a esse no
-  valorNovo =  (*eno).valor + sequencia[(*eno).indices];
-  if(valorNovo <= X)
-  {
-    (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
-    InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
-  }
-  //else //Estourou
-
-  //Subtrai a sequencia a esse no
-  valorNovo = (*eno).valor - sequencia[(*eno).indices];
-  if(valorNovo >= 0) //*************aqui
-  {
-    (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
-    InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
-  }
-  //else //Estourou
-
-
-  //Visitas recursivas
-  //------------------
-  if( (*eno).filhoAdd != NULL )
-  {
-    VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
-  }
-
-  if( (*eno).filhoSub != NULL )
-  {
-    VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax);
-  }
-
-  //Ao fim
-  //------
-  //Se estou em um no folha
+  
+  //Checa se estou num no folha
+  //----------------------------
   if( (*eno).indices == S )
   {
     if((*eno).valor > (*evalorMax))
     {
       (*evalorMax) = (*eno).valor;
     }
+
+    return;
   }
+
+  //Adiciona os filhos dele se ele tiver
+  //------------------------------------
+
+  //Soma a sequencia a esse no
+  valorNovo =  (*eno).valor + sequencia[(*eno).indices];
+  if( valorNovo <= X)
+  {
+    (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
+    InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
+
+    VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
+  }
+  //else //Estourou
+
+  //Subtrai a sequencia a esse no
+  valorNovo = (*eno).valor - sequencia[(*eno).indices];
+  if(valorNovo >= 0)
+  {
+    (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
+    InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
+    VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax);
+  }
+  //else //Estourou
+
 }
 
 void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M){
