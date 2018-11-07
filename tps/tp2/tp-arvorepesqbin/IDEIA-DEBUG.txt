@@ -1,0 +1,3 @@
+desalocar a medida qe for alocando, junto, p acabar com estouros
+
+analisar ocodigo no visita no otimizacoes possiveis
