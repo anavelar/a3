@@ -1,0 +1,36 @@
+DEBUG:
+-----
+Falta:
+- Funcionar PD num tempo razoável para os casos 4, 5 e 6 (ate agora nao consegui esperar de tanta demora)
+- Apos funcionarem, checar o valgrind para cada um dos tres (casos 4, 5 e 6).
+
+Ideias: VER ARQUIVO DEBUG aqui .
+-------------------------------------------------------------------------------
+SITUACAO ATUAL:
+---------------
+
+Forca-bruta:
+------------
+Casos do Forca Bruta: 1,3 e 7 so porque os outros tem 50 vertices e funciona mas
+                      demora muito.
+- Funciona para todos os casos dele.
+- Valgrind certo para todos os casos dele.
+
+Programacao Dinamica:
+--------------------
+Casos do PD: 1,2,3,7,8,9. Devia ser todos. (Então, falta 4, 5 e 6).
+- Funciona para 1,2,3,7,8,9.
+- Valgrind certo para 1,2,3,7,8,9.
+
+OBSERVACOES:
+------------
+1. Valgrind:
+Executar o valgrind demora mais no tempo de execucao do programa, bem mais.
+Isso eh nitido no caso 8 pd por exemplo. PARA O CASO 2-PD EU NAO TIVE PACIENCIA
+DE ESPERAR, SUPUS QUE FUNCIONOU PORQUE FUNCIONOU 100% PARA TODOS OS OUTROS E EH
+QUESTAO DE TEMPO.
+
+-------------------------------------------------------------------------------
+Primeiros commits: Sobre esse alg/estr de dado de arvore binaria:
+Esse foi o unico que nas primeiras versoes chegou a travar o pc e ele mesmo mata
+o processo ao executar.

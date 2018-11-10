@@ -1,4 +1,0 @@
-
--------------------------------------------------------------------------------
-Esse foi o unico dos pd que trava o pc e ele mesmo mata o processo ao executar.
-Aconteceu com o teste toy 2 / 6 ou 10, esqueci qual foi. (10 para 26 entradas)

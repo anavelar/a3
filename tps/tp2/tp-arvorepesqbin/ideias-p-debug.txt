@@ -1,0 +1,53 @@
+Ver ideias de debug de onde estou no fim do documento, onde tem asteriscos.
+- ----------------------------------------------------
+
+Falta:
+- Funcionar PD num tempo razoável para os casos 4, 5 e 6 (ate agora nao consegui
+ esperar de tanta demora)
+- Apos funcionarem, checar o valgrind para cada um dos tres (casos 4, 5 e 6).
+-------------------------------------------------------------------------------
+
+Ideias:
+-------
+- Analisar passo a passo porque demoram tanto, mais que os outros.
+- Mudar caminhamento da arvore?
+
+
+ANALISE:
+--------
+ver foto "todos" os casos na pasta DOC aqui,tem todos os casos abertos para ver.
+Cada arquivo, lembrando:
+  -----------------------------------------
+  | I                                     |
+  | S V X M                               |
+  | s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 ... sS |
+  -----------------------------------------
+
+
+- Observacoes:
+
+Todos os casos que não passam tem 50 vertices. Mas nao eh isso porque tem casos
+com 50 vertices que passam (casos 2, 8 e 9), e passam rapido. Entao o que
+os difere?
+
+Observamos que todos (2,8,9 e 4,5 e 6)
+ - tem apenas 1 instancia
+ - tem 50 vertices
+ - tem limite X de estouro igual, 1000
+ - o ultimo valor M de cada um nao faz diferenca porque so eh analisado
+   no final. ******************************** (supondo porque faz sentido)
+
+-------------------------------
+| Assim:                      |
+| O que varia entre os casos: |
+| - Valor inicial V           |
+| - Valores da sequencia.     |
+-------------------------------
+
+Analises:
+- 2, 4 e 5 tem mesmo valor inicial V. 2 funciona e 4 e 5 nao. (2 funciona lento)
+  Como os valores das sequencias de 4 e 5 sao menores demora mais a estourar.
+  *****************************************************************8
+  - IDEIA 1: VER O MAPA DE CASOS DE 2 NO PAPEL, ACHO Q CORTA TUDO SUPER RAPIDO
+
+- Pensar mais

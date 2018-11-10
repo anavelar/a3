@@ -1,1 +1,0 @@
-- analisar ocodigo no visita no otimizacoes possiveis
