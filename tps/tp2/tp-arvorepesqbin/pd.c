@@ -64,7 +64,7 @@ void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
   long int valorNovo;
 
   //Checa se estou num no folha
-  //----------------------------
+  //Isto e: valor final, nao tem mais ninguem para adicionar da sequencia
   if( (*eno).indices == S )
   {
     if((*eno).valor > (*evalorMax))
@@ -74,30 +74,31 @@ void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
 
     return;
   }
-
-  //Adiciona os filhos dele se ele tiver
-  //------------------------------------
-
-  //Soma a sequencia a esse no
-  valorNovo =  (*eno).valor + sequencia[(*eno).indices];
-  if( valorNovo <= X)
+  else //Se estou em um no normal, nao folha
   {
-    (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
-    InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
+    //Adiciona os filhos dele se ele tiver
 
-    VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
-  }
-  //else //Estourou
+    //Soma a sequencia a esse no
+    valorNovo =  (*eno).valor + sequencia[(*eno).indices];
+    if(valorNovo <= X)
+    {
+      (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
+      InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
 
-  //Subtrai a sequencia a esse no
-  valorNovo = (*eno).valor - sequencia[(*eno).indices];
-  if(valorNovo >= 0)
-  {
-    (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
-    InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
-    VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax);
+      VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
+    }
+    //else //Estourou
+
+    //Subtrai a sequencia a esse no
+    valorNovo = (*eno).valor - sequencia[(*eno).indices];
+    if(valorNovo >= 0)
+    {
+      (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
+      InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
+      VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax);
+    }
+    //else //Estourou
   }
-  //else //Estourou
 
 }
 
@@ -124,7 +125,7 @@ void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M){
 void ReiniciaParaProxCaso(int** esequencia){
 
   free(*esequencia);
-  
+
 }
 
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida){
