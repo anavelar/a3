@@ -62,7 +62,7 @@ void InicializaArvore(apontador* earvore, int V, long int* eValorMax){
 void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
 
   long int valorNovo;
-  
+
   //Checa se estou num no folha
   //----------------------------
   if( (*eno).indices == S )
@@ -119,6 +119,12 @@ void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M){
     }
   }
 
+}
+
+void ReiniciaParaProxCaso(int** esequencia){
+
+  free(*esequencia);
+  
 }
 
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida){

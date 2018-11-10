@@ -18,7 +18,7 @@ int main(int argc, char *argv[ ]) {
     int* sequencia = NULL; //Vetor com a sequencia --- No max 10^3 cada item msm?
 
     //Contadores
-    int i, j;
+    int i;
 
     //PD
     apontador arvore; //vai apontar para o primeiro, no zero com V
@@ -46,6 +46,8 @@ int main(int argc, char *argv[ ]) {
       VisitaNo(arvore, sequencia, X, S, &valorMax);
 
       ImprimeResultado(valorMax, &pArqSaida, M);
+
+      ReiniciaParaProxCaso(&sequencia);
     }
 
     //FIM DO PROGRAMA

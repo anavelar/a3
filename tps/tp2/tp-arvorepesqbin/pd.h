@@ -23,6 +23,7 @@ void InicializaNo(tipoNo* eno, long int valor, int indicesPai);
 void InicializaArvore(apontador* earvore, int V, long int* eValorMax);
 void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax);
 void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M);
+void ReiniciaParaProxCaso(int** esequencia);
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida);
 
 #endif
