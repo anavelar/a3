@@ -21,9 +21,9 @@ int InicializaPrograma(int argc, char *argv[], FILE** epArqEntrada, FILE** epArq
 void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* eM, int** esequencia);
 void InicializaNo(tipoNo* eno, long int valor, int indicesPai);
 void InicializaArvore(apontador* earvore, int V, long int* eValorMax);
-void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax);
+tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax);
 void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M);
-void ReiniciaParaProxCaso(int** esequencia);
+void ReiniciaParaProxCaso(int** esequencia, tipoNo** earvore);
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida);
 
 #endif

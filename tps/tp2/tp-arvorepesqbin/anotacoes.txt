@@ -1,8 +1,3 @@
-Possiveis paus:
---------------
-
-1.free da sequencia (testei e ta ok mas sei la)
-
 
 -------------------------------------------------------------------------------
 Esse foi o unico dos pd que trava o pc e ele mesmo mata o processo ao executar.

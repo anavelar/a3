@@ -59,9 +59,10 @@ void InicializaArvore(apontador* earvore, int V, long int* eValorMax){
   InicializaNo((*earvore), V, (-1));
 }
 
-void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
+tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
 
   long int valorNovo;
+  tipoNo* libera;
 
   //Checa se estou num no folha
   //Isto e: valor final, nao tem mais ninguem para adicionar da sequencia
@@ -72,7 +73,7 @@ void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
       (*evalorMax) = (*eno).valor;
     }
 
-    return;
+    return eno;
   }
   else //Se estou em um no normal, nao folha
   {
@@ -85,7 +86,8 @@ void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
       (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
       InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
 
-      VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
+      libera = VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
+      free(libera);
     }
     //else //Estourou
 
@@ -95,11 +97,13 @@ void VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
     {
       (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
       InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
-      VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax);
+      libera = VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax);
+      free(libera);
     }
     //else //Estourou
-  }
 
+    return eno;
+  }
 }
 
 void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M){
@@ -122,10 +126,10 @@ void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M){
 
 }
 
-void ReiniciaParaProxCaso(int** esequencia){
+void ReiniciaParaProxCaso(int** esequencia, tipoNo** earvore){
 
+  free(*earvore);
   free(*esequencia);
-
 }
 
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida){
