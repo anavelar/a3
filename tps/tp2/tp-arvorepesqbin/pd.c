@@ -37,9 +37,10 @@ void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* 
 
   fscanf(*(epArqEntrada), "%d %d ", eS, eV);
   fscanf(*(epArqEntrada), "%d %li\n", eX, eM);
+
   *(esequencia) = (int*) malloc((*(eS))*(sizeof(int)));
 
-  for(j=0; j< ((*(eS))-1); j++)
+  for(j=0; j < ((*eS)-1); j++)
   {
     fscanf(*(epArqEntrada), "%d ", &((*esequencia)[j]));
   }
@@ -53,6 +54,10 @@ void InicializaNo(tipoNo* eno, long int valor, int indicesPai){
 
   (*eno).filhoSub = NULL;
   (*eno).filhoAdd = NULL;
+
+  //teste
+  (*eno).cor = 0;
+  //fimteste
 }
 
 void InicializaArvore(apontador* earvore, int V, long int* eValorMax){
@@ -69,7 +74,7 @@ void InicializaArvore(apontador* earvore, int V, long int* eValorMax){
   InicializaNo((*earvore), valorAserPassado, indiceAserPassado);
 }
 
-tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
+tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax, int* eac){
 
   long int valorNovo;
   long int sequenciaS = (long int) (sequencia[(*eno).indices]);
@@ -77,44 +82,83 @@ tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax)
   long int limiteZero = 0;
   tipoNo* libera;
 
-  //Checa se estou num no folha
-  //Isto e: valor final, nao tem mais ninguem para adicionar da sequencia
-  if( (*eno).indices == S )
+  //teste
+  if( (*eno).cor == 1 )
   {
-    if((*eno).valor > (*evalorMax))
-    {
-      (*evalorMax) = (*eno).valor;
-    }
-
+    printf("Voltei num no fechado.\n");
     return eno;
-  }
-  else //Se estou em um no normal, nao folha
+  } //fimteste
+  else
   {
-    //Adiciona os filhos dele se ele tiver
+    //debigando
+    (*eac)++;
+    //printf("Entrou no No %li nivel %d.\n", (*eno).valor, (*eno).indices);
 
-    //Soma a sequencia a esse no
-    valorNovo =  (*eno).valor + sequenciaS;
-    if(valorNovo <= limiteX)
+    //Checa se estou num no folha
+    //Isto e: valor final, nao tem mais ninguem para adicionar da sequencia
+    if( (*eno).indices == S )
     {
-      (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
-      InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
-      libera = VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
-      free(libera);
-    }
-    //else //Estourou
+      if((*eno).valor > (*evalorMax))
+      {
+        (*evalorMax) = (*eno).valor;
+      }
 
-    //Subtrai a sequencia a esse no
-    valorNovo = (*eno).valor - sequenciaS;
-    if(valorNovo >= limiteZero)
+      //teste
+      //printf("%d: Fundo: valor %li - valor max: %li.\n", (*eno).indices, (*eno).valor, (*evalorMax));
+      //fimteste
+
+      return eno;
+    }
+    else //Se estou em um no normal, nao folha
     {
-      (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
-      InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
-      libera = VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax);
-      free(libera);
-    }
-    //else //Estourou
+      //Adiciona os filhos dele se ele tiver
 
-    return eno;
+      //Soma a sequencia a esse no
+      valorNovo =  (*eno).valor + sequenciaS;
+      //teste
+      //printf("Valor da sequencia: s[%d]:%li.\n", (*eno).indices, sequenciaS);
+      //fimteste
+      if((valorNovo <= limiteX) && (valorNovo >= limiteZero))
+      {
+        (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
+        InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
+        libera = VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax, eac);
+        free(libera);
+        (*eno).filhoAdd = NULL;
+      }
+      else //teste
+      {
+        //printf("%d: Abortou ramo por valor %li.\n", (*eno).indices, valorNovo);
+      } //fim teste
+      //else //Estourou
+
+      //Subtrai a sequencia a esse no
+      valorNovo = (*eno).valor - sequenciaS;
+      //teste
+      //printf("Valor da sequencia: s[%d]:%li.\n", (*eno).indices, sequenciaS);
+      //fimteste
+      if((valorNovo >= limiteZero) && (valorNovo <= limiteX))
+      {
+        (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
+        InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
+        libera = VisitaNo(((*eno).filhoSub), sequencia, X, S, evalorMax, eac);
+        free(libera);
+        (*eno).filhoSub = NULL;
+      }
+      else //teste
+      {
+        //printf("%d: Abortou ramo por valor %li.\n", (*eno).indices, valorNovo);
+      } //fim teste
+      //else //Estourou
+
+      //teste
+      //printf("No %li nivel %d.\n", (*eno).valor, (*eno).indices);
+
+      //teste
+      (*eno).cor = 1;
+      //fimteste
+      return eno;
+    }
   }
 }
 
@@ -138,9 +182,12 @@ void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M){
 
 }
 
-void ReiniciaParaProxCaso(int** esequencia, tipoNo** earvore){
+void ReiniciaParaProxCaso(int** esequencia, tipoNo** earvore, int* eac){
+  (*eac) = 0;
   free(*earvore);
+  (*earvore) = NULL;
   free(*esequencia);
+  (*esequencia) = NULL;
 }
 
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida){

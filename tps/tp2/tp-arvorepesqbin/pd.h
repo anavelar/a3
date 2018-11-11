@@ -13,6 +13,10 @@ typedef struct tipono {
 
   apontador filhoSub;
   apontador filhoAdd;
+
+  //teste
+  int cor;
+  //fimteste
 } tipoNo;
 
 
@@ -21,9 +25,9 @@ int InicializaPrograma(int argc, char *argv[], FILE** epArqEntrada, FILE** epArq
 void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* eM, int** esequencia);
 void InicializaNo(tipoNo* eno, long int valor, int indicesPai);
 void InicializaArvore(apontador* earvore, int V, long int* eValorMax);
-tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax);
+tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax, int* eac);
 void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M);
-void ReiniciaParaProxCaso(int** esequencia, tipoNo** earvore);
+void ReiniciaParaProxCaso(int** esequencia, tipoNo** earvore, int* eac);
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida);
 
 #endif

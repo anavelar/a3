@@ -37,6 +37,9 @@ int main(int argc, char *argv[ ]) {
     apontador arvore = NULL; //vai apontar para o primeiro, no zero com V
     long int valorMax;
 
+    //debugando
+    int ac = 0;
+
     //Programa
     //--------
 
@@ -58,11 +61,14 @@ int main(int argc, char *argv[ ]) {
 
         InicializaArvore(&arvore, V, &valorMax);
 
-        VisitaNo(arvore, sequencia, X, S, &valorMax);
+        VisitaNo(arvore, sequencia, X, S, &valorMax, &ac);
 
         ImprimeResultado(valorMax, &pArqSaida, M);
 
-        ReiniciaParaProxCaso(&sequencia, &arvore);
+        //teste
+        //printf("Quantidade de nos visitados:%d.\n", ac);
+
+        ReiniciaParaProxCaso(&sequencia, &arvore, &ac);
       }
 
       //FIM DO PROGRAMA
