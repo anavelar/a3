@@ -18,7 +18,7 @@
 int main(int argc, char *argv[ ]) {
 
     //Declaracoes
-    //-------------
+    //-----------
 
     FILE* pArqEntrada = NULL;
     FILE* pArqSaida = NULL;
@@ -34,37 +34,40 @@ int main(int argc, char *argv[ ]) {
     int i;
 
     //PD
-    apontador arvore; //vai apontar para o primeiro, no zero com V
+    apontador arvore = NULL; //vai apontar para o primeiro, no zero com V
     long int valorMax;
 
     //Programa
     //--------
 
     ok = InicializaPrograma(argc, argv, &pArqEntrada, &pArqSaida);
+
     if(ok == 0)
     {
       return 0;
     }
-
-    //Leituras
-    fscanf(pArqEntrada, "%d\n", &numCasosTeste);
-
-    //Para cada instancia no arquivo
-    for(i=0; i<numCasosTeste; i++)
+    else
     {
-      LeDadosInstancia(&pArqEntrada, &S, &V, &X, &M, &sequencia);
+      //Leituras
+      fscanf(pArqEntrada, "%d\n", &numCasosTeste);
 
-      InicializaArvore(&arvore, V, &valorMax);
+      //Para cada instancia no arquivo
+      for(i=0; i<numCasosTeste; i++)
+      {
+        LeDadosInstancia(&pArqEntrada, &S, &V, &X, &M, &sequencia);
 
-      VisitaNo(arvore, sequencia, X, S, &valorMax);
+        InicializaArvore(&arvore, V, &valorMax);
 
-      ImprimeResultado(valorMax, &pArqSaida, M);
+        VisitaNo(arvore, sequencia, X, S, &valorMax);
 
-      ReiniciaParaProxCaso(&sequencia, &arvore);
+        ImprimeResultado(valorMax, &pArqSaida, M);
+
+        ReiniciaParaProxCaso(&sequencia, &arvore);
+      }
+
+      //FIM DO PROGRAMA
+      EncerraPrograma(&pArqEntrada, &pArqSaida);
+
+      return 0;
     }
-
-    //FIM DO PROGRAMA
-    EncerraPrograma(&pArqEntrada, &pArqSaida);
-
-  return 0;
 }

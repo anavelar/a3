@@ -4,24 +4,31 @@
 
 int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqSaida){
 
-  if(argc != 3)
+  if(argc != 3) //Se os parametros na linha de comando nao esao presentes
   {
     printf("\nERRO. Faltam parametros para a execucao do programa,");
     printf("falta especificar o arquivo de entrada, de saida ou o executavel.\n");
     printf("\nNao foi possivel executar o programa.\n\n");
     return 0;
   }
-
-  *(epArqEntrada) = fopen(argv[1],"r");
-  *(epArqSaida) = fopen(argv[2],"w");
-
-  if( *(epArqEntrada) == NULL)
+  else //Se o pedido de execucao foi ok com relacao a quantidade
   {
-    printf("\nNao foi possivel encontrar o arquivo de entrada.\n");
-    printf("\nNao foi possivel executar o programa.\n\n");
-    fclose(*(epArqSaida));
-    return 0;
+    *(epArqEntrada) = fopen(argv[1],"r");
+    *(epArqSaida) = fopen(argv[2],"w");
+
+    if( *(epArqEntrada) == NULL) //Se houve erro ao abrir os arquivos
+    {
+      printf("\nNao foi possivel encontrar o arquivo de entrada.\n");
+      printf("\nNao foi possivel executar o programa.\n\n");
+      fclose(*(epArqSaida));
+      return 0;
+    }
+    else //Se nao houve erro na abertura de arquivos
+    {
+      return 1;
+    }
   }
+
 }
 
 void LeDadosInstancia(FILE** epArqEntrada, int* eS, int* eV, int* eX, long int* eM, int** esequencia){
@@ -50,18 +57,24 @@ void InicializaNo(tipoNo* eno, long int valor, int indicesPai){
 
 void InicializaArvore(apontador* earvore, int V, long int* eValorMax){
 
+  int indiceAserPassado = -1;
+  long int valorAserPassado = (long int) V;
+
   //Inicializacoes para cada caso
   (*eValorMax) = -1;
 
   //Cria arvore, insere o primeiro no e inicializa o no.
   (*earvore) = (apontador) malloc(sizeof(tipoNo));
 
-  InicializaNo((*earvore), V, (-1));
+  InicializaNo((*earvore), valorAserPassado, indiceAserPassado);
 }
 
 tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
 
   long int valorNovo;
+  long int sequenciaS = (long int) (sequencia[(*eno).indices]);
+  long int limiteX = (long int) (X);
+  long int limiteZero = 0;
   tipoNo* libera;
 
   //Checa se estou num no folha
@@ -80,20 +93,19 @@ tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax)
     //Adiciona os filhos dele se ele tiver
 
     //Soma a sequencia a esse no
-    valorNovo =  (*eno).valor + sequencia[(*eno).indices];
-    if(valorNovo <= X)
+    valorNovo =  (*eno).valor + sequenciaS;
+    if(valorNovo <= limiteX)
     {
       (*eno).filhoAdd = (apontador) malloc(sizeof(tipoNo));
       InicializaNo(((*eno).filhoAdd), valorNovo, (*eno).indices);
-
       libera = VisitaNo(((*eno).filhoAdd), sequencia, X, S, evalorMax);
       free(libera);
     }
     //else //Estourou
 
     //Subtrai a sequencia a esse no
-    valorNovo = (*eno).valor - sequencia[(*eno).indices];
-    if(valorNovo >= 0)
+    valorNovo = (*eno).valor - sequenciaS;
+    if(valorNovo >= limiteZero)
     {
       (*eno).filhoSub = (apontador) malloc(sizeof(tipoNo));
       InicializaNo(((*eno).filhoSub), valorNovo, (*eno).indices);
@@ -127,7 +139,6 @@ void ImprimeResultado(long int valorMax, FILE** epArqSaida, long int M){
 }
 
 void ReiniciaParaProxCaso(int** esequencia, tipoNo** earvore){
-
   free(*earvore);
   free(*esequencia);
 }

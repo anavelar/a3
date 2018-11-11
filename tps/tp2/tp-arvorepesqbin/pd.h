@@ -8,8 +8,8 @@
 typedef struct tipono* apontador;
 
 typedef struct tipono {
-  long int valor;
-  int indices;
+  long int valor;    // Montante: ate 1 000 000, logo long int
+  int indices;       //Entre 0 (raiz) e S (apos +Ss) - S max 10^3
 
   apontador filhoSub;
   apontador filhoAdd;
