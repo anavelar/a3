@@ -8,12 +8,6 @@
 //pd:
 // caso_teste=9 && time ./tp2-pd $caso_teste.tst.i $caso_teste-pd && diff $caso_teste-pd casos_de_teste_tp2/$caso_teste.tst.o
 //----------------------------
-//Com valgrind
-// caso_teste=7 && valgrind ./tp2-forcabruta $caso_teste.tst.i $caso_teste-fb
-//pd:
-// caso_teste=2 && valgrind ./tp2-pd $caso_teste.tst.i $caso_teste-pd
-//----------------------------
-//Se nao der, ver arquivo de possiveis otimizacoes aqui.
 
 int main(int argc, char *argv[ ]) {
 
