@@ -71,10 +71,7 @@ void InicializaArvore(apontador* earvore, int V, long int* eValorMax){
 
 tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax){
 
-  long int valorNovo;
-  long int sequenciaS = (long int) (sequencia[(*eno).indices]);
-  long int limiteX = (long int) (X);
-  long int limiteZero = 0;
+  long int valorNovo, sequenciaS, limiteX, limiteZero;
   tipoNo* libera;
 
   //Checa se estou num no folha
@@ -90,6 +87,11 @@ tipoNo* VisitaNo(tipoNo* eno, int* sequencia, int X, int S, long int* evalorMax)
   }
   else //Se estou em um no normal, nao folha
   {
+    //Variaveis so desse caso
+    sequenciaS = (long int) (sequencia[(*eno).indices]);
+    limiteX = (long int) (X);
+    limiteZero = 0;
+
     //Adiciona os filhos dele se ele tiver
 
     //Soma a sequencia a esse no
