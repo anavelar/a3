@@ -1,0 +1,17 @@
+PA 1912
+
+COM RELACAO AO ALGORITMO:
+ - INSERVAO ORDENADA / ORDENAR O VETOR?
+   - ORDENAR O VETOR: imagino que tenha custo menor do que inserir
+     ordenado, porque inserir ordenado exige nova busca EM PONTEIROS
+     toda hora.
+     Mas também impacta: no mínimo O(n)? Mas acho que compensa.
+     // Info relevante
+     // Por ultimo: depois que tiver submetido, ordenar as tiras e ver se
+     // melhora (maiores primeiro, otim no iniicio) ou piora (dependo do corte
+     // piora e ordenar n=10^5 pode estragar o tempo).
+     -----Inserir depois e se der TLE tirar
+
+
+COM RELACAO A TIPOS DE DADOS
+1. Ver se o comprimento das tiras pode ser float. Se puder, mudará tudo.
