@@ -1,0 +1,10 @@
+LIMPAR A PASTA:
+
+- DEIXAR SOMENTE OS ARQUIVOS .c de cada PA + o Makefile,
+  NADA MAIS, e todos na raiz sem nenhuma pasta.
+
+----------------------------------------------------------------
+COMPACTAR EM ZIP E ENVIAR NO MOODLE (ATE 23:55 ACHO)
+
+- Na pasta logo acima da pasta 2013007080_ana_avelar, fazer:
+	zip -r 2013007080_ana_avelar.zip 2013007080_ana_avelar
