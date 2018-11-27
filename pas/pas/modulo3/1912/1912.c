@@ -62,7 +62,7 @@ int main(int argc, char* argv[]){
         }
         else
         {
-          printf("%.4f\n", resultado); //**************************
+          printf("%.04f\n", resultado); //**************************
         }
       }
     }
@@ -133,18 +133,20 @@ float corteMediano(float hBase, float hTeto, double* tira, long int A, long int 
   {
     //Depois adicionar uma condicao de parada**************************************************8
     //exemplo:
-    //if( (hTeto - hBase) < 0.00001 ) //Se esta na hora de parar de iterar - Se h ja eh o mesmo ******
-    //  return H;
+    if( (hTeto - hBase) < 0.00001 ) //Se esta na hora de parar de iterar - Se h ja eh o mesmo ******
+    {
+      return H;
+    }
 
     //Condicao de impossibilidade
-    if( deltaf >= deltaAnterior )
+    //if( deltaf >= deltaAnterior )
     //if( ((hTeto - hBase) < 0.00001) && (deltaf >= deltaAnterior) )
-    {
+    //{
       //teste
       //printf("H=%f. ", H);
       //fimteste
-      return ((float) -1.0); //Retornar qdo der loop, impossivel
-    }
+      //return ((float) -1.0); //Retornar qdo der loop, impossivel
+    //}
     else
     {
       if(areaSuperiorCorte > Ad) //Caso a area acima eh maior do que eu preciso
