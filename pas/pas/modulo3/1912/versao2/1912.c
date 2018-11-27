@@ -4,7 +4,7 @@
 //Assinaturas das Funcoes
 void Particao(long int Esq, long int Dir, long int* i, long int* j, double* A);
 void Ordena(long int Esq, long int Dir, double* A);
-//Colocar aqui a assinatura final de corte mediano
+double corteMediano(double hBase, double hTeto, double* tira, long int A, long int N);
 
 //Programas
 int main(int argc, char *argv[])
@@ -40,12 +40,11 @@ int main(int argc, char *argv[])
       else
       {
         Ordena(0, (N-1), tira); //************************************Conferir
-        //double corteMediano(double hBase, double hTeto, double* tira, long int A, long int N, double areaTotal)
-        resultado = corteMediano(((double) 0.0000), tira[N-1], tira, A, N, areaTotal); //**********************************AQUI
+        //double corteMediano(double hBase, double hTeto, double* tira, long int A, long int N)
+        resultado = corteMediano(((double) 0.0000), tira[N-1], tira, A, N);
         printf("%.4lf\n", resultado);
       }
     }
-
 
     //Novo caso de Teste
     free(tira);
@@ -98,7 +97,7 @@ void Ordena(long int Esq, long int Dir, double* A)
     Ordena(i, Dir, A);
 }
 
-double corteMediano(double hBase, double hTeto, double* tira, long int A, long int N, double areaTotal)
+double corteMediano(double hBase, double hTeto, double* tira, long int A, long int N)
 {
   double metade, area, delta;
   long int i;
@@ -127,8 +126,10 @@ double corteMediano(double hBase, double hTeto, double* tira, long int A, long i
     if( delta < ((double) 0.0001) )
       return metade;
 
-      //to aqui*******************************888
-
-
+    //Nao encontrou
+    if(area < A)
+      hTeto = metade;
+    else //(area > A)
+      hBase = metade;
   }
 }
