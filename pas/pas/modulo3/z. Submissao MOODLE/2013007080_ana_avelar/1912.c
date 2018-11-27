@@ -25,10 +25,10 @@ int main(int argc, char* argv[]){
     for(i=0; i<(N-1); i++)
     {
       scanf("%lf ",&tira[i]);
-      areaTotal = areaTotal + tira[i];
+      areaTotal += tira[i];
     }
     scanf("%lf\n",&tira[i]);
-    areaTotal = areaTotal + tira[i];
+    areaTotal += tira[i];
 
     if( ((double) A) > areaTotal) //Caso a area pedida seja maior do que a area total
       printf("-.-\n");
@@ -112,10 +112,12 @@ double corteMediano(double hBase, double hTeto, double* tira, long int A, long i
 
   //Calcula a area *superior* resultante desse H
   areaSuperiorCorte = (double) 0.0000;
-  for(i=0; i<N; i++)
+  for(i=(N-1); i>=0; i--)
   {
     if(tira[i] >  H)
-      areaSuperiorCorte = areaSuperiorCorte + (tira[i] - H);
+      areaSuperiorCorte += (tira[i] - H);
+    else
+      break;
   }
 
   //Checa se esta na hora de parar
