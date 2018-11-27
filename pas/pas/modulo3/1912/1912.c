@@ -1,7 +1,58 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-float corteMediano(float hBase, float hTeto, double* tira, long int A, long int N, double areaTotal, double deltaAnterior);
+//temp para teste
+#include <math.h>
+//fimteste
+
+void Particao(long int Esq, long int Dir, long int* i, long int* j, double* A)
+{
+  double x, w;
+
+  *i=Esq;
+  *j=Dir;
+
+  x = A[ (*i + *j) / 2 ];
+
+  do
+  {
+    while(x > A[*i])
+     (*i)++;
+
+    while(x < A[*j])
+     (*j)--;
+
+    if( *i <= *j )
+    {
+      w = A[*i];
+      A[*i] = A[*j];
+      A[*j] = w;
+      (*i)++;
+      (*j)--;
+    }
+
+  } while( *i <= *j );
+}
+
+void Ordena(long int Esq, long int Dir, double* A)
+{
+  long int i, j;
+
+  Particao(Esq, Dir, &i, &j, A);
+
+  if(Esq<j)
+  {
+    Ordena(Esq, j, A);
+  }
+
+  if(i<Dir)
+  {
+    Ordena(i, Dir, A);
+  }
+
+}
+
+double corteMediano(double hBase, double hTeto, double* tira, long int A, long int N, double areaTotal, double deltaAnterior);
 
 int main(int argc, char* argv[]){
 
@@ -9,15 +60,15 @@ int main(int argc, char* argv[]){
   long int A, N;
   double areaTotal, maiorTira;
   double* tira = NULL;
-  float resultado, maiorTiraF;
+  double resultado, maiorTiraF;
 
   //Execucao
   scanf("%li %li\n", &N, &A);
   while((A!=0) && (N!=0)) //*************************
   {
     //Inicializacoes
-    areaTotal = 0.0;
-    maiorTira = 0.0;
+    areaTotal = (double) 0.0;
+    maiorTira = (double) 0.0;
     tira = (double*) malloc(N*sizeof(double));
 
     //Le e insere as tiras
@@ -52,9 +103,11 @@ int main(int argc, char* argv[]){
       {
         //opcional: ordena as tiras decrescente? *************************
         //testar se melhora ou piora o time
+        Ordena(0, (N-1), tira); //*************************************************************************9999999999
 
-        maiorTiraF = (float) maiorTira;
-        resultado = corteMediano( ((float) 0.0000), maiorTiraF, tira, A, N, areaTotal, (areaTotal*5) );
+        //maiorTiraF = (float) maiorTira;
+        //resultado = corteMediano( ((float) 0.0000), maiorTiraF, tira, A, N, areaTotal, (areaTotal*5) );
+        resultado = corteMediano( ((double) 0.0000), maiorTira, tira, A, N, areaTotal, (areaTotal*5) );
         if(resultado == ((float) -1.0))
         {
           printf("-.-\n"); //voltar p esse depois
@@ -62,7 +115,7 @@ int main(int argc, char* argv[]){
         }
         else
         {
-          printf("%.04f\n", resultado); //**************************
+          printf("%.4f\n", resultado); //**************************
         }
       }
     }
@@ -77,24 +130,24 @@ int main(int argc, char* argv[]){
 
 //Funcao recursiva de corte
 //Retorna na ultima entrada a altura que gera o valor certo
-float corteMediano(float hBase, float hTeto, double* tira, long int A, long int N, double areaTotal, double deltaAnterior)
+double corteMediano(double hBase, double hTeto, double* tira, long int A, long int N, double areaTotal, double deltaAnterior)
 {
   long int i; //Contador
   double areaSuperiorCorte, areaInferiorCorte, Ad;
-  float H;
+  double H;
   double delta1, delta2, deltaf;
 
   //Calcula H
   Ad = (double) A; //Ad
-  H = ((hBase + hTeto) / ((float) 2));
+  H = ((hBase + hTeto) / ((double) 2.0000));
 
   //Calcula a area *superior* resultante desse H
-  areaSuperiorCorte = (double) 0.0;
+  areaSuperiorCorte = (double) 0.0000;
   for(i=0; i<N; i++)
   {
-    if(tira[i] > ((double) H) )
+    if(tira[i] >  H)
     {
-      areaSuperiorCorte = areaSuperiorCorte + ( tira[i] - ((double) H) );
+      areaSuperiorCorte = areaSuperiorCorte + (tira[i] - H);
     }
   }
   //Calcula a area *inferior* resultante desse corte
@@ -133,7 +186,22 @@ float corteMediano(float hBase, float hTeto, double* tira, long int A, long int 
   {
     //Depois adicionar uma condicao de parada**************************************************8
     //exemplo:
-    if( (hTeto - hBase) < 0.00001 ) //Se esta na hora de parar de iterar - Se h ja eh o mesmo ******
+    //if( (hTeto - hBase) < 0.00001 ) //Se esta na hora de parar de iterar - Se h ja eh o mesmo ******
+    //teste
+    /*
+    double ab;
+    if(deltaf == delta2) //eh perto da area inferior
+    {
+      ab = areaInferiorCorte;
+    }
+    else //se deltaf == delta1. //eh perto da area superior
+    {
+      ab = areaSuperiorCorte;
+    }
+    */
+    //fimteste
+    if( (hTeto - hBase) < ((double) 0.00001) ) //Se esta na hora de parar de iterar - Se h ja eh o mesmo ******
+    //if( deltaf < ((double) 0.00001) ) //temporario
     {
       return H;
     }
