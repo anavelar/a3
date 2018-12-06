@@ -1,0 +1,88 @@
+Sobre as flags gcc indicadas no programa:
+
+EM GERAL ---------------------------------------
+
+-Wall:   Flags de warning.
+
+-Wextra:  Mais flags de warning.
+
+-Werror: Make all warnings into hard errors. Source code
+which triggers warnings will be rejected.
+
+-std=standard: Specify the standard to which
+the code should conform. Opções de standard possíveis:
+https://linux.die.net/man/1/gcc 
+
+
+
+
+DETALHES ----------------------------------------
+
+-Wall:   Flags de warning.
+-----
+This enables all the warnings about constructions that
+some users consider questionable, and that are easy to
+avoid (or modify to prevent the warning), even in
+conjunction with macros.
+
+This also enables some language-specific warnings
+described in C ++ Dialect Options and Objective-C and
+Objective-C ++ Dialect Options.
+
+-Wall turns on the following warning flags:
+-Waddress -Warray-bounds (only with -O2) -Wc++0x-compat
+-Wchar-subscripts -Wimplicit-int
+-Wimplicit-function-declaration -Wcomment -Wformat
+-Wmain (only for C/ObjC and unless -ffreestanding)
+-Wmissing-braces -Wnonnull -Wparentheses -Wpointer-sign
+-Wreorder -Wreturn-type -Wsequence-point
+-Wsign-compare (only in C ++ )
+-Wstrict-aliasing -Wstrict-overflow=1 -Wswitch
+-Wtrigraphs -Wuninitialized -Wunknown-pragmas
+-Wunused-function -Wunused-label -Wunused-value
+-Wunused-variable -Wvolatile-register-var
+
+Note that some warning flags are not implied by -Wall.
+Some of them warn about constructions that users
+generally do not consider questionable, but which
+occasionally you might wish to check for; others warn
+about constructions that are necessary or hard to avoid
+in some cases, and there is no simple way to modify the
+code to suppress the warning. Some of them are enabled by
+-Wextra but many of them must be enabled individually.
+
+
+-Wextra:  Mais flags de warning.
+--------
+This enables some extra warning flags that are not
+enabled by -Wall. (This option used to be called -W.
+The older name is still supported, but the newer name is
+more descriptive.)
+
+-Wclobbered -Wempty-body -Wignored-qualifiers
+-Wmissing-field-initializers
+-Wmissing-parameter-type (C only)
+-Wold-style-declaration (C only)
+-Woverride-init -Wsign-compare -Wtype-limits
+-Wuninitialized
+-Wunused-parameter (only with -Wunused or -Wall)
+
+The option -Wextra also prints warning messages for the
+following cases:
+
+- â€¢ A pointer is compared against integer zero with <,
+<=, >, or >=.
+
+- â€¢ (C ++ only) An enumerator and a non-enumerator
+both appear in a conditional expression.
+
+- â€¢ (C ++ only) Ambiguous virtual bases.
+
+- â€¢ (C ++ only) Subscripting an array which has been
+declared register.
+
+- â€¢ (C ++ only) Taking the address of a variable which
+has been declared register.
+
+- â€¢ (C ++ only) A base class is not initialized in a
+derived class' copy constructor.
