@@ -11,9 +11,15 @@ which triggers warnings will be rejected.
 
 -std=standard: Specify the standard to which
 the code should conform. Opções de standard possíveis:
-https://linux.die.net/man/1/gcc 
+https://linux.die.net/man/1/gcc
 
+EXTRAS: (Não do TP)
+- g: Produce debugging information in the operating
+system's native format (stabs,COFF,XCOFF,or DWARF 2).
+GDB can work with this debugging information.
 
+-c: "For example, the -c option says not to run the
+linker."
 
 
 DETALHES ----------------------------------------

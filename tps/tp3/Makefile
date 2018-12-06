@@ -1,20 +1,14 @@
 all: tp3
 
-tp3: tp3.c
-	gcc tp3.c -Wall -Wextra -Werror -std=c99
+tp3: tp3.o funcoes.o
+	gcc -std=c99 -Wall -Wextra -Werror funcoes.o tp3.o -o tp3
 
-# Exemplo de inclusao de bibliotecas
-#tp2-pd: tp2-pd.o pd.o
-#	gcc pd.o tp2-pd.o -o tp2-pd
+tp3.o: tp3.c funcoes.h funcoes.c
+	gcc -c -std=c99 -Wall -Wextra -Werror tp3.c
 
-#tp2-pd.o: tp2-pd.c pd.h pd.c
-#	gcc -g -c tp2-pd.c
-
-#pd.o: pd.c pd.h
-#	gcc -g -c pd.c
+funcoes.o: funcoes.c funcoes.h
+	gcc -c -std=c99 -Wall -Wextra -Werror funcoes.c
 
 clean:
 	rm *.o
 	rm tp3
-	# Mais do exemplo:
-	#rm tp2-pd
