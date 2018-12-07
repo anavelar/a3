@@ -14,7 +14,7 @@ somente 256Mb de mem´oria
 
 ------------------------------------------------------------------------------------
 AO FINAL NÃO ESQUECER:
-- Voltar as flags certas de compilação (obrigatório)
+- Voltar as flags certas de compilação (obrigatório) - VOLTAR PRO MAKEFILE CERTO ***
 
 POSSIVEIS PAUS:
 
