@@ -17,11 +17,12 @@ int main(int argc, char** argv){
   float limiteMB;
   int leituraok;
 
+  //Programa
   leituraok = InicializaPrograma(argc, argv, &pArqEntrada, &pArqSaida, &limiteMB);
 
   if(leituraok) //Se retornou ERRO
     return ERRO;
-  else //Se deu tudo certo. Ai o programa mesmo.
+  else //Se foi possivel abrir os arquivos e ler os valores. Ai o programa mesmo.
   {
 
 

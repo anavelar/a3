@@ -1,0 +1,12 @@
+1. COMPACTAR EM ZIP E ENVIAR NO MOODLE --- ver se dá pra compactar só os arquivos e todos na mesma pasta
+
+  - Na pasta logo acima da pasta 2013007080_ana_luiza_de_avelar_cabral, fazer:
+  	zip -r 2013007080_ana_luiza_de_avelar_cabral.zip 2013007080_ana_luiza_de_avelar_cabral
+
+2. N˜ao inclua arquivos compilados ou gerados por IDEs. Apenas os arquivos abaixo
+devem estar presentes no arquivo zip:
+– Makefile;
+– Arquivos fonte (*.c e *.h);
+– documentacao.pdf.
+
+OBS.: Sem doc ou sem execucao a nota eh zero.

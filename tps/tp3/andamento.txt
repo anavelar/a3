@@ -1,5 +1,18 @@
+Sobre o programa:
 
+Um dos parˆametros para execu¸c˜ao do seu programa ser´a o limite de mem´oria que ele poder´a
+utilizar. Esses limites devem ser respeitados. Existem ferramentas para medi¸c˜ao do uso de
+mem´oria, ou seja, controlar a quantidade de mem´oria alocada para determinado programa
+durante sua execu¸c˜ao. Por exemplo, timeout (visite o site: https://github.com/pshved/
+timeout e ulimit (visite o site: https://ss64.com/bash/ulimit.html).
 
+O limite de mem´oria a ser considerado no programa ser´a passado na chamada do execut´avel, por exemplo:
+./tp3 input.txt output.txt LIM M
+Onde LIM M ´e o m´aximo que mem´oria que seu algoritmo pode alocar. Esse valor ser´a
+em MBs, ou seja, caso o valor de LIM M seja 256, significa que seu programa poder´a alocar
+somente 256Mb de mem´oria
+
+------------------------------------------------------------------------------------
 AO FINAL NÃO ESQUECER:
 - Voltar as flags certas de compilação (obrigatório)
 
