@@ -2,15 +2,32 @@
 #include <stdio.h>
 #include "funcoes.h"
 
-//int main(int argc, char** argv){
-int main(){
+//OBS.:
+//- Execucao para testes unitários: make
+//- Execucao definitiva: make -f Makefile-entrega
+//Depois:
+//- ./tp3 tp3-toyexample/input1.in tp3-toyexample/output1meu.out 32.5
+//- make clean
+
+int main(int argc, char** argv){
 
   //Declaração de variáveis
-  //FILE* pArqEntrada = NULL;
-  //FILE* pArqSaida = NULL;
-  
+  FILE* pArqEntrada = NULL;
+  FILE* pArqSaida = NULL;
+  float limiteMB;
+  int leituraok;
 
-  //lembrar de desalocar
+  leituraok = InicializaPrograma(argc, argv, &pArqEntrada, &pArqSaida, &limiteMB);
 
-  return 0;
+  if(leituraok) //Se retornou ERRO
+    return ERRO;
+  else //Se deu tudo certo. Ai o programa mesmo.
+  {
+
+
+    //FIM DO PROGRAMA
+    EncerraPrograma(&pArqEntrada, &pArqSaida);
+    return NORMAL;
+  }
+
 }

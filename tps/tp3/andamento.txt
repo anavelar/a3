@@ -1,0 +1,10 @@
+
+
+AO FINAL NÃO ESQUECER:
+- Voltar as flags certas de compilação (obrigatório)
+
+POSSIVEIS PAUS:
+
+
+POSSIVEIS PROBLEMAS / ERROS EM CASO DE TESTE:
+- A variavel para armazenar limiteMB é ok o tipo? Diz o fórum para usar float.
