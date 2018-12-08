@@ -15,9 +15,16 @@ somente 256Mb de mem´oria
 ------------------------------------------------------------------------------------
 AO FINAL NÃO ESQUECER:
 - Voltar as flags certas de compilação (obrigatório) - VOLTAR PRO MAKEFILE CERTO ***
+---- Elaborar testes p analisar tradeoffs como dizem.
 
 POSSIVEIS PAUS:
 
 
 POSSIVEIS PROBLEMAS / ERROS EM CASO DE TESTE:
 - A variavel para armazenar limiteMB é ok o tipo? Diz o fórum para usar float.
+-------------------------------------------------------------------------------------
+OPÇÕES DE OTIMIZAÇÃO:
+
+- desmodularizar o programa:
+Deixar muitos no main, ou alguns frequentemente chamados, para evitar consumo de mem
+com pilha de recursao e troca de contexto.

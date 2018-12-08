@@ -1,7 +1,6 @@
 #include "funcoes.h"
 
 //Funcoes
-
 int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqSaida, float* elimiteMB){
 
   if(argc != NUM_PARAMETROS) //Se os parametros na linha de comando nao esao presentes
@@ -31,7 +30,13 @@ int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqS
   }
 }
 
-void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida){
+void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida)
+{
   fclose(*(epArqEntrada));
   fclose(*(epArqSaida));
+}
+
+void LeInfoMatriz(FILE** epArqEntrada, int* enumLinhas, int* enumColunas)
+{
+  fscanf((*epArqEntrada),"%d %d\n", enumLinhas, enumColunas);
 }
