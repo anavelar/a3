@@ -20,7 +20,11 @@ OPÇÕES DE OTIMIZAÇÃO:
 - desmodularizar o programa:
 Deixar muitos no main, ou alguns frequentemente chamados, para evitar consumo de
 mem com pilha de recursao e troca de contexto.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+AO FIM
+
+--------Saida com ATE duas casas decimais, corrigir?? para ficar igual ao toy.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OUTRAS OBS.:
