@@ -1,4 +1,9 @@
+OBS.:
 
+- Sem implementar a mediana o TP está gastando 9MB a execucao de acordo com
+valgrind.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 POSSIVEIS PAUS:
 ---------------
 
