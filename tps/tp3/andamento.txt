@@ -12,6 +12,8 @@ POSSIVEIS PAUS:
 - constante 0.00f
 - A variavel para armazenar limiteMB é ok o tipo? Diz o fórum para usar float.
 
+PAUS NOS CASOS DE TESTE:
+- USO DE LIM_M COMO LIMITE PARA LEITURA E NÃO COMO MEM TOTAL DA PILHA DE EXECUÇÃO.
 
 OPÇÕES DE OTIMIZAÇÃO:
 ---------------------
