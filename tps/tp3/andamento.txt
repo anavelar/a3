@@ -14,7 +14,10 @@ OPÇÕES DE OTIMIZAÇÃO:
 Deixar muitos no main, ou alguns frequentemente chamados, para evitar consumo de
 mem com pilha de recursao e troca de contexto.
 
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AO FINAL
+--------
+- Remover comentários
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OUTRAS OBS.:
