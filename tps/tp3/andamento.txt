@@ -25,6 +25,7 @@ mem com pilha de recursao e troca de contexto.
 AO FIM
 
 --------Saida com ATE duas casas decimais, corrigir?? para ficar igual ao toy.
+E ver questão toy 9.34 ao invés de 9.44?
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OUTRAS OBS.:
