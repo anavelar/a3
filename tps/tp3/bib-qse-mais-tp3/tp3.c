@@ -33,7 +33,6 @@ int main(int argc, char** argv){
     for(i=0; i<numLinhas; i++)
       LeLinhaMatriz(&pArqEntrada, &pArqSaida, numColunas, &mediaGeral, i, numLinhas);
 
-
     //FIM DO PROGRAMA
     EncerraPrograma(&pArqEntrada, &pArqSaida);
     return NORMAL;
