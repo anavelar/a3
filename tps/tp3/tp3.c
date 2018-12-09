@@ -4,11 +4,11 @@
 
 //OBS.:
 // ls -l --group-directories-first
-//- Execucao para testes unitários: make -f Makefile-temp
-//- Execucao definitiva: make -f Makefile-entrega
+//- Execucao para testes unitários:
+// make -f Makefile-temp
+// make -f Makefile-temp clean
 //Depois:
-//- ./tp3 tp3-toyexample/input1.in tp3-toyexample/output1meu.out 32.5
-//- make -f Makefile-temp clean
+// ./tp3 tp3-toyexample/input1.in tp3-toyexample/meuoutput1.out 32.5
 
 int main(int argc, char** argv){
 
@@ -31,9 +31,8 @@ int main(int argc, char** argv){
     LeInfoMatriz(&pArqEntrada, &numLinhas, &numColunas);
 
     for(i=0; i<numLinhas; i++)
-    {
       LeLinhaMatriz(&pArqEntrada, &pArqSaida, numColunas, &mediaGeral, i, numLinhas);
-    }
+      
 
     //FIM DO PROGRAMA
     EncerraPrograma(&pArqEntrada, &pArqSaida);

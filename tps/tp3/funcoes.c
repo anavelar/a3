@@ -60,7 +60,7 @@ void LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, int numColunas, float
   if(linha == (numLinhas-1)) //Se esta na ultima linha
   {
     (*emediaGeral) /= ((float) (numColunas*numLinhas));
-    fprintf((*epArqSaida),"%.2f", (*emediaGeral));
+    fprintf((*epArqSaida),"%.2f\n", (*emediaGeral));
   }
 }
 
