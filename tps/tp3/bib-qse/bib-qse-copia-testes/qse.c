@@ -33,7 +33,7 @@ void RetiraMin(TipoArea *Area, TipoRegistro *R, int *NRArea)
 
 void Particao(FILE **ArqLi, FILE **ArqEi, FILE **ArqLEs, TipoArea Area, int Esq, int Dir, int *i, int *j)
 {
-  long long int Lsup = MAIOR_VLR_POSSIVEL_PROBL, Linf = MENOR_VLR_POSSIVEL_PROBL;
+  float Linf = FLT_MIN, Lsup = FLT_MAX;
   int Ls = Dir, Es = Dir, Li = Esq, Ei = Esq, NRArea = 0;
   short OndeLer = TRUE;
   TipoRegistro UltLido, R;

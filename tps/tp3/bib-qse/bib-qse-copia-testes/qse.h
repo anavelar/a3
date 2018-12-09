@@ -2,14 +2,12 @@
 #define QSE
 
 // Bibliotecas auxiliares
+#include <float.h>
 #include "area.h"
 
 // Constantes
 #define TRUE 1
 #define FALSE 0
-// De acordo com o enunciado, cada valor eh positivo e menor que esse
-#define MAIOR_VLR_POSSIVEL_PROBL 4294967297
-#define MENOR_VLR_POSSIVEL_PROBL -1
 
 // Funcoes
 void LeSup(FILE **ArqLEs, TipoRegistro *UltLido, int *Ls, short *OndeLer);

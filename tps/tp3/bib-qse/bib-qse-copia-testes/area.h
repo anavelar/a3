@@ -12,7 +12,7 @@
 typedef int TipoApontador;
 
 typedef struct TipoRegistro {
-  long long int Chave;
+  float Chave;
 } TipoRegistro;
 
 typedef struct TipoCelula {

@@ -24,9 +24,8 @@ int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqS
       fclose(*(epArqSaida));
       return ERRO;
     }
-    else //Se nao houve erro na abertura de arquivos
+    else //Se nao houve erro na abertura de arquivos de leitura
       return NORMAL;
-
   }
 }
 
@@ -35,11 +34,16 @@ void LeInfoMatriz(FILE** epArqEntrada, int* enumLinhas, int* enumColunas)
   fscanf((*epArqEntrada),"%d %d\n", enumLinhas, enumColunas);
 }
 
-void LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, int numColunas, float* emediaGeral, int linha, int numLinhas)
+int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int numColunas, float* emediaGeral, int linha, int numLinhas)
 {
   long long int valor;
   float mediaLinha = 0.00f;
   int i; //Contador
+  FILE *ArqLEs, *ArqEi;
+  TipoRegistro R;
+
+  // Arquivo auxiliar para calculo da mediana por linha
+  (*eArqLi) = fopen ("auxlinha.dat", "wb");
 
   //Le cada elemento da linha
   for(i=0; i<(numColunas-1); i++)
@@ -47,13 +51,42 @@ void LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, int numColunas, float
     fscanf((*epArqEntrada),"%lli ", &valor);
     mediaLinha += ((float) valor);
     (*emediaGeral) += ((float) valor);
+    R.Chave = valor;
+    fwrite(&R, sizeof(TipoRegistro), 1, (*eArqLi));
   }
   fscanf((*epArqEntrada),"%lli\n", &valor);
   mediaLinha += ((float) valor);
   (*emediaGeral) += ((float) valor);
+  R.Chave = valor;
+  fwrite(&R, sizeof(TipoRegistro), 1, (*eArqLi));
+  fclose(*eArqLi);
 
-  //Calcula a media da linha e adiciona a media geral
+  //Calcula a media da linha
   mediaLinha /= ((float) numColunas);
+
+  //Calcula a mediana da linha
+  (*eArqLi) = fopen ("auxlinha.dat", "r+b");
+  ArqEi = fopen ("auxlinha.dat", "r+b");
+  ArqLEs = fopen ("auxlinha.dat", "r+b");
+  if( ((*eArqLi) == NULL) || ArqEi == NULL || ArqLEs == NULL )
+  {
+    printf("Foram encontrados problemas ao manipular o arquivo ");
+    printf("auxiliar do QuickSort Externo, logo foi abortado o programa.\n");
+    fclose(*epArqEntrada); fclose(*epArqSaida);
+    fclose(*eArqLi); fclose(ArqEi); fclose(ArqLEs);
+    return ERRO;
+  }
+
+  QuicksortExterno(eArqLi, &ArqEi, &ArqLEs, INICIO, numColunas);
+  fflush(*eArqLi);
+  fclose(ArqEi); fclose(ArqLEs);
+  fseek((*eArqLi), 0, SEEK_SET);
+
+  //Impressao errada, ultimo sem espaco e tem \n no final*************************
+  while(fread(&R, sizeof(TipoRegistro), 1, (*eArqLi)))
+    fprintf(*epArqSaida, "%lli ", R.Chave);
+  fprintf(*epArqSaida, "\n");
+  fclose(*eArqLi);
 
   //Imprime os resultados
   fprintf((*epArqSaida),"%.2f,\n", mediaLinha);
@@ -62,6 +95,8 @@ void LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, int numColunas, float
     (*emediaGeral) /= ((float) (numColunas*numLinhas));
     fprintf((*epArqSaida),"%.2f\n", (*emediaGeral));
   }
+
+  return NORMAL;
 }
 
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida)

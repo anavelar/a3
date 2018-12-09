@@ -142,7 +142,7 @@ void ImprimeArea(TipoArea *Area)
   Pos = Area->Primeiro;
   while (Pos != -1)
     {
-      printf("%lli\n", Area->Itens[Pos].Item.Chave);
+      printf("%f\n", Area->Itens[Pos].Item.Chave);
       Pos = Area->Itens[Pos].Prox;
     }
 }
