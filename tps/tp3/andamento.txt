@@ -18,6 +18,9 @@ AO FINAL NÃO ESQUECER:
 ---- Elaborar testes p analisar tradeoffs como dizem.
 
 POSSIVEIS PAUS:
+- operador reduzido na funcao LeLinhaMatriz e em outros lugares
+- constante 0.00f
+
 
 
 POSSIVEIS PROBLEMAS / ERROS EM CASO DE TESTE:
@@ -28,3 +31,10 @@ OPÇÕES DE OTIMIZAÇÃO:
 - desmodularizar o programa:
 Deixar muitos no main, ou alguns frequentemente chamados, para evitar consumo de mem
 com pilha de recursao e troca de contexto.
+
+
+
+
+
+OBS.:
+- Biblioteca <float.h>: O maior float possivel eh 340282346638528859811704183484516925440.000000.

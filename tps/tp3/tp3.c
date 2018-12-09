@@ -2,10 +2,8 @@
 #include <stdio.h>
 #include "funcoes.h"
 
-//teste
-#include <limits.h>
-
 //OBS.:
+// ls -l --group-directories-first
 //- Execucao para testes unitários: make -f Makefile-temp
 //- Execucao definitiva: make -f Makefile-entrega
 //Depois:
@@ -20,18 +18,22 @@ int main(int argc, char** argv){
   float limiteMB;
   int leituraok;
   int numLinhas, numColunas; //De 1 ate 3mil.
-  //int i; //Contador
-  //long long int oi;
+  float mediaGeral = 0.00f;
+  int i; //Contador
 
   //Programa
   leituraok = InicializaPrograma(argc, argv, &pArqEntrada, &pArqSaida, &limiteMB);
 
   if(leituraok) //Se retornou ERRO
     return ERRO;
-  else          //Se foi possivel abrir os arquivos e ler os valores. Ai o programa mesmo.
+  else      //Se foi possivel abrir os arquivos e ler os valores. Ai o programa mesmo.
   {
     LeInfoMatriz(&pArqEntrada, &numLinhas, &numColunas);
 
+    for(i=0; i<numLinhas; i++)
+    {
+      LeLinhaMatriz(&pArqEntrada, &pArqSaida, numColunas, &mediaGeral, i, numLinhas);
+    }
 
     //FIM DO PROGRAMA
     EncerraPrograma(&pArqEntrada, &pArqSaida);

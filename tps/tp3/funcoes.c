@@ -30,13 +30,42 @@ int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqS
   }
 }
 
+void LeInfoMatriz(FILE** epArqEntrada, int* enumLinhas, int* enumColunas)
+{
+  fscanf((*epArqEntrada),"%d %d\n", enumLinhas, enumColunas);
+}
+
+void LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, int numColunas, float* emediaGeral, int linha, int numLinhas)
+{
+  long long int valor;
+  float mediaLinha = 0.00f;
+  int i; //Contador
+
+  //Le cada elemento da linha
+  for(i=0; i<(numColunas-1); i++)
+  {
+    fscanf((*epArqEntrada),"%lli ", &valor);
+    mediaLinha += ((float) valor);
+    (*emediaGeral) += ((float) valor);
+  }
+  fscanf((*epArqEntrada),"%lli\n", &valor);
+  mediaLinha += ((float) valor);
+  (*emediaGeral) += ((float) valor);
+
+  //Calcula a media da linha e adiciona a media geral
+  mediaLinha /= ((float) numColunas);
+
+  //Imprime os resultados
+  fprintf((*epArqSaida),"%.2f,\n", mediaLinha);
+  if(linha == (numLinhas-1)) //Se esta na ultima linha
+  {
+    (*emediaGeral) /= ((float) (numColunas*numLinhas));
+    fprintf((*epArqSaida),"%.2f", (*emediaGeral));
+  }
+}
+
 void EncerraPrograma(FILE** epArqEntrada, FILE** epArqSaida)
 {
   fclose(*(epArqEntrada));
   fclose(*(epArqSaida));
-}
-
-void LeInfoMatriz(FILE** epArqEntrada, int* enumLinhas, int* enumColunas)
-{
-  fscanf((*epArqEntrada),"%d %d\n", enumLinhas, enumColunas);
 }
