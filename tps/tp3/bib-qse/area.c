@@ -22,7 +22,7 @@ int ObterNumCelOcupadas(TipoArea *Area)
   return (Area->NumCelOcupadas);
 }
 
-void InsereItem(TipoItem Item, TipoArea *Area)
+void InsereItem(TipoRegistro Item, TipoArea *Area)
 {
   int Pos, Disp, IndiceInsercao;
 
@@ -83,7 +83,7 @@ void InsereItem(TipoItem Item, TipoArea *Area)
   Area->Itens[Pos].Ant = Disp;
 }
 
-void RetiraPrimeiro(TipoArea *Area, TipoItem *Item)
+void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item)
 {
   TipoApontador ProxTmp;
 
@@ -105,7 +105,7 @@ void RetiraPrimeiro(TipoArea *Area, TipoItem *Item)
   Area->NumCelOcupadas--;
 }
 
-void RetiraUltimo(TipoArea *Area, TipoItem *Item)
+void RetiraUltimo(TipoArea *Area, TipoRegistro *Item)
 {
   TipoApontador AntTmp;
 

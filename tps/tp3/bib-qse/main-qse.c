@@ -7,7 +7,7 @@ int main()
   FILE *ArqLEs;
   FILE *ArqLi;
   FILE *ArqEi;
-  TipoItem R;
+  TipoRegistro R;
 
   //Cria teste.dat e escreve nele os registros a serem ordenados
   ArqLi = fopen ("teste.dat", "wb");

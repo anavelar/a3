@@ -8,9 +8,6 @@
 #define TRUE 1
 #define FALSE 0
 
-// Estruturas de Dados
-typedef TipoItem TipoRegistro;
-
 // Funcoes
 void LeSup(FILE **ArqLEs, TipoRegistro *UltLido, int *Ls, short *OndeLer);
 void LeInf(FILE **ArqLi,  TipoRegistro *UltLido, int *Li, short *OndeLer);

@@ -14,12 +14,12 @@ typedef int TipoApontador;
 
 typedef int TipoChave;
 
-typedef struct TipoItem {
+typedef struct TipoRegistro {
   TipoChave Chave;
-} TipoItem;
+} TipoRegistro;
 
 typedef struct TipoCelula {
-  TipoItem Item;
+  TipoRegistro Item;
   TipoApontador Prox, Ant;
 } TipoCelula;
 
@@ -32,9 +32,9 @@ typedef struct TipoArea {
 //Assinaturas das funcoes
 void FAVazia(TipoArea *Area);
 int ObterNumCelOcupadas(TipoArea *Area);
-void InsereItem(TipoItem Item, TipoArea *Area);
-void RetiraPrimeiro(TipoArea *Area, TipoItem *Item);
-void RetiraUltimo(TipoArea *Area, TipoItem *Item);
+void InsereItem(TipoRegistro Item, TipoArea *Area);
+void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item);
+void RetiraUltimo(TipoArea *Area, TipoRegistro *Item);
 void ImprimeArea(TipoArea *Area);
 
 #endif
