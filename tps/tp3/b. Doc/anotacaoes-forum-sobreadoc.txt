@@ -1,0 +1,2 @@
+Na doc:
+- mostrar que o TP executa dentro de LIM_M com provas (ferramentas/prints).
