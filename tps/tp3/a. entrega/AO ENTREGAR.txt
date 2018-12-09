@@ -10,3 +10,11 @@ devem estar presentes no arquivo zip:
 – documentacao.pdf.
 
 OBS.: Sem doc ou sem execucao a nota eh zero.
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AO FINAL
+--------
+- Remover comentários
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
