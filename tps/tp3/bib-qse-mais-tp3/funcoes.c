@@ -1,7 +1,7 @@
 #include "funcoes.h"
 
 //Funcoes
-int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqSaida, float* elimiteMB){
+int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqSaida, float* elimiteMB, int* etamArea){
 
   if(argc != NUM_PARAMETROS) //Se os parametros na linha de comando nao esao presentes
   {
@@ -13,9 +13,10 @@ int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqS
   }
   else //Se o pedido de execucao foi ok com relacao a quantidade
   {
-    *(epArqEntrada) = fopen(argv[1],"r");
-    *(epArqSaida) = fopen(argv[2],"w");
-    *(elimiteMB) = ((float) atof(argv[3]));
+    (*epArqEntrada) = fopen(argv[1],"r");
+    (*epArqSaida) = fopen(argv[2],"w");
+    (*elimiteMB) = ((float) atof(argv[3]));
+    (*etamArea) = ((int) (*elimiteMB));
 
     if( *(epArqEntrada) == NULL) //Se houve erro ao abrir os arquivos
     {
@@ -34,7 +35,7 @@ void LeInfoMatriz(FILE** epArqEntrada, int* enumLinhas, int* enumColunas)
   fscanf((*epArqEntrada),"%d %d\n", enumLinhas, enumColunas);
 }
 
-int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int numColunas, float* emediaGeral, int linha, int numLinhas)
+int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int numColunas, float* emediaGeral, int linha, int numLinhas, int tamArea)
 {
   long long int valor;
   float mediaLinha = 0.00f;
@@ -80,7 +81,7 @@ int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int num
     return ERRO;
   }
 
-  QuicksortExterno(eArqLi, &ArqEi, &ArqLEs, INICIO, numColunas);
+  QuicksortExterno(eArqLi, &ArqEi, &ArqLEs, INICIO, numColunas, tamArea);
   fflush(*eArqLi);
   fclose(ArqEi); fclose(ArqLEs);
   fseek((*eArqLi), 0, SEEK_SET);
@@ -89,7 +90,6 @@ int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int num
   if(numColunas % 2)  //Se ha na linha um numero impar de elementos
   {
     indiceMedianaInferior = ((int) (numColunas / 2)) + 1;
-
     for(i=1; i<(numColunas+1); i++)
     {
       fread(&R, sizeof(TipoRegistro), 1, (*eArqLi));

@@ -19,17 +19,18 @@ int main(int argc, char** argv){
   int numLinhas, numColunas; //De 1 ate 3mil.
   float mediaGeral = 0.00f;
   int i; //Contador
-  //TipoRegistro R;
+  int tamArea;
 
   //Programa
-  leituraok = InicializaPrograma(argc, argv, &pArqEntrada, &pArqSaida, &limiteMB);
+  //aqui********88 -- definir tamarea aqui dentro direito  CASOS DE TESTE ***************************888
+  leituraok = InicializaPrograma(argc, argv, &pArqEntrada, &pArqSaida, &limiteMB, &tamArea);
   if(leituraok) //Se retornou ERRO
     return ERRO;
 
   LeInfoMatriz(&pArqEntrada, &numLinhas, &numColunas);
   for(i=0; i<numLinhas; i++)
   {
-    leituraok = LeLinhaMatriz(&pArqEntrada, &pArqSaida, &ArqLi, numColunas, &mediaGeral, i, numLinhas);
+    leituraok = LeLinhaMatriz(&pArqEntrada, &pArqSaida, &ArqLi, numColunas, &mediaGeral, i, numLinhas, tamArea);
     if(leituraok) //Se retornou ERRO
       return ERRO;
   }

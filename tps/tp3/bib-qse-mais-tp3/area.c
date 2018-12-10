@@ -2,19 +2,20 @@
 
 // Funcoes
 
-void FAVazia(TipoArea *Area)
+void FAVazia(TipoArea *Area, int tamArea)
 {
   int i;
   Area->NumCelOcupadas = 0;
   Area->Primeiro = -1;
   Area->Ultimo = -1;
   Area->CelulasDisp = 0;
+  Area->Itens = (TipoCelula*) malloc(tamArea*(sizeof(TipoCelula)));
 
-  for (i =0; i<TAMAREA; i++)
-    {
-      Area->Itens[i].Ant = -1;
-      Area->Itens[i].Prox = i + 1;
-    }
+  for (i =0; i<tamArea; i++)
+  {
+    Area->Itens[i].Ant = -1;
+    Area->Itens[i].Prox = i + 1;
+  }
 }
 
 int ObterNumCelOcupadas(TipoArea *Area)
@@ -22,15 +23,13 @@ int ObterNumCelOcupadas(TipoArea *Area)
   return (Area->NumCelOcupadas);
 }
 
-void InsereItem(TipoRegistro Item, TipoArea *Area)
+void InsereItem(TipoRegistro Item, TipoArea *Area, int tamArea)
 {
   int Pos, Disp, IndiceInsercao;
 
-  if (Area->NumCelOcupadas == TAMAREA)
-  {
-    //Tenta inserir em lista cheia: printf("Tentativa de insercao em lista cheia.\n");
+  // Se a lista esta cheia
+  if (Area->NumCelOcupadas == tamArea)
     return;
-  }
 
   Disp = Area->CelulasDisp;
   Area->CelulasDisp = Area->Itens[Area->CelulasDisp].Prox;
@@ -83,15 +82,13 @@ void InsereItem(TipoRegistro Item, TipoArea *Area)
   Area->Itens[Pos].Ant = Disp;
 }
 
-void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item)
+void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item, int tamArea)
 {
   TipoApontador ProxTmp;
 
+  // Se a lista esta vazia
   if (Area->NumCelOcupadas == 0)
-  {
-    // Area vazia: printf("Erro - Lista vazia\n");
     return;
-  }
 
   *Item = Area->Itens[Area->Primeiro].Item;
   ProxTmp = Area->Itens[Area->Primeiro].Prox;
@@ -99,21 +96,19 @@ void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item)
   Area->CelulasDisp = Area->Primeiro;
   Area->Primeiro = ProxTmp;
 
-  if ((unsigned int)Area->Primeiro < TAMAREA)
+  if ((unsigned int)Area->Primeiro < (unsigned int) tamArea)
     Area->Itens[Area->Primeiro].Ant = -1;
 
   Area->NumCelOcupadas--;
 }
 
-void RetiraUltimo(TipoArea *Area, TipoRegistro *Item)
+void RetiraUltimo(TipoArea *Area, TipoRegistro *Item, int tamArea)
 {
   TipoApontador AntTmp;
 
+  //Se area vazia
   if (Area->NumCelOcupadas == 0)
-  {
-    // Area vazia: printf("Erro - Lista vazia\n");
     return;
-  }
 
   *Item = Area->Itens[Area->Ultimo].Item;
   AntTmp = Area->Itens[Area->Ultimo].Ant;
@@ -121,28 +116,8 @@ void RetiraUltimo(TipoArea *Area, TipoRegistro *Item)
   Area->CelulasDisp = Area->Ultimo;
   Area->Ultimo = AntTmp;
 
-  if ((unsigned int)Area->Ultimo < TAMAREA)
+  if ((unsigned int)Area->Ultimo < tamArea)
     Area->Itens[Area->Ultimo].Prox = -1;
 
   Area->NumCelOcupadas--;
-}
-
-void ImprimeArea(TipoArea *Area)
-{
-  int Pos;
-  if (Area->NumCelOcupadas <= 0)
-  {
-    ///Lista vazia: printf("Lista Vazia\n");
-    return;
-  }
-
-  printf("** LISTA **\n");
-  printf("Numero de Celulas Ocupadas = %d\n", Area->NumCelOcupadas);
-
-  Pos = Area->Primeiro;
-  while (Pos != -1)
-    {
-      printf("%lli\n", Area->Itens[Pos].Item.Chave);
-      Pos = Area->Itens[Pos].Prox;
-    }
 }

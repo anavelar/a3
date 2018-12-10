@@ -5,9 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//Constantes da biblioteca
-#define TAMAREA 100
-
 //Estruturas de dados
 typedef int TipoApontador;
 
@@ -21,17 +18,16 @@ typedef struct TipoCelula {
 } TipoCelula;
 
 typedef struct TipoArea {
-  TipoCelula Itens[TAMAREA];
+  TipoCelula* Itens;
   TipoApontador CelulasDisp, Primeiro, Ultimo;
   int NumCelOcupadas;
 } TipoArea;
 
 //Assinaturas das funcoes
-void FAVazia(TipoArea *Area);
+void FAVazia(TipoArea *Area, int tamArea);
 int ObterNumCelOcupadas(TipoArea *Area);
-void InsereItem(TipoRegistro Item, TipoArea *Area);
-void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item);
-void RetiraUltimo(TipoArea *Area, TipoRegistro *Item);
-void ImprimeArea(TipoArea *Area);
+void InsereItem(TipoRegistro Item, TipoArea *Area, int tamArea);
+void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item, int tamArea);
+void RetiraUltimo(TipoArea *Area, TipoRegistro *Item, int tamArea);
 
 #endif
