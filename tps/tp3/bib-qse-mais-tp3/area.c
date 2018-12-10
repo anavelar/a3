@@ -96,7 +96,7 @@ void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item, int tamArea)
   Area->CelulasDisp = Area->Primeiro;
   Area->Primeiro = ProxTmp;
 
-  if ((unsigned int)Area->Primeiro < (unsigned int) tamArea)
+  if ((unsigned int)Area->Primeiro < tamArea)
     Area->Itens[Area->Primeiro].Ant = -1;
 
   Area->NumCelOcupadas--;
