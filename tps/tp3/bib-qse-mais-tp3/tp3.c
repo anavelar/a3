@@ -23,6 +23,7 @@ int main(int argc, char** argv){
 
   //Programa
   //aqui********88 -- definir tamarea aqui dentro direito  CASOS DE TESTE ***************************888
+  // ta em MB, vezes 10^6 so?
   leituraok = InicializaPrograma(argc, argv, &pArqEntrada, &pArqSaida, &limiteMB, &tamArea);
   if(leituraok) //Se retornou ERRO
     return ERRO;

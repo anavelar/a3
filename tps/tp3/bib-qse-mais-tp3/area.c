@@ -1,7 +1,6 @@
 #include "area.h"
 
 // Funcoes
-
 void FAVazia(TipoArea *Area, int tamArea)
 {
   int i;
@@ -96,7 +95,7 @@ void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item, int tamArea)
   Area->CelulasDisp = Area->Primeiro;
   Area->Primeiro = ProxTmp;
 
-  if ((unsigned int)Area->Primeiro < tamArea)
+  if ((unsigned int)Area->Primeiro < ((unsigned int) tamArea))
     Area->Itens[Area->Primeiro].Ant = -1;
 
   Area->NumCelOcupadas--;
@@ -116,7 +115,7 @@ void RetiraUltimo(TipoArea *Area, TipoRegistro *Item, int tamArea)
   Area->CelulasDisp = Area->Ultimo;
   Area->Ultimo = AntTmp;
 
-  if ((unsigned int)Area->Ultimo < tamArea)
+  if ((unsigned int)Area->Ultimo < ((unsigned int) tamArea))
     Area->Itens[Area->Ultimo].Prox = -1;
 
   Area->NumCelOcupadas--;
