@@ -16,7 +16,7 @@ int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqS
     (*epArqEntrada) = fopen(argv[1],"r");
     (*epArqSaida) = fopen(argv[2],"w");
     (*elimiteMB) = ((float) atof(argv[3]));
-    (*etamArea) = ((int) (*elimiteMB));
+    (*etamArea) = ((int) (*elimiteMB)*(10));
 
     if( *(epArqEntrada) == NULL) //Se houve erro ao abrir os arquivos
     {

@@ -3,12 +3,21 @@
 #include "funcoes.h"
 
 //OBS.:
+//1 - Usando alias do time
+// alias time="$(which time) -f '\t%E real,\t%U user,\t%S sys,\t%K amem,\t%M mmem'"
+//K Average total (data+stack+text) memory use of the process, in Kilobytes.
+//M Maximum resident set size of the process during its lifetime, in Kilobytes.
+// 2- Usando timeout:
+// ./timeout [comando de exec do tp]
+// https://github.com/pshved/timeout
+//--------------------------------------------------------------------------------
 // ls -l --group-directories-first
 //- Execucao para testes unitários:
 // make -f Makefile-temp
 // make -f Makefile-temp clean
 //Depois:
 // ./tp3 ../tp3-toyexample/input1.in ../tp3-toyexample/meuoutput1.out 32.5
+// ./timeout ./tp3 ../tp3-toyexample/inputmax-1-linha.in  ../tp3-toyexample/saida-max-1-linha.out 256
 
 int main(int argc, char** argv){
 
