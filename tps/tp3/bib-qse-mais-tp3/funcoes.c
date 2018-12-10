@@ -41,6 +41,9 @@ int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int num
   int i; //Contador
   FILE *ArqLEs, *ArqEi;
   TipoRegistro R;
+  long long int medianaInferior, medianaSuperior;
+  int indiceMedianaInferior, indiceMedianaSuperior;
+  float mediana;
 
   // Arquivo auxiliar para calculo da mediana por linha
   (*eArqLi) = fopen ("auxlinha.dat", "wb");
@@ -64,7 +67,7 @@ int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int num
   //Calcula a media da linha
   mediaLinha /= ((float) numColunas);
 
-  //Calcula a mediana da linha
+  //Calcula a mediana da linha: Ordena a linha
   (*eArqLi) = fopen ("auxlinha.dat", "r+b");
   ArqEi = fopen ("auxlinha.dat", "r+b");
   ArqLEs = fopen ("auxlinha.dat", "r+b");
@@ -82,14 +85,51 @@ int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int num
   fclose(ArqEi); fclose(ArqLEs);
   fseek((*eArqLi), 0, SEEK_SET);
 
-  //Impressao errada, ultimo sem espaco e tem \n no final*************************
-  while(fread(&R, sizeof(TipoRegistro), 1, (*eArqLi)))
-    fprintf(*epArqSaida, "%lli ", R.Chave);
-  fprintf(*epArqSaida, "\n");
+  //Calcula a mediana da linha
+  if(numColunas % 2)  //Se ha na linha um numero impar de elementos
+  {
+    indiceMedianaInferior = ((int) (numColunas / 2)) + 1;
+
+    for(i=1; i<(numColunas+1); i++)
+    {
+      fread(&R, sizeof(TipoRegistro), 1, (*eArqLi));
+
+      if(i==indiceMedianaInferior)
+      {
+        mediana = ((float) R.Chave);
+        break;
+      }
+    }
+  }
+  else //Se ha na linha um numero par de elementos
+  {
+    indiceMedianaInferior = (numColunas / 2);
+    indiceMedianaSuperior = indiceMedianaInferior + 1;
+
+    for(i=1; i<(numColunas+1); i++)
+    {
+      fread(&R, sizeof(TipoRegistro), 1, (*eArqLi));
+
+      if(i==indiceMedianaInferior)
+      {
+        medianaInferior = R.Chave;
+      }
+      else
+      {
+        if (i==indiceMedianaSuperior)
+        {
+          medianaSuperior = R.Chave;
+          break;
+        }
+      }
+    }
+
+    mediana =  ((((float) medianaInferior) + ((float) medianaSuperior))/2.00f);
+  }
   fclose(*eArqLi);
 
   //Imprime os resultados
-  fprintf((*epArqSaida),"%.2f,\n", mediaLinha);
+  fprintf((*epArqSaida),"%.2f,%.2f\n", mediaLinha, mediana);
   if(linha == (numLinhas-1)) //Se esta na ultima linha
   {
     (*emediaGeral) /= ((float) (numColunas*numLinhas));
