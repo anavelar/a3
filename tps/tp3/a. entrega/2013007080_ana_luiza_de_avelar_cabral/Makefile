@@ -1,0 +1,24 @@
+#Geracao do executavel pela linkagem entre os codigos objeto gerados
+tp3: tp3.o funcoes.o qse.o area.o
+	gcc -std=c99 -Wall -Wextra -Werror area.o qse.o funcoes.o tp3.o -o tp3
+
+#Geracao do codigo objeto para o codigo do tp3, o main dele
+tp3.o: tp3.c funcoes.h funcoes.c qse.h qse.c area.h area.c
+	gcc -c -std=c99 -Wall -Wextra -Werror tp3.c
+
+#Geracao do codigo objeto para as funcoes do TP3 modularizadas
+funcoes.o: funcoes.c funcoes.h qse.h qse.c area.h area.c
+	gcc -c -std=c99 -Wall -Wextra -Werror funcoes.c
+
+#Geracao do codigo objeto para o QuickSort Externo
+qse.o: qse.c qse.h area.h area.c
+	gcc -c -std=c99 -Wall -Wextra -Werror qse.c
+
+#Geracao do codigo objeto para a TAD Area
+area.o: area.c area.h
+	gcc -c -std=c99 -Wall -Wextra -Werror area.c
+
+clean:
+	rm *.o
+	rm tp3
+	rm auxlinha.dat

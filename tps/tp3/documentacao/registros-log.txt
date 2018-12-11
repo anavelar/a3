@@ -15,17 +15,12 @@ POSSIVEIS PAUS:
 PAUS NOS CASOS DE TESTE:
 - USO DE LIM_M COMO LIMITE PARA LEITURA E NÃO COMO MEM TOTAL DA PILHA DE EXECUÇÃO.
 
+
 OPÇÕES DE OTIMIZAÇÃO:
 ---------------------
 - desmodularizar o programa:
 Deixar muitos no main, ou alguns frequentemente chamados, para evitar consumo de
 mem com pilha de recursao e troca de contexto.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-AO FIM
-
---------Saida com ATE duas casas decimais, corrigir?? para ficar igual ao toy.
-E ver questão toy 9.34 ao invés de 9.44?
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 OUTRAS OBS.:

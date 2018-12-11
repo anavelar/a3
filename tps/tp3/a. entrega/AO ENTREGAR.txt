@@ -12,9 +12,6 @@ devem estar presentes no arquivo zip:
 OBS.: Sem doc ou sem execucao a nota eh zero.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
---------Saida com ATE duas casas decimais, corrigir?? para ficar igual ao toy.
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 AO FINAL
 --------
 - Remover comentários
