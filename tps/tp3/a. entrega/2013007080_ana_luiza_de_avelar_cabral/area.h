@@ -6,20 +6,18 @@
 #include <stdio.h>
 
 //Estruturas de dados
-typedef int TipoApontador;
-
 typedef struct TipoRegistro {
   long long int Chave;
 } TipoRegistro;
 
 typedef struct TipoCelula {
   TipoRegistro Item;
-  TipoApontador Prox, Ant;
+  int Prox, Ant;
 } TipoCelula;
 
 typedef struct TipoArea {
   TipoCelula* Itens;
-  TipoApontador CelulasDisp, Primeiro, Ultimo;
+  int CelulasDisp, Primeiro, Ultimo;
   int NumCelOcupadas;
 } TipoArea;
 

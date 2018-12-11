@@ -1,6 +1,7 @@
 #include "funcoes.h"
 
 //Funcoes
+
 int InicializaPrograma(int argc, char** argv, FILE** epArqEntrada, FILE** epArqSaida, float* elimiteMB, int* etamArea){
 
   if(argc != NUM_PARAMETROS) //Se os parametros na linha de comando nao esao presentes
@@ -83,10 +84,11 @@ int LeLinhaMatriz(FILE** epArqEntrada, FILE** epArqSaida, FILE** eArqLi, int num
 
   QuicksortExterno(eArqLi, &ArqEi, &ArqLEs, INICIO, numColunas, tamArea);
   fflush(*eArqLi);
-  fclose(ArqEi); fclose(ArqLEs);
-  fseek((*eArqLi), 0, SEEK_SET);
+  fclose(ArqEi);
+  fclose(ArqLEs);
 
-  //Calcula a mediana da linha
+  //Calcula a mediana da linha: Encontra o meio entre os elementos ordenados
+  fseek((*eArqLi), 0, SEEK_SET);
   if(numColunas % 2)  //Se ha na linha um numero impar de elementos
   {
     indiceMedianaInferior = ((int) (numColunas / 2)) + 1;

@@ -83,7 +83,7 @@ void InsereItem(TipoRegistro Item, TipoArea *Area, int tamArea)
 
 void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item, int tamArea)
 {
-  TipoApontador ProxTmp;
+  int ProxTmp;
 
   // Se a lista esta vazia
   if (Area->NumCelOcupadas == 0)
@@ -103,7 +103,7 @@ void RetiraPrimeiro(TipoArea *Area, TipoRegistro *Item, int tamArea)
 
 void RetiraUltimo(TipoArea *Area, TipoRegistro *Item, int tamArea)
 {
-  TipoApontador AntTmp;
+  int AntTmp;
 
   //Se area vazia
   if (Area->NumCelOcupadas == 0)

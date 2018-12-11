@@ -9,10 +9,4 @@ devem estar presentes no arquivo zip:
 – Arquivos fonte (*.c e *.h);
 – documentacao.pdf.
 
-OBS.: Sem doc ou sem execucao a nota eh zero.
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-AO FINAL
---------
-- Remover comentários
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3. OBS.: Sem doc ou sem execucao a nota eh zero.
