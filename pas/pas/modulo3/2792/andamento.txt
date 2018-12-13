@@ -1,2 +1,4 @@
 POSSIVEIS PAUS:
 - URI (Plataforma) aceita long int?
+
+- Leitura eh com scanf?*********
