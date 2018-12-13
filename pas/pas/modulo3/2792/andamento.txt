@@ -1,0 +1,2 @@
+POSSIVEIS PAUS:
+- URI (Plataforma) aceita long int?
