@@ -3,14 +3,16 @@
 #define INVALIDO -1
 
 //Assinaturas
-//******************************************* Colocar as assinaturas aqui
+void Imprime(long int* indices, long int retirada, long int numRetiradas, long int N);
+void Retira(long int* indices, long int retirada);
+void Arruma(long int* indices, long int retirada, long int N);
 
 int main(){
 
   long int i; //Contador
   long int N;
   long int retirada = INVALIDO; //Elemento que vai ser "retirado"
-  lont int* indices = NULL; //Vetor com os indices de cada elemento inicial
+  long int* indices = NULL; //Vetor com os indices de cada elemento inicial
                             //Long int porque os indices podem ser ate 500 000
   long int numRetiradas = 0;
 
@@ -55,12 +57,12 @@ void Imprime(long int* indices, long int retirada, long int numRetiradas, long i
   if(numRetiradas == N) //Se eh a ultima retirada
   {
     //Imprime o indice sem espaco depois
-    printf("%li", vetor[retirada]);
+    printf("%li", indices[retirada]);
   }
   else //Se nao eh a ultima retirada
   {
     //Imprime o indice com espaco depois
-    printf("%li ", vetor[retirada]);
+    printf("%li ", indices[retirada]);
   }
 
 }
