@@ -2,6 +2,11 @@
 #include <stdio.h>
 #define INVALIDO -1
 
+//Usar:
+// gcc -O2 -lm 2792.c -o 2792
+// ./2792 <toys/toy1.in >toys/meutoy1.out
+// diff toys/meutoy1.out toys/outtoy1.out
+
 //Assinaturas
 void Imprime(long int* indices, long int retirada, long int numRetiradas, long int N);
 void Retira(long int* indices, long int retirada);
