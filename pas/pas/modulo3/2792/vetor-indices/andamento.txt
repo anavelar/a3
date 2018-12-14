@@ -1,0 +1,22 @@
+------testar aqui com os toys tb ------
+
+
+OBSERVACOES:
+- VAI TER sentinela pra facilitar o acesso *** CUIDADO COM A SENTINELA NAS OPERACOES, TRATAR EM TODAS ***
+
+
+
+
+POSSIVEIS PAUS: ---- nao estou gerando todos os cenarios, testar tudo *******************8
+
+FORMATO:
+- Espaco apos a ultima impressao
+
+OUTROS:
+- URI (Plataforma) aceita long int?
+
+- Leitura eh com scanf?*********
+
+- for da geracao do vetor de indices no inicio
+- for sem {}
+- chamada de funcao nao esta recebendo o real e sim esta recebendo valor (alterando um que nao existe/se perde)
