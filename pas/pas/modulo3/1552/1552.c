@@ -34,7 +34,7 @@ int main(){
     for(j=0; j<numPessoas; j++)
     {
       scanf("%lf %lf\n", &(x[j]), &(y[j]));
-      visita = NAO;
+      visita[j] = NAO;
       peso[j] = MAX;
     }
 
@@ -47,7 +47,7 @@ int main(){
       m = MAX;
       for(k=0; k<numPessoas; k++)
       {
-        if((peso[k] < m) && (visita[k] == NAO))
+        if((peso[k] < m) && (!visita[k]))
         {
           m = peso[k];
           indiceAux = k;
@@ -56,6 +56,7 @@ int main(){
 
       teia = teia + m;
       visita[indiceAux] = SIM;
+
       for(k=0; k<numPessoas; k++)
       {
         if(visita[k] == NAO)
