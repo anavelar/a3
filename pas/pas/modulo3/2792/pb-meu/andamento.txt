@@ -1,0 +1,20 @@
+nao esquecer de colocar as assinaturas no topo
+
+
+------------- testar com os toys
+---------------------------------------------------------------------
+
+POSSIVEIS PAUS
+- Bibliotecas comentadas la em cima
+- Constantes comentadas
+
+- Inicializa Dicionario
+
+- for, limites
+
+- atribuicao de noInicial ser float tvx e dar ruim***************8WA PODE ESTAR AQUI
+
+
+---------------------------------------------------------------------
+MELHORAR:
+- ORG CODIGO (DENTRO ESTR DADOS TB)
