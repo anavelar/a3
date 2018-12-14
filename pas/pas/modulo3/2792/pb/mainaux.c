@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
   for (i = 0; i < MAX; i++)
     { x.Chave = vetor[i];
       Insere(x, &Dicionario);
-      printf("Inseriu chave: %d\n", x.Chave);
+      printf("Inseriu chave: %li\n", x.Chave);
      Testa(Dicionario);
     }
 
