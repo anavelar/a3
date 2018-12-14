@@ -57,12 +57,12 @@ void Imprime(long int* indices, long int retirada, long int numRetiradas, long i
   if(numRetiradas == N) //Se eh a ultima retirada
   {
     //Imprime o indice sem espaco depois
-    printf("%li", indices[retirada]);
+    printf("%li\n", indices[retirada]);
   }
   else //Se nao eh a ultima retirada
   {
     //Imprime o indice com espaco depois
-    printf("%li\n", indices[retirada]);
+    printf("%li ", indices[retirada]);
   }
 
 }
