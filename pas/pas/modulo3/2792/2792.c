@@ -32,20 +32,19 @@ int main(){
     numRetiradas++;
     Imprime(indices, retirada, numRetiradas, N);
     Retira(indices, retirada);
-    //void Arruma(long int* indices, long int retirada, long int N)
     Arruma(indices, retirada, N);
-
-
-    //Imprime o indice
   }
   //Ultimo do arquivo
   //Conferir aqui com em cima + pensar na arruma se ta certa aqui e nas outras
   scanf("%li", &retirada);
   numRetiradas++;
   Imprime(indices, retirada, numRetiradas, N);
-  Retira(indices, retirada);
-  //void Arruma(long int* indices, long int retirada, long int N)
-  //Arruma(indices, retirada, N);
+  //Nao precisa, cagay
+  //Retira(indices, retirada); //Nao precisa
+  //Arruma(indices, retirada, N); //Nao precisa, foi o ultimo a sair, so invalido la agora
+
+  //Finaliza o programa
+  free(indices);
 
   return 0;
 }
