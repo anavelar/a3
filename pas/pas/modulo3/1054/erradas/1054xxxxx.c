@@ -9,7 +9,9 @@ int main() {
     int testcase, n, D, cases = 0;
     char s[50];
     int i, j, k;
+
     scanf("%d", &testcase);
+
     while(testcase--) {
         scanf("%d %d", &n, &D);
         int A[305], m = 0, x;
