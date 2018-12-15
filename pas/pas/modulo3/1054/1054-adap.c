@@ -4,19 +4,21 @@
 
 #define INICIO 0
 
+// -Wall -Wextra -Werror
+
 //Assinaturas das funcoes
-void Caminha(int* vetor, int* eind, long int valor, int x);
-void Particao(long int Esq, long int Dir, long int* i, long int* j, int* A);
-void Ordena(long int Esq, long int Dir, int* A);
+void Caminha(int* vetor, int* eind, int valor, int x);
+void Particao(int Esq, int Dir, int* i, int* j, int* A);
+void Ordena(int Esq, int Dir, int* A);
 
 int main(){
 
-  int numCasosTeste; //Ate 100
-  int numPedras; // 0 <= numPedras <= 100
-  long int dist; // 1 <= dist <= 1000000000
+  int numCasosTeste;
+  int numPedras;
+  int dist;
   char tamanho;
-  long int M; // 0 < M < dist <= 1000000000
-  int i, j, k, l; //Contadores
+  int M;
+  int i, j, k, l;
   int* vetor;
   int ind;
   int aux;
@@ -26,7 +28,7 @@ int main(){
   scanf("%d\n", &numCasosTeste);
   for(i=0; i<numCasosTeste; i++)
   {
-    scanf("%d %li\n", &numPedras, &dist);
+    scanf("%d %d\n", &numPedras, &dist);
 
     vetor = (int*) malloc(v*sizeof(int));
     matrizPD = (int**) malloc(v*sizeof(int*));
@@ -36,7 +38,7 @@ int main(){
 
     for(j=0; j<numPedras; j++)
     {
-      scanf("%c-%li\n", &tamanho, &M);
+      scanf("%c-%d\n", &tamanho, &M);
 
       if(tamanho == 'S')
         Caminha(vetor, &ind, M, 1);
@@ -46,7 +48,7 @@ int main(){
 
     Caminha(vetor, &ind, INICIO, 1);
     Caminha(vetor, &ind, dist, 2);
-    Ordena(((long int) 0), ((long int) ind), vetor);
+    Ordena(0, ind, vetor);
 
     //Inicializa
     for(j=0; j<ind; j++)
@@ -54,7 +56,7 @@ int main(){
         matrizPD[j][k] = INT_MAX;
 
     // Calcula
-    matrizPD[0][0] = INICIO;
+    matrizPD[INICIO][INICIO] = INICIO;
     for(j=0; j<ind; j++)
     {
       for(k=0; k<ind; k++)
@@ -84,20 +86,17 @@ int main(){
 }
 
 //Funcoes usadas
-void Caminha(int* vetor, int* eind, long int valor, int x)
+void Caminha(int* vetor, int* eind, int valor, int x)
 {
   int i;
 
   for(i=0; i<x; i++)
-  {
-    (*eind)++;
-    vetor[(*eind)] = valor;
-  }
+    vetor[(*eind)++] = valor;
 }
 
-void Particao(long int Esq, long int Dir, long int* i, long int* j, int* A)
+void Particao(int Esq, int Dir, int* i, int* j, int* A)
 {
-  long int x, w;
+  int x, w;
 
   *i=Esq;
   *j=Dir;
@@ -124,9 +123,9 @@ void Particao(long int Esq, long int Dir, long int* i, long int* j, int* A)
   } while( *i <= *j );
 }
 
-void Ordena(long int Esq, long int Dir, int* A)
+void Ordena(int Esq, int Dir, int* A)
 {
-  long int i, j;
+  int i, j;
 
   Particao(Esq, Dir, &i, &j, A);
 
