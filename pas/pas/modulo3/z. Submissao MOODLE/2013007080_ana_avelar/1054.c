@@ -21,7 +21,7 @@ int main(){
   int ind;
   int aux;
   int** matrizPD;
-  int v = 305;
+  int v = 500;
 
   scanf("%d\n", &numCasosTeste);
   for(i=0; i<numCasosTeste; i++)
